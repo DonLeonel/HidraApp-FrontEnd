@@ -1,0 +1,78 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;    
+}
+
+body{
+    background-color: rgb(209, 209, 209);
+    margin: 1px;
+}
+
+/* estilos para los box layout */
+.borLayout{
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+    margin: 3px;
+}
+
+.tituloLayout{
+    text-align: left;    
+}
+
+.btnVolver{
+    padding: 10px;    
+}
+
+
+/*estilos para quitar stylos de lsitas*/
+.li-noStyle{
+    list-style: none;
+}
+
+.noDecoration , .btnVolver{
+    text-decoration: none;
+    color: black;
+}
+
+li button{
+    border: none;
+    background: none;
+    text-transform: uppercase;
+}
+
+/*estilos para menuUsuario*/
+
+.headerNav{
+    display: flex;    
+    flex-wrap: wrap;    
+}
+
+.contLogo{      
+    text-align: center;
+    width: 60%;
+    padding-top: 13px;        
+}
+
+.contOpcUser{    
+    flex-grow: 1;
+}
+
+.ulFlexRow{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;       
+}
+
+.salir{
+    color: red;
+}
+
+/*estilos para el footer*/
+
+.contFooter{
+    margin-top: 3px;
+    text-align: center;
+}

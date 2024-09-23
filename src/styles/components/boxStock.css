@@ -1,0 +1,16 @@
+.box {
+    width: 30%;
+    padding: 5px;
+    min-width: 7rem;
+    border: 1px gray solid;
+    border-radius: 5px;
+
+    & span {
+        display: block;
+        text-align: center;
+    }
+
+    & .nombre {
+        color: rgb(124, 124, 124);
+    }
+}

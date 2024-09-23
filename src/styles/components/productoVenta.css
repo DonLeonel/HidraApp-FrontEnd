@@ -1,0 +1,22 @@
+.row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgb(214, 214, 214);
+    text-align: center;
+
+    & input {
+        width: 10%;
+        text-align: center;
+    }
+
+    & button {
+        border: none;
+        background-color: white;
+
+        & img {
+            width: 23px;
+            padding: 2px;            
+        }
+    }
+}

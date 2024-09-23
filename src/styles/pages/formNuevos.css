@@ -1,0 +1,59 @@
+.formNvo {
+    margin: auto;
+    text-align: center;
+}
+
+.contEntradas {
+    width: 60%;
+    margin: auto;
+
+    & input,
+    .select {
+        border: none;
+        border-radius: 8px;
+        background-color: rgb(209, 209, 209);
+        padding: 5px;
+    }
+
+    & .select {
+        width: 180px;
+        text-align: center;
+    }
+
+    & label {
+        display: block;
+        padding: 5px;
+    }
+
+}
+
+.contBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 10px;
+    text-align: center;
+    margin: 10px auto;
+
+    & .btnVolver {
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: rgb(209, 209, 209)
+    }
+
+    & .btnGuardar {
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: rgb(107, 107, 243);
+    }
+
+    & .btnCancelar {
+        border: none;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: rgb(255, 72, 0);        
+    }
+}

@@ -1,0 +1,163 @@
+.contBusquedaCliente {
+    margin: 1rem auto;
+    position: relative;
+
+    & h4 {
+        margin-bottom: 15px;
+    }
+
+    & .search {
+        position: relative;
+
+        & .lupita {
+            border: none;
+            border-radius: 50%;
+            padding: 4px;
+            position: absolute;
+            background-color: rgb(209, 209, 209);
+            left: 2px;
+            top: 1px;
+            width: 25px;
+        }
+
+        & .inputFiltro {
+            border: none;
+            border-radius: 10px;
+            background-color: rgb(209, 209, 209);
+            padding: 6px 0px 6px 27px;
+            width: 70%;
+        }
+    }
+
+    & button {
+        border: none;
+        padding: 6px;
+        border-radius: 10px;
+        background-color: rgb(80, 218, 80);
+    }
+}
+
+.contFormaDepago {
+
+    & div {
+        margin: 1rem 0;
+        text-align: center;
+
+        & .selectFormaDePago {
+            border: none;
+            border-radius: 10px;
+            background-color: rgb(209, 209, 209);
+            padding: 3px 0px;
+            width: 50%;
+            text-align: center;
+        }
+    }
+}
+
+.contProductos {
+    & .contBox {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 0.2rem;
+        padding: 5px;
+        margin: 1rem auto;
+
+        & .boxProducto {
+            text-align: center;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 5px;
+            min-width: 7rem;
+            width: 25%;
+
+            &:hover {
+                scale: 1.1;
+                border: 2px solid green;
+                color: green;
+
+                &>p {
+                    color: green;
+                }
+            }
+
+            & img {
+                width: 25px;
+            }
+        }
+    }
+}
+
+.productosAgregados {
+    & .row-header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 2px solid black;
+        margin-bottom: 3px;
+    }
+
+    & .row-precioTotal>h4 {
+        text-align: center;
+        margin-top: 10px;
+    }
+}
+
+.listadoDinamicoClientes {
+    padding: 8px;
+    border-radius: 0 0 8px 8px;
+    width: 70%;
+    margin-bottom: 8px;
+    background-color: rgb(209, 209, 209);
+    position: absolute;
+    top: 61px;
+
+    & ul {
+        & li {
+            list-style: none;
+        }
+    }
+}
+
+.contClienteSeleccionado {
+    margin-top: 6px;
+
+    &>h4 {
+        margin-bottom: 8px;
+    }
+
+    & .flex {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        & .datosCliente {
+            padding: 10px;
+
+            & span {
+                color: rgb(90, 90, 90);
+                margin-left: 8px;
+            }
+        }
+
+        & .btnResetearCliente {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(240, 240, 71);
+        }
+    }
+}
+
+.ContBtnVolver {
+    text-align: center;
+    padding: 17px;
+
+    & .btnVolverFactura{
+        text-decoration: none;
+        color: black;
+        padding: 10px;
+        background-color: rgb(209, 209, 209);
+        border-radius: 5px;       
+    }
+    
+}

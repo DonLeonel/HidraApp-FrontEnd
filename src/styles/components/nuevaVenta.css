@@ -1,0 +1,12 @@
+.linkNuevaVnta{
+    color: rgb(53, 228, 97);
+    text-decoration: none;
+    border: 1px solid rgb(53, 228, 97);;
+    border-radius: 5px;
+    padding: 2px;
+    display: block;
+    width: 50%;
+    text-align: center;
+    margin: auto;
+}
+

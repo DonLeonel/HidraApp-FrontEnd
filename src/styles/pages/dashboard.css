@@ -1,0 +1,9 @@
+.grid-1{
+    display: grid;
+    grid-template-columns: 40% 60%;         
+}
+
+.row-completa{
+    display: grid;
+    grid-column: 1/3;    
+}

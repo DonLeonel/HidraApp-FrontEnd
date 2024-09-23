@@ -1,0 +1,14 @@
+.tableFacturasRecientes{
+    margin-top: 12px;
+    width: 100%;
+    display: table;
+    border-spacing: 8px;
+}
+
+.tableFacturasRecientes .tableHeader th{
+    text-align: left;
+}
+
+.hr-separador{
+    width: 100%;
+}
