@@ -15,7 +15,8 @@ export const TopCompradores = () => {
         const options = {
             signal,
             headers: {
-                sortType: 'LOWER'
+                sortType: 'UPPER',
+                fieldBySort: 'cantCompras'
             }
         }
         const fetchInfo = async () => {

@@ -26,12 +26,7 @@ export const Clientes = () => {
             const { content: clientes, error } = await fetchDataPaginatedService(
                 { entity: 'cliente', paginate, options }
             )
-
-            if (error) {
-                console.log(error)
-            } else {
-                setClientes(clientes)
-            }
+            error ? console.error(error) : setClientes(clientes)
         }
         fetchInfo()
 

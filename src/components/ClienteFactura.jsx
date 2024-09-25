@@ -1,16 +1,20 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useImperativeHandle, forwardRef, useRef } from "react"
 import { useSearchDinamic } from "../hooks"
 import { fetchDataPaginatedService } from "../services/apiService"
 
-export const ClienteFactura = ({ setCliente, cliente, onChange }) => {
+export const ClienteFactura = forwardRef(({ setCliente, cliente, onChange = null }, ref) => {
 
     const paginate = { page: 0, size: 100 }
     const [clientes, setClientes] = useState([])
 
-    const resetearCliente = () => {
+    const resetCliente = () => {
         setCliente(null)
         reset()
     }
+
+    useImperativeHandle(ref, () => ({
+        resetCliente
+    }));  //para exponer el metodo al comp padre.
 
     const { termino,
         elementosFiltrados,
@@ -37,9 +41,23 @@ export const ClienteFactura = ({ setCliente, cliente, onChange }) => {
         return () => abortController.abort()
     }, [])
 
+    const isFirstRender = useRef(true);
+
+    useEffect(() => {
+        if (isFirstRender.current) {            
+            isFirstRender.current = false;
+            return;
+        }
+        cliente && handlerChange()    
+    }, [cliente])
+
+    const handlerChange = () => {       
+        onChange && onChange()
+    }
+
     return (
         cliente ?
-            <div onChange={onChange()} className='contClienteSeleccionado'>
+            <div className='contClienteSeleccionado'>
                 <h4>Cliente seleccionado:</h4>
                 <div className='flex'>
                     <div className='datosCliente'>
@@ -47,7 +65,7 @@ export const ClienteFactura = ({ setCliente, cliente, onChange }) => {
                         <h4>Apellido: <span>{cliente.apellido}</span></h4>
                         <h4>Celular: <span>{cliente.celular}</span></h4>
                     </div>
-                    <button onClick={resetearCliente} className='btnResetearCliente'>Cambiar</button>
+                    <button onClick={resetCliente} className='btnResetearCliente'>Cambiar</button>
                 </div>
             </div>
 
@@ -84,4 +102,4 @@ export const ClienteFactura = ({ setCliente, cliente, onChange }) => {
                 )}
             </div>
     )
-}
+})

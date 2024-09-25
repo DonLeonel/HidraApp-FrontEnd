@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { fetchDataService } from '../services/apiService'
 
-export const FormaPagoFactura = ({ setIdFormaDePago, idFormaDePago, onChange }) => {
+export const FormaPagoFactura = ({ setIdFormaDePago, idFormaDePago, onChange = null }) => {
 
     const [formasDePago, setFormasDePago] = useState([])
 
@@ -25,33 +25,43 @@ export const FormaPagoFactura = ({ setIdFormaDePago, idFormaDePago, onChange }) 
         return () => abortController.abort()
     }, [])
 
-    const handlerOnChange = (e) => {
-        setIdFormaDePago(parseInt(e.target.value, 10))
-        onChange()
+    const isFirstRender = useRef(true);
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
+        idFormaDePago && handlerOnChange();
+    }, [idFormaDePago])
+
+    const handlerOnChange = () => {
+        onChange && onChange()
     }
 
     return (
         <div className='contFormaDepago'>
             <h4>Agrege una forma de pago.</h4>
-            <div>
-                {idFormaDePago &&
-                    <select
-                        className='selectFormaDePago'
-                        name="formaDePago" id="formaDePago"
-                        onChange={handlerOnChange}
-                        value={idFormaDePago}
-                    >
-                        {
-                            formasDePago.map(f => {
-                                return (
-                                    <option key={f.id} value={f.id}>
-                                        {f.nombre.toUpperCase()}
-                                    </option>
-                                )
-                            })
-                        }
-                    </select>}
-            </div>
+            <form>
+                <select
+                    className='selectFormaDePago'
+                    name="formaDePago" id="formaDePago"
+                    onChange={(e) => setIdFormaDePago(parseInt(e.target.value, 10))}
+                    value={idFormaDePago || ''}
+                >
+                    <option>SELECCIONE...</option>
+                    {
+                        formasDePago.map(f => {
+                            return (
+                                <option key={f.id} value={f.id}>
+                                    {f.nombre.toUpperCase()}
+                                </option>
+                            )
+                        })
+                    }
+                </select>
+            </form>
         </div>
     )
 }

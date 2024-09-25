@@ -35,7 +35,7 @@ export const EditarCategoria = () => {
   const { formState, onInputChange } = useForm(categoria)
 
   const handlerSubmit = async (e) => {
-    e.preventDefault()        
+    e.preventDefault()
     const options = {
       method: 'PUT',
       headers: {
@@ -44,11 +44,7 @@ export const EditarCategoria = () => {
       body: JSON.stringify(formState)
     }
     const { data, error } = await fetchDataService({ entity: 'categoria', id: formState.id, options })
-    if (error) {
-      console.log(error)
-    } else if (data) {
-      window.location.href = '/categorias'
-    }
+    error ? console.error(error) : data && (window.location.href = '/categorias')
   }
 
   return (

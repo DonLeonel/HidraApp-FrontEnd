@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { fetchDataPaginatedService } from '../services/apiService'
 import '../styles/components/facturasRecientes.css'
 import { useState, useEffect } from 'react'
+import { formatARS } from '../utils/formatoPrecios'
 
 
 export const FacturasRecientes = () => {
@@ -23,16 +24,11 @@ export const FacturasRecientes = () => {
     const fetchInfo = async () => {
       const { content: facturas, error } = await fetchDataPaginatedService(
         { entity: 'factura', paginate, options })
-
-      if (error) {
-        console.log(error)
-      } else {
-        setFacturas(facturas)
-      }
+      error ? console.log(error) : setFacturas(facturas)
     }
     fetchInfo()
     return () => abortController.abort()
-  }, [paginate])
+  }, [])
 
 
   return (
@@ -53,8 +49,8 @@ export const FacturasRecientes = () => {
             return (
               <tr key={f.id}>
                 <td>{f.cliente.nombre + ' ' + f.cliente.apellido}</td>
-                <td>{f.fechaHora}</td>
-                <td>$ {f.total}</td>
+                <td><span className='fechaHora'>{f.fechaHora}</span></td>
+                <td>{formatARS(f.total)}</td>
                 <td className='tdFlex'>
                   <Link title='detalle' to={'/detalle-factura/' + f.id}><img className='detalle' src='/icons-app/ojo.png' alt='ver detalle' /></Link>
                 </td>

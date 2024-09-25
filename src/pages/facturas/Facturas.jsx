@@ -3,11 +3,12 @@ import { useEliminar } from '../../hooks/index'
 import { fetchDataPaginatedService } from '../../services/apiService'
 import { useEffect, useState } from 'react'
 import '../../styles/pages/pagesEnComun.css'
+import { formatARS } from '../../utils/formatoPrecios'
 
 
 export const Facturas = () => {
     const paginateInit = { page: 0, size: 20 }
-    const [paginate, setPaginate ] = useState(paginateInit)    
+    const [paginate, setPaginate] = useState(paginateInit)
     const [facturas, setFacturas] = useState([])
 
     useEffect(() => {
@@ -23,12 +24,7 @@ export const Facturas = () => {
         const fetchInfo = async () => {
             const { content: facturas, error } = await fetchDataPaginatedService(
                 { entity: 'factura', paginate, options })
-
-            if (error) {
-                console.log(error)
-            } else {
-                setFacturas(facturas)
-            }
+            error ? console.error(error) : setFacturas(facturas)
         }
         fetchInfo()
         return () => abortController.abort()
@@ -80,8 +76,8 @@ export const Facturas = () => {
                         return (
                             <tr className='trComprador' key={f.id}>
                                 <td>{f.cliente.nombre + ' ' + f.cliente.apellido}</td>
-                                <td>{f.fechaHora.split(' ')[0]}</td>
-                                <td >$ {f.total}</td>
+                                <td> <span className='fechaHora'>{f.fechaHora.split(' ')[0]}</span></td>
+                                <td >{formatARS(f.total)}</td>
                                 <td className='tdFlex'>
                                     <Link title='detalle' to={'/detalle-factura/' + f.id}><img className='detalle' src='/icons-app/ojo.png' alt='ver detalle' /></Link>
                                     <Link title='editar' to={'/editar-factura/' + f.id}><img className='editar' src='/icons-app/lapiz.png' alt='editar' /></Link>
@@ -91,7 +87,6 @@ export const Facturas = () => {
                     })}
                 </tbody>
             </table>
-
         </div>
     )
 }

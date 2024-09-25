@@ -16,6 +16,7 @@ import {
 } from '../../utils/ValidacionesFactura'
 import '../../styles/pages/nuevaVenta.css'
 import { armarDetalles } from '../../utils/DetallesHelper'
+import { formatARS } from '../../utils/formatoPrecios'
 
 export const EditarFactura = () => {
 
@@ -89,8 +90,8 @@ export const EditarFactura = () => {
                 const { data, error } = await fetchDataService(
                     { entity: 'factura', id: facturaAEditar.id, options }
                 )
-                error ? console.log(error) :
-                    window.location.href = `/editar-factura/${data.id}`
+                error ? console.error(error) : data &&
+                    (window.location.href = `/editar-factura/${data.id}`)
             } else {
                 setMostrarBtnFactura(true)
             }
@@ -104,13 +105,14 @@ export const EditarFactura = () => {
         const errors = validarEntradasDetalles({ productosEnDetalle })
         if (errors.length <= 0) {
             const detallesFactura = productosEnDetalle.map(p => {
-                return {                    
+                return {
                     idProducto: p.id,
                     cantidad: p.cantidad
                 }
             })
-            console.log(detallesFactura)
-            armarDetalles(facturaAEditar.id ,facturaAEditar.detallesFactura, detallesFactura)
+            await armarDetalles(facturaAEditar.id, facturaAEditar.detallesFactura, detallesFactura) ?
+            (window.location.href = `/editar-factura/${facturaAEditar.id}`) :
+            alert('No se pudo actualizar el detalle')
 
         } else {
             setErrorsValidationDetalle(errors)
@@ -120,8 +122,7 @@ export const EditarFactura = () => {
     const handlerChangeFactura = () => {
         if (cliente) {
             !sonIgualesLasFacturas(facturaAEditar, { idCliente: cliente.id, idFormaDePago }) ?
-                setMostrarBtnFactura(true) :
-                setMostrarBtnFactura(false)
+                setMostrarBtnFactura(true) : setMostrarBtnFactura(false)
         } else {
             setMostrarBtnFactura(false)
         }
@@ -130,8 +131,7 @@ export const EditarFactura = () => {
     const handlerChangeDetalle = () => {
         if (productosEnDetalle.length > 0) {
             !sonIgualesLosDetalles(facturaAEditar.detallesFactura, productosEnDetalle) ?
-                setMostrarBtnDetalle(true) :
-                setMostrarBtnDetalle(false)
+                setMostrarBtnDetalle(true) : setMostrarBtnDetalle(false)
         } else {
             setMostrarBtnDetalle(false)
         }
@@ -217,7 +217,7 @@ export const EditarFactura = () => {
                         }
                     </div>
                     <div className='row-precioTotal'>
-                        <h4>Total: <span>$ {total}</span></h4>
+                        <h4>Total: <span>{formatARS(total)}</span></h4>
                     </div>
 
                     <div className='errorValidation'>

@@ -98,3 +98,14 @@
         }
     }
 }
+
+.fechaHora{
+    font-size: 15px;
+    color: rgb(92, 92, 92)
+}
+
+.errorValidation{
+    text-align: center;
+    font-size: 18px;
+    color: red;
+}

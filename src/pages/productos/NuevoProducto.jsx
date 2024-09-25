@@ -57,12 +57,10 @@ export const NuevoProducto = () => {
       },
       body: JSON.stringify(producto)
     }
-    const { data, error } = await fetchDataService({ entity: 'producto', options })
-    if (error) {
-      console.log(error)
-    } else if (data) {
-      window.location.href = '/productos'
-    }
+    const { data, error } = await fetchDataService(
+      { entity: 'producto', options }
+    )
+    error ? console.error(error) : data && (window.location.href = '/productos')
   }
 
   return (

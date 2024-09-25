@@ -3,12 +3,12 @@ import { useState } from 'react';
 export const useProductos = () => {
     const [productosEnDetalle, setProductosEnDetalle] = useState([])
 
-    const setCantidad = (id, cantidad) => {
+    const setCantidad = (id, cantidad) => {             
         setProductosEnDetalle(prevState =>
             prevState.map(p =>
                 p.id === id ? { ...p, cantidad } : p
             )
-        )
+        )       
     }    
 
     const removeProducto = (id) => {

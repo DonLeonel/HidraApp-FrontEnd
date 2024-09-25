@@ -16,11 +16,7 @@ export const NuevaCategoria = () => {
             body: JSON.stringify(formState)
         }
         const { data, error } = await fetchDataService({ entity: 'categoria', options })
-        if (error) {
-            console.log(error)
-        } else if (data) {
-            window.location.href = '/categorias'
-        }
+        error ? console.error(error) : data && (window.location.href = '/categorias')
     }
 
     const initialForm = useMemo(() =>

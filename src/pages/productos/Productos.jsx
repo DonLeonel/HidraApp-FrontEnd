@@ -3,6 +3,7 @@ import { useEliminar } from '../../hooks/index'
 import { fetchDataPaginatedService } from '../../services/apiService'
 import '../../styles/pages/pagesEnComun.css'
 import { useState, useEffect } from 'react'
+import { formatARS } from '../../utils/formatoPrecios'
 
 export const Productos = () => {
 
@@ -24,15 +25,9 @@ export const Productos = () => {
             const { content: productos, error } = await fetchDataPaginatedService(
                 { entity: 'producto', paginate, options }
             )
-
-            if (error) {
-                console.log(error)
-            } else {
-                setProductos(productos)
-            }
+            error ? console.error(error) : setProductos(productos)
         }
         fetchInfo()
-
         return () => abortController.abort()
     }, [])
 
@@ -83,7 +78,7 @@ export const Productos = () => {
                             <tr className='trComprador' key={p.id}>
                                 <td>{p.nombre}</td>
                                 <td>{p.categoria.nombre}</td>
-                                <td >$ {p.precio}</td>
+                                <td >{formatARS(p.precio)}</td>
                                 <td className='tdFlex'>
                                     <Link title='detalle' to={'/detalle-producto/' + p.id}><img className='detalle' src='/icons-app/ojo.png' alt='ver detalle' /></Link>
                                     <Link title='editar' to={'/editar-producto/' + p.id}><img className='editar' src='/icons-app/lapiz.png' alt='editar' /></Link>
@@ -93,7 +88,6 @@ export const Productos = () => {
                     })}
                 </tbody>
             </table>
-
         </div>
     )
 }

@@ -48,12 +48,10 @@ export const EditarCliente = () => {
             },
             body: JSON.stringify(cliente)
         }
-        const { data, error } = await fetchDataService({ entity: 'cliente', id: formState.id, options })
-        if (error) {
-            console.log(error)
-        } else if (data) {
-            window.location.href = '/clientes'
-        }
+        const { data, error } = await fetchDataService(
+            { entity: 'cliente', id: formState.id, options }
+        )
+        error ? console.error(error) : data && (window.location.href = '/clientes')        
     }
 
     return (

@@ -19,12 +19,7 @@ export const Categorias = () => {
             const { data: categorias, error } = await fetchDataService(
                 { entity: 'categoria', options }
             )
-
-            if (error) {
-                console.log(error)
-            } else {
-                setCategorias(categorias)
-            }
+            error ? console.error(error) : setCategorias(categorias)
         }
         fetchInfo()
         return () => abortController.abort()
