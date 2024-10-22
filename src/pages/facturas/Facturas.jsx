@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom'
-import { useEliminar } from '../../hooks/index'
+import { useEliminar, useSearchDinamic } from '../../hooks/index'
 import { fetchDataPaginatedService } from '../../services/apiService'
 import { useEffect, useState } from 'react'
 import '../../styles/pages/pagesEnComun.css'
 import { formatARS } from '../../utils/formatoPrecios'
-
 
 export const Facturas = () => {
     const paginateInit = { page: 0, size: 20 }
@@ -29,6 +28,13 @@ export const Facturas = () => {
         fetchInfo()
         return () => abortController.abort()
     }, [])
+
+    const { termino,
+        elementosFiltrados,
+        listar,
+        handleSearch,
+        reset
+    } = useSearchDinamic(facturas, ['fechaHora'], { esFactura: true });
 
     const {
         mostrarDialogo,
@@ -55,7 +61,14 @@ export const Facturas = () => {
             <div className='contBusquedaYNvo'>
                 <div className='search'>
                     <img className='lupita' src="/icons-app/lupita.png" alt="lupita" />
-                    <input name='search' className='inputFiltro' type="text" />
+                    <input
+                        name='search'
+                        className='inputFiltro'
+                        type="text"
+                        placeholder='Buscar por fecha o cliente'
+                        value={termino}
+                        onChange={handleSearch}
+                    />
                 </div>
                 <div>
                     <Link className='btnNuevo' to={'/nueva-factura'}>Nueva Venta</Link>
@@ -72,9 +85,9 @@ export const Facturas = () => {
                     </tr>
                 </thead>
                 <tbody className='tableBody'>
-                    {facturas && facturas.map((f) => {
+                    {elementosFiltrados && elementosFiltrados.map((f) => {
                         return (
-                            <tr className='trComprador' key={f.id}>
+                            <tr className='trComprador colorParImpar' key={f.id}>
                                 <td>{f.cliente.nombre + ' ' + f.cliente.apellido}</td>
                                 <td> <span className='fechaHora'>{f.fechaHora.split(' ')[0]}</span></td>
                                 <td >{formatARS(f.total)}</td>

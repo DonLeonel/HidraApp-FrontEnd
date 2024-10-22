@@ -7,7 +7,7 @@ export const fetchDataPaginatedService = async ({ entity, paginate, options = {}
         if (error) {
             throw new Error(`Error al recuperar la información de ${entity}: ${error}`)
         }
-        const { content } = data;
+        const { content } = data
         return { content, error: null }
     } catch (error) {
         return { content: null, error: error.message || 'Error desconocido' }
@@ -35,10 +35,10 @@ const fetchData = async ({ url, options = {} }) => {
             if (errorJson.code == 400) {
                 throw new Error(`\nStatus Code ${errorJson.code} - ${errorJson.status} -\n${errorJson.errors.join('\n')}`)
             }
-            throw new Error(`\nStatus ${errorJson.status} - ${errorJson.message}`);
+            throw new Error(`\nStatus ${errorJson.status} - ${errorJson.message}`)
         }
         
-        const data = await response.json();                        
+        const data = await response.json()                  
 
         return { data, error: null }
     } catch (error) {

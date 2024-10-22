@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useEliminar } from '../../hooks/index'
+import { useEliminar, useSearchDinamic } from '../../hooks/index'
 import { fetchDataService } from '../../services/apiService'
 import { useEffect, useState } from 'react'
 import '../../styles/pages/pagesEnComun.css'
@@ -24,6 +24,13 @@ export const Categorias = () => {
         fetchInfo()
         return () => abortController.abort()
     }, [])
+
+    const { termino,
+        elementosFiltrados,
+        listar,
+        handleSearch,
+        reset
+    } = useSearchDinamic(categorias, ['nombre']);
 
     const {
         mostrarDialogo,
@@ -50,7 +57,14 @@ export const Categorias = () => {
             <div className='contBusquedaYNvo'>
                 <div className='search'>
                     <img className='lupita' src="/icons-app/lupita.png" alt="lupita" />
-                    <input name='search' className='inputFiltro' type="text" />
+                    <input
+                        name='search'
+                        className='inputFiltro'
+                        type="text"
+                        placeholder='Buscar por nombre'
+                        value={termino}
+                        onChange={handleSearch}
+                    />
                 </div>
                 <div>
                     <Link className='btnNuevo' to={'/nueva-categoria'}>Nueva Categoria</Link>
@@ -66,9 +80,9 @@ export const Categorias = () => {
                     </tr>
                 </thead>
                 <tbody className='tableBody'>
-                    {categorias && categorias.map((c) => {
+                    {elementosFiltrados && elementosFiltrados.map((c) => {
                         return (
-                            <tr className='trComprador' key={c.id}>
+                            <tr className='trComprador colorParImpar' key={c.id}>
                                 <td>{c.nombre}</td>
                                 <td>{c.descripcion}</td>
                                 <td className='tdFlex'>

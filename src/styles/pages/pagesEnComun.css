@@ -37,15 +37,23 @@
     margin-top: 8px;
     width: 100%;
     display: table;
-    border-spacing: 3px;
+    border-spacing: 1px;
     text-align: left;
+}
+
+.tableBody .colorParImpar:nth-child(odd) {
+    background-color: #f2f2f2; /* Color para las filas impares */
+}
+
+.tableBody .colorParImpar:nth-child(even) {
+    background-color: #ffffff; /* Color para las filas pares */
 }
 
 .tdFlex {
     display: flex;
     justify-content: space-between;
     gap: 5px;
-    align-items: center;
+    align-items: center;    
 
     & button {
         border: none;
@@ -56,7 +64,7 @@
     }
 
     & .detalle {
-        width: 25px;
+        width: 28px;        
     }
 
     & .editar {
@@ -96,6 +104,14 @@
         & .no{
             background-color: greenyellow;
         }
+    }
+}
+
+.tdNuevaVenta{    
+    text-align: center;
+
+    & img{
+        width: 28px;
     }
 }
 

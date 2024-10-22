@@ -15,7 +15,7 @@ import {
     sonIgualesLosDetalles
 } from '../../utils/ValidacionesFactura'
 import '../../styles/pages/nuevaVenta.css'
-import { armarDetalles } from '../../utils/DetallesHelper'
+import { armarDetalles } from '../../helpers/DetallesHelper'
 import { formatARS } from '../../utils/formatoPrecios'
 
 export const EditarFactura = () => {
@@ -58,15 +58,15 @@ export const EditarFactura = () => {
 
     const { productosEnDetalle,
         setCantidad,
-        removeProducto,
+        removeProducto,        
         addProducto
-    } = useProductos()
+    } = useProductos()    
 
     useEffect(() => {
         setTotal(productosEnDetalle
-            .reduce((acum, p) => acum + p.precio * p.cantidad, 0))
-        handlerChangeDetalle()
-    }, [productosEnDetalle])
+            .reduce((acum, p) => acum + p.precio * p.cantidad, 0))  
+        handlerChangeDetalle()      
+    }, [productosEnDetalle.cantidad, productosEnDetalle]) //Arreglar esto, no calcula el total cuando se modifica la cantidad.
 
     const handlerSubmitFactura = async (e) => {
         e.preventDefault()

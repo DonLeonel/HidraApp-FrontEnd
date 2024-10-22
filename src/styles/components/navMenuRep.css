@@ -1,0 +1,28 @@
+.navMenu {
+    margin-top: 1rem;
+    text-align: center;
+    padding: 5px;
+
+    & ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+
+        & li {
+            list-style: none;
+            width: 25%;
+
+            & .btnMenu {
+                border-radius: 8px;
+                background-color: rgb(209, 209, 209);
+                padding: 8px;
+            }
+        }
+    }
+}
+
+.link-menu {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}

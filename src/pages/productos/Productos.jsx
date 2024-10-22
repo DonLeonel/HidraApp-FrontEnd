@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useEliminar } from '../../hooks/index'
+import { useEliminar, useSearchDinamic } from '../../hooks/index'
 import { fetchDataPaginatedService } from '../../services/apiService'
 import '../../styles/pages/pagesEnComun.css'
 import { useState, useEffect } from 'react'
@@ -31,6 +31,13 @@ export const Productos = () => {
         return () => abortController.abort()
     }, [])
 
+    const { termino,
+        elementosFiltrados,
+        listar,
+        handleSearch,
+        reset
+    } = useSearchDinamic(productos, ['nombre']);
+
     const {
         mostrarDialogo,
         iniciarEliminacion,
@@ -56,7 +63,14 @@ export const Productos = () => {
             <div className='contBusquedaYNvo'>
                 <div className='search'>
                     <img className='lupita' src="/icons-app/lupita.png" alt="lupita" />
-                    <input name='search' className='inputFiltro' type="text" />
+                    <input
+                        name='search'
+                        className='inputFiltro'
+                        type="text"
+                        placeholder='Buscar por nombre'
+                        value={termino}
+                        onChange={handleSearch}
+                    />
                 </div>
                 <div>
                     <Link className='btnNuevo' to={'/nuevo-producto'}>Nuevo Producto</Link>
@@ -73,9 +87,9 @@ export const Productos = () => {
                     </tr>
                 </thead>
                 <tbody className='tableBody'>
-                    {productos && productos.map((p) => {
+                    {elementosFiltrados && elementosFiltrados.map((p) => {
                         return (
-                            <tr className='trComprador' key={p.id}>
+                            <tr className='trComprador colorParImpar' key={p.id}>
                                 <td>{p.nombre}</td>
                                 <td>{p.categoria.nombre}</td>
                                 <td >{formatARS(p.precio)}</td>

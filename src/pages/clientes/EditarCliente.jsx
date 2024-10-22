@@ -21,11 +21,8 @@ export const EditarCliente = () => {
                 { entity: 'cliente', id, options }
             )
 
-            if (error) {
-                console.log(error)
-            } else {
+            error ? console.error(error) :
                 setCliente(cliente)
-            }
         }
         fetchInfo()
         return () => abortController.abort()
@@ -51,7 +48,7 @@ export const EditarCliente = () => {
         const { data, error } = await fetchDataService(
             { entity: 'cliente', id: formState.id, options }
         )
-        error ? console.error(error) : data && (window.location.href = '/clientes')        
+        error ? console.error(error) : data && (window.location.href = '/clientes')
     }
 
     return (

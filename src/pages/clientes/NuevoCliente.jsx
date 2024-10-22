@@ -2,9 +2,12 @@ import { Link } from 'react-router-dom'
 import { fetchDataService } from '../../services/apiService'
 import '../../styles/pages/formNuevos.css'
 import { useForm } from '../../hooks/index'
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
+import { useState } from 'react'
 
 export const NuevoCliente = () => {
+
+    const [barrios, setBarrios] = useState([])
 
     const handlerSubmit = async (e) => {
         e.preventDefault();
@@ -24,8 +27,25 @@ export const NuevoCliente = () => {
         }
     }
 
+    useEffect(() => {
+        const abortController = new AbortController()
+        const { signal } = abortController
+
+        const options = {
+            signal
+        }
+        const fetchInfo = async () => {
+            const { data: barrios, error } = await fetchDataService(
+                { entity: 'barrio', options }
+            )
+            error ? console.error(error) : setBarrios(barrios)
+        }
+        fetchInfo()
+        return () => abortController.abort()
+    }, [])
+
     const initialForm = useMemo(() =>
-        ({ nombre: '', apellido: '', celular: '' })
+        ({ nombre: '', apellido: '', celular: '', idBarrio: '' })
         , [])
 
     const { formState, onInputChange } = useForm(initialForm)
@@ -63,6 +83,24 @@ export const NuevoCliente = () => {
                         value={formState.celular}
                     />
                 </div>
+
+                <div className='contEntradas'>
+                    <label htmlFor="barrio">Barrio</label>
+                    <select
+                        className='select'
+                        name="idBarrio"                        
+                        value={formState.idBarrio}
+                        onChange={onInputChange}
+                    >
+                        <option value={null}>seleccione</option>
+                        {barrios && barrios.map((b) => {
+                            return (
+                                <option key={b.id} value={b.id}>{b.nombre}</option>
+                            )
+                        })}
+                    </select>
+                </div>
+
 
                 <div className='contBtn contEntradas'>
                     <Link className='btnVolver' to={'/clientes'}>Volver</Link>

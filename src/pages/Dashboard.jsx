@@ -1,9 +1,5 @@
 import {
-  MenuPages,
-  FacturasRecientes,
-  TopCompradores,
-  Stock,
-  NuevaVenta
+  MenuPages, FacturasRecientes, TopCompradores, Stock, NuevaVenta
 } from '../components/index'
 import '../styles/pages/dashboard.css'
 

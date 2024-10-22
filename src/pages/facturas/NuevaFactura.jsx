@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import {
   ProductoVenta,
   ClienteFactura,
@@ -22,8 +22,14 @@ export const NuevaFactura = () => {
   const [errorsValidation, setErrorsValidation] = useState(null)
   const [sinStock, setSinStock] = useState({ mostrar: false, nombreProducto: '' })
 
-  const clienteFacturaRef = useRef();
+  const clienteFacturaRef = useRef()
+  const { id } = useParams(null) 
+  const navigate = useNavigate() 
 
+  const handleBack = () => {
+    navigate(-1); // Esto te lleva a la página anterior
+  };
+  
   const { productosEnDetalle,
     setCantidad,
     removeProducto,
@@ -106,6 +112,7 @@ export const NuevaFactura = () => {
       }
 
       <ClienteFactura
+        idCliente={id}
         setCliente={setCliente}
         cliente={cliente}
         ref={clienteFacturaRef}
@@ -182,7 +189,7 @@ export const NuevaFactura = () => {
       </div>
 
       <div className='contBtn contEntradas'>
-        <Link className='btnVolver' to={'/facturas'}>Volver</Link>
+        <button onClick={handleBack} className='btnVolver' >Volver</button>
         <button onClick={cancelarFactura} className='btnCancelar' type="submit">Cancelar</button>
         <button onClick={handlerSubmit} className='btnGuardar' type="submit">Guardar</button>
       </div>

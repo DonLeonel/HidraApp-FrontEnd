@@ -1,15 +1,19 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 
 export const useProductos = () => {
     const [productosEnDetalle, setProductosEnDetalle] = useState([])
+    const [total, setTotal] = useState(0)
 
-    const setCantidad = (id, cantidad) => {             
+    const setCantidad = (id, cantidad) => {
         setProductosEnDetalle(prevState =>
             prevState.map(p =>
                 p.id === id ? { ...p, cantidad } : p
             )
-        )       
-    }    
+        )
+    }
+
+    
 
     const removeProducto = (id) => {
         setProductosEnDetalle(prevState => prevState.filter(p => p.id !== id))
@@ -30,6 +34,7 @@ export const useProductos = () => {
         setCantidad,
         removeProducto,
         addProducto,
+        total,
         setProductosEnDetalle
     }
 }

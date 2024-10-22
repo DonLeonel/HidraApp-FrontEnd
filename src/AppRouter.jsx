@@ -1,23 +1,14 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard'
-import { MenuUsuario } from './components/MenuUsuario'
-import { Footer } from './components'
-import { Clientes } from './pages/clientes/Clientes'
-import { NuevoCliente } from './pages/clientes/NuevoCliente'
-import { EditarCliente } from './pages/clientes/EditarCliente'
-import { DetalleCliente } from './pages/clientes/DetalleCliente'
-import { Productos } from './pages/productos/Productos'
-import { NuevoProducto } from './pages/productos/NuevoProducto'
-import { Categorias } from './pages/categorias/Categorias'
-import { NuevaCategoria } from './pages/categorias/NuevaCategoria'
-import { Facturas } from './pages/facturas/Facturas'
-import { NuevaFactura } from './pages/facturas/NuevaFactura'
-import { EditarProducto } from './pages/productos/EditarProducto'
-import { DetalleProducto } from './pages/productos/DetalleProducto'
-import { EditarCategoria } from './pages/categorias/EditarCategoria'
-import { DetalleFactura } from './pages/facturas/DetalleFactura'
-import { EditarFactura } from './pages/facturas/EditarFactura'
+import { Footer, MenuUsuario, RecaudacionPorDia, RecaudacionPorMes, BuscarPorEstados } from './components/index'
+import { Clientes, NuevoCliente, EditarCliente, DetalleCliente } from './pages/clientes/index'
+import { Productos, NuevoProducto, DetalleProducto, EditarProducto } from './pages/productos/index'
+import { Categorias, NuevaCategoria, EditarCategoria } from './pages/categorias/index'
+import { Facturas, NuevaFactura, DetalleFactura, EditarFactura } from './pages/facturas/index'
+import { Reportes, ReportesClientes, ReportesFacturas, ReportesProductos } from './pages/reportes/index'
+
+
 
 export const AppRouter = () => {
   return (
@@ -32,6 +23,7 @@ export const AppRouter = () => {
 
         <Route path='/facturas' element={<Facturas />} />
         <Route path='/nueva-factura' element={<NuevaFactura />} />
+        <Route path='/nueva-factura/cliente/:id' element={<NuevaFactura />} />
         <Route path='/detalle-factura/:id' element={<DetalleFactura />} />
         <Route path='/editar-factura/:id' element={<EditarFactura />} />
 
@@ -42,7 +34,21 @@ export const AppRouter = () => {
 
         <Route path='/categorias' element={<Categorias />} />
         <Route path='/nueva-categoria' element={<NuevaCategoria />} />
-        <Route path='/editar-categoria/:id' element={<EditarCategoria/>} />
+        <Route path='/editar-categoria/:id' element={<EditarCategoria />} />
+
+        <Route path='/reportes' element={<Reportes />}>
+          <Route path='facturas' element={<ReportesFacturas />} >
+            <Route path='recaudacion-por-dia' element={<RecaudacionPorDia />} />
+            <Route path='recaudacion-por-mes' element={<RecaudacionPorMes />} />
+            <Route path='estados' element={<BuscarPorEstados />} />
+          </Route>
+          <Route path='clientes' element={<ReportesClientes />} >
+
+          </Route>
+          <Route path='productos' element={<ReportesProductos />} >
+
+          </Route>
+        </Route>
       </Routes>
       <Footer />
     </>
