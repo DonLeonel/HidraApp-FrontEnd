@@ -1,4 +1,4 @@
-.contRecaudacionPorDia {
+.contRecaudacionEntreFechas{
     margin-top: 1rem;
     text-align: center;
     padding: 10px;
@@ -23,8 +23,7 @@
             cursor: pointer;
         }
     }
-
-
+    
     & .h5 {
         padding: 15px;
     }

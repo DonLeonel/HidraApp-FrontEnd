@@ -1,5 +1,4 @@
 import { Link, useParams } from 'react-router-dom';
-//import { Cargando } from '../../components/Cargando';
 import { useForm } from '../../hooks/index';
 import { fetchDataService } from '../../services/apiService'
 import { useState, useEffect } from 'react';

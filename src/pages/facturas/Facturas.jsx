@@ -4,11 +4,13 @@ import { fetchDataPaginatedService } from '../../services/apiService'
 import { useEffect, useState } from 'react'
 import '../../styles/pages/pagesEnComun.css'
 import { formatARS } from '../../utils/formatoPrecios'
+import { TableRowLoading } from '../../components/loading/TableRowLoading'
 
 export const Facturas = () => {
     const paginateInit = { page: 0, size: 20 }
     const [paginate, setPaginate] = useState(paginateInit)
     const [facturas, setFacturas] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -23,7 +25,12 @@ export const Facturas = () => {
         const fetchInfo = async () => {
             const { content: facturas, error } = await fetchDataPaginatedService(
                 { entity: 'factura', paginate, options })
-            error ? console.error(error) : setFacturas(facturas)
+            if (error) {
+                console.error(error)
+            } else {
+                setFacturas(facturas)
+                setLoading(false)
+            }
         }
         fetchInfo()
         return () => abortController.abort()
@@ -85,19 +92,27 @@ export const Facturas = () => {
                     </tr>
                 </thead>
                 <tbody className='tableBody'>
-                    {elementosFiltrados && elementosFiltrados.map((f) => {
-                        return (
-                            <tr className='trComprador colorParImpar' key={f.id}>
-                                <td>{f.cliente.nombre + ' ' + f.cliente.apellido}</td>
-                                <td> <span className='fechaHora'>{f.fechaHora.split(' ')[0]}</span></td>
-                                <td >{formatARS(f.total)}</td>
-                                <td className='tdFlex'>
-                                    <Link title='detalle' to={'/detalle-factura/' + f.id}><img className='detalle' src='/icons-app/ojo.png' alt='ver detalle' /></Link>
-                                    <Link title='editar' to={'/editar-factura/' + f.id}><img className='editar' src='/icons-app/lapiz.png' alt='editar' /></Link>
-                                    <button onClick={() => iniciarEliminacion(f.id)} title='borrar' to={'/facturas/' + f.id}><img className='borrar' src='/icons-app/basurero.png' alt='borrar' /></button>
-                                </td>
-                            </tr>)
-                    })}
+                    {loading ?
+                        <TableRowLoading
+                            cantFilas={8}
+                            cantTd={4}
+                            props={{ width: '95%', height: '18px', margin: '10px 0' }}
+                        />
+                        :
+                        elementosFiltrados &&
+                        elementosFiltrados.map((f) => {
+                            return (
+                                <tr className='trComprador colorParImpar' key={f.id}>
+                                    <td>{f.cliente.nombre + ' ' + f.cliente.apellido}</td>
+                                    <td> <span className='fechaHora'>{f.fechaHora.split(' ')[0]}</span></td>
+                                    <td >{formatARS(f.total)}</td>
+                                    <td className='tdFlex'>
+                                        <Link title='detalle' to={'/detalle-factura/' + f.id}><img className='detalle' src='/icons-app/ojo.png' alt='ver detalle' /></Link>
+                                        <Link title='editar' to={'/editar-factura/' + f.id}><img className='editar' src='/icons-app/lapiz.png' alt='editar' /></Link>
+                                        <button onClick={() => iniciarEliminacion(f.id)} title='borrar' to={'/facturas/' + f.id}><img className='borrar' src='/icons-app/basurero.png' alt='borrar' /></button>
+                                    </td>
+                                </tr>)
+                        })}
                 </tbody>
             </table>
         </div>

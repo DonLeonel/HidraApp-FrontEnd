@@ -1,4 +1,5 @@
 import { BoxStock } from './BoxStock'
+import { Loading } from './loading/Loading'
 import { fetchDataPaginatedService } from '../services/apiService'
 import { useEffect, useState } from 'react'
 import '../styles/components/stock.css'
@@ -9,6 +10,7 @@ export const Stock = () => {
   const paginateInit = { page: 0, size: 10 }
   const [paginate, setPaginate] = useState(paginateInit)
   const [productos, setProductos] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -29,6 +31,7 @@ export const Stock = () => {
         console.log(error)
       } else {
         setProductos(productos)
+        setLoading(false)
       }
     }
     fetchInfo()
@@ -41,15 +44,25 @@ export const Stock = () => {
       <h4>Stock disponible</h4>
 
       <section className='cont-box'>
-        {productos && productos.map(p => {
-          return (
-            <BoxStock
-              key={p.id}
-              nombre={p.nombre}
-              cantidad={p.stock}
-            />
-          )
-        })}
+
+        {loading ?
+          <>
+            <Loading width={'45%'} height={'50px'} margin={'5px'} />
+            <Loading width={'45%'} height={'50px'} margin={'5px'} />
+            <Loading width={'45%'} height={'50px'} margin={'5px'} />
+            <Loading width={'45%'} height={'50px'} margin={'5px'} />
+          </>
+          :
+          productos &&
+          productos.map(p => {
+            return (
+              <BoxStock
+                key={p.id}
+                nombre={p.nombre}
+                cantidad={p.stock}
+              />
+            )
+          })}
       </section>
     </div>
   )

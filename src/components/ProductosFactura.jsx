@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react"
 import { fetchDataPaginatedService } from "../services/apiService"
+import { Loading } from "./loading/Loading"
 
 
 export const ProductosFactura = ({ addProducto }) => {
 
     const paginate = { page: 0, size: 100 }
     const [productos, setProductos] = useState([])
+    const [loading, setLoading] = useState(true)
+
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -18,10 +21,15 @@ export const ProductosFactura = ({ addProducto }) => {
             const { content: productos, error } = await fetchDataPaginatedService(
                 { entity: 'producto', paginate, options }
             )
-            error ? console.log(error) : setProductos(productos)
+            if (error) {
+                console.log(error)
+            } else {
+                setProductos(productos)
+                setLoading(false)
+            }
+
         }
         fetchInfo()
-
         return () => abortController.abort()
     }, [])
 
@@ -29,7 +37,15 @@ export const ProductosFactura = ({ addProducto }) => {
         <div className='contProductos'>
             <h4>Agregue los productos al detalle.</h4>
             <div className='contBox'>
-                {productos &&
+                {loading ?
+                    <>
+                        <Loading width={'45%'} height={'50px'} margin={'5px'} />
+                        <Loading width={'45%'} height={'50px'} margin={'5px'}/>
+                        <Loading width={'45%'} height={'50px'} margin={'5px'} />
+                        <Loading width={'45%'} height={'50px'} margin={'5px'}/>
+                    </>
+                    : 
+                    productos &&
                     productos.map(p => {
                         return (
                             <div key={p.id} onClick={() => addProducto(p, 1)} className='boxProducto'>

@@ -15,9 +15,9 @@ export const ReportesFacturas = () => {
             </Link>
           </li>
           <li>
-            <Link className='noDecoration link-menu' to={'/reportes/facturas/recaudacion-por-mes'}
+            <Link className='noDecoration link-menu' to={'/reportes/facturas/recaudacion-entre-fechas'}
             >
-              Recaudación por mes
+              Recaudación entre fechas
             </Link>
           </li>
           <li>

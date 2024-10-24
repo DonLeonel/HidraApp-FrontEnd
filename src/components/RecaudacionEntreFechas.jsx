@@ -1,22 +1,24 @@
-import { fetchDataService } from '../services/apiService'
-import '../styles/components/recaudacionPorDia.css'
+import '../styles/components/recaudacionEntreFechas.css'
+import { InputFechaRep } from './InputFechaRep'
 import { useState, useEffect } from 'react'
 import { obtenerFechaActual } from '../utils/formatoFecha'
-import { formatARS } from '../utils/formatoPrecios'
+import { fetchDataService } from '../services/apiService'
 import { BoxRecaudacion } from './BoxRecaudacion'
-import { InputFechaRep } from './InputFechaRep'
+import { formatARS } from '../utils/formatoPrecios'
+import { Loading } from './loading/Loading'
 
-export const RecaudacionPorDia = () => {
+export const RecaudacionEntreFechas = () => {
+
     const [data, setData] = useState(null)
-    const [fechaInput, setFechaInput] = useState('')
     const [fechaActual, setFechaActual] = useState('')
+    const [fechaInputDesde, setFechaInputDesde] = useState('')
+    const [fechaInputHasta, setfechaInputHasta] = useState('')
     const [mostrarFacturas, setMostrarFacturas] = useState(false)
     const [busquedaRealizada, setBusquedaRealizada] = useState(false)
 
-
     useEffect(() => {
         setFechaActual(obtenerFechaActual())
-        setFechaInput(obtenerFechaActual())
+        setfechaInputHasta(obtenerFechaActual())
     }, [])
 
     const handlerSearch = (e) => {
@@ -28,12 +30,13 @@ export const RecaudacionPorDia = () => {
             signal,
             headers: {
                 'Content-Type': 'application/json',
-                fecha: fechaInput
+                desde: fechaInputDesde,
+                hasta: fechaInputHasta
             }
         }
         const fetchInfo = async () => {
             const { data } = await fetchDataService(
-                { entity: 'reporte/recaudacion-por-dia', options }
+                { entity: 'reporte/recaudacion-entre-fechas', options }
             )
             !data ? setData(null) : setData(data)
             setBusquedaRealizada(true)
@@ -50,24 +53,36 @@ export const RecaudacionPorDia = () => {
     }
 
     return (
-        <div className='contRecaudacionPorDia'>
+        <div className='contRecaudacionEntreFechas'>
             <div className='contInputFecha'>
-                <InputFechaRep
-                    setFechaInput={setFechaInput}
-                    fechaInput={fechaInput}
-                    fechaActual={fechaActual}
-                    handlerSearch={handlerSearch}
-                />
+                <div>
+                    <h4>Desde</h4>
+                    <InputFechaRep
+                        setFechaInput={setFechaInputDesde}
+                        fechaInput={fechaInputDesde}
+                        fechaActual={fechaActual}
+                        handlerSearch={handlerSearch}
+                    />
+                </div>
+                <div>
+                    <h4>Hasta</h4>
+                    <InputFechaRep
+                        setFechaInput={setfechaInputHasta}
+                        fechaInput={fechaInputHasta}
+                        fechaActual={fechaActual}
+                        handlerSearch={handlerSearch}
+                    />
+                </div>
                 <button onClick={handlerSearch}>Buscar</button>
-            </div>
+            </div>           
 
             {/* Mostrar mensaje solo si la búsqueda se realizó y no hay datos */}
             {busquedaRealizada && !data && <h5 className='h5'>No hay reportes para la fecha indicada.</h5>}
 
+
             {data &&
                 <div className='reporte'>
-                    <hr />
-                    <h4 className='fechaConsulta'>FECHA DE CONSULTA: <span>{data.fecha}</span></h4>
+                    <hr />                    
                     <section className='contTotales'>
                         <BoxRecaudacion nombre={'Cant. de facturas'} total={data.facturas.length} />
                         <BoxRecaudacion nombre={'Total en Cheques'} total={formatARS(data.totalCheque)} />
@@ -142,7 +157,6 @@ export const RecaudacionPorDia = () => {
                     </div>
                 </div>
             }
-
         </div>
     )
 }

@@ -4,12 +4,14 @@ import { fetchDataPaginatedService, fetchDataService } from '../../services/apiS
 import '../../styles/pages/pagesEnComun.css'
 import { useEffect, useState } from 'react'
 import { BoxBarrios } from '../../components'
+import { TableRowLoading } from '../../components/loading/TableRowLoading'
 
 export const Clientes = () => {
 
     const paginateInit = { page: 0, size: 20 }
     const [paginate, setPaginate] = useState(paginateInit)
 
+    const [loading, setLoading] = useState(true)
     const [clientes, setClientes] = useState([])
     const [idBarrio, setIdBarrio] = useState(null)
 
@@ -35,7 +37,12 @@ export const Clientes = () => {
                 const { content: clientes, error } = await fetchDataPaginatedService(
                     { entity: 'cliente', paginate, options }
                 )
-                error ? console.error(error) : setClientes(clientes)
+                if (error) {
+                    console.error(error)
+                } else {
+                    setClientes(clientes)
+                    setLoading(false)
+                }
             }
             fetchInfo()
         } else {
@@ -46,7 +53,12 @@ export const Clientes = () => {
                 const { data: clientes, error } = await fetchDataService(
                     { entity: `cliente/por-barrio/${idBarrio}`, options }
                 )
-                error ? console.error(error) : setClientes(clientes)
+                if (error) {
+                    console.error(error)
+                } else {
+                    setClientes(clientes)
+                    setLoading(false)
+                }
             }
             fetchInfo()
         }
@@ -106,7 +118,14 @@ export const Clientes = () => {
                     </tr>
                 </thead>
                 <tbody className='tableBody'>
-                    {elementosFiltrados &&
+                    {loading ?
+                        <TableRowLoading
+                            cantFilas={10}
+                            cantTd={3}
+                            props={{ width: '95%', height: '18px', margin: '10px 0' }}
+                        />
+                        :
+                        elementosFiltrados &&
                         elementosFiltrados.map((c) => {
                             return (
                                 <tr className='trComprador colorParImpar' key={c.id}>
