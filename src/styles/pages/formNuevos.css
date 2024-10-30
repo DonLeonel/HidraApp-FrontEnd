@@ -44,6 +44,7 @@
     }
 
     & .btnGuardar {
+        cursor: pointer;
         border: none;
         padding: 10px;
         border-radius: 8px;
@@ -51,6 +52,7 @@
     }
 
     & .btnCancelar {
+        cursor: pointer;
         border: none;
         padding: 10px;
         border-radius: 8px;

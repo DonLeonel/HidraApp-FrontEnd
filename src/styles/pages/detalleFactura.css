@@ -28,9 +28,20 @@
             text-align: left;
         }
 
-        & .total{
+        & .total {
             padding: 5px;
             text-align: center;
+        }
+    }
+
+    .nota {
+        text-align: center;
+        padding: 5px;
+
+        & h4 > span {
+            font-family: sans-serif;
+            font-size: 15px;
+            font-weight: 100;
         }
     }
 }

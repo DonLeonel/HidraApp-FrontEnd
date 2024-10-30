@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useEliminar, useSearchDinamic } from '../../hooks/index'
 import { fetchDataPaginatedService } from '../../services/apiService'
-import '../../styles/pages/pagesEnComun.css'
 import { useState, useEffect } from 'react'
 import { formatARS } from '../../utils/formatoPrecios'
 import { TableRowLoading } from '../../components/loading/TableRowLoading'
+import '../../styles/pages/pagesEnComun.css'
 
 export const Productos = () => {
 

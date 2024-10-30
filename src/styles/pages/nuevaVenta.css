@@ -15,7 +15,7 @@
             border-radius: 50%;
             padding: 4px;
             position: absolute;
-            background-color: rgb(209, 209, 209);
+            background-color: rgb(230, 230, 230);
             left: 62px;
             top: 1px;
             width: 25px;
@@ -24,7 +24,7 @@
         & .inputFiltro {
             border: none;
             border-radius: 10px;
-            background-color: rgb(209, 209, 209);
+            background-color: rgb(230, 230, 230);
             padding: 6px 0px 6px 27px;
             width: 70%;
         }
@@ -43,7 +43,7 @@
     border-radius: 0 0 8px 8px;
     width: 70%;
     margin-bottom: 8px;
-    background-color: rgb(209, 209, 209);
+    background-color: rgb(230, 230, 230);
     position: absolute;
     top: 60px;
     left: 60px;
@@ -88,20 +88,41 @@
     }
 }
 
-.contFormaDepago {
+.contFormaDepago,
+.contEstadoFactura {
     margin: 10px auto;
 
     & form {
         margin: 1rem 0;
         text-align: center;
 
-        & .selectFormaDePago {
+        & .selectFormaDePago,
+        .selectEstadoFactura {
+            display: block;
             border: none;
-            border-radius: 10px;
-            background-color: rgb(209, 209, 209);
+            border-radius: 8px;
+            background-color: rgb(230, 230, 230);
             padding: 3px 0px;
             width: 50%;
+            margin: auto;
             text-align: center;
+        }
+    }
+}
+
+.contEstadoFactura {
+    & form {
+
+        .selectEstadoFactura{
+            width: 60%;
+        }
+
+        & input {
+            text-align: center;
+            width: 40%;
+            padding: 5px;
+            margin-top: 15px;
+            border-radius: 8px;
         }
     }
 }
@@ -124,8 +145,8 @@
             width: 40%;
 
             &:hover {
-                scale: 1.1;
-                border: 2px solid green;
+                scale: 1.05;
+                border-color: green;
                 color: green;
 
                 &>p {

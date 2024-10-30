@@ -3,6 +3,7 @@ import { fetchDataService } from '../../services/apiService'
 import { useState, useEffect } from 'react'
 import '../../styles/pages/detalleCliente.css'
 import { formatARS } from '../../utils/formatoPrecios'
+import { getClassName } from '../../utils/EstadosFactura'
 
 export const DetalleCliente = () => {
 
@@ -107,8 +108,8 @@ export const DetalleCliente = () => {
                                             <div className='infoFactura'>
                                                 <h4>Núm de factura: <span>{f.id}</span></h4>
                                                 <h4>Fecha/Hora: <span className='fechaHora'>{f.fechaHora}</span></h4>
-                                                <h4>Forma de pago: <span>{f.formaDePago.nombre}</span></h4>
-                                                <h4>Estado: <span>{f.estado.toLowerCase()}</span></h4>
+                                                <h4>Forma de pago: <span>{f.formaDePago.nombre.toUpperCase()}</span></h4>
+                                                <h4>Estado: <span className={getClassName(f.estado)}>{f.estado.toUpperCase()}</span></h4>
                                                 {
                                                     f.updatedAt && <h4>Actualizacion: <span className='fechaHora'>{f.updatedAt}</span></h4>
                                                 }

@@ -1,23 +1,22 @@
+import '../styles/components/busquedaPorEstado.css'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { getClassName, getEstadosEditarFactura } from '../utils/EstadosFactura'
 import { fetchDataService } from '../services/apiService'
-import '../styles/components/recaudacionPorDia.css'
-import { useState, useEffect } from 'react'
-import { obtenerFechaActual } from '../utils/formatoFecha'
-import { getClassName } from '../utils/EstadosFactura'
-import { formatARS } from '../utils/formatoPrecios'
 import { BoxRecaudacion } from './BoxRecaudacion'
-import { InputFechaRep } from './InputFechaRep'
+import { formatARS } from '../utils/formatoPrecios'
 
-export const RecaudacionPorDia = () => {
-    const [data, setData] = useState(null)
-    const [fechaInput, setFechaInput] = useState('')
-    const [fechaActual, setFechaActual] = useState('')
+
+export const BusquedaPorEstado = () => {
+
+    const [estados, setEstados] = useState([])
+    const [inputEstado, setInputEstado] = useState('');
+    const [data, setData] = useState(null);
     const [mostrarFacturas, setMostrarFacturas] = useState(false)
     const [busquedaRealizada, setBusquedaRealizada] = useState(false)
 
-
     useEffect(() => {
-        setFechaActual(obtenerFechaActual())
-        setFechaInput(obtenerFechaActual())
+        setEstados(getEstadosEditarFactura())
     }, [])
 
     const handlerSearch = (e) => {
@@ -29,12 +28,12 @@ export const RecaudacionPorDia = () => {
             signal,
             headers: {
                 'Content-Type': 'application/json',
-                fecha: fechaInput
+                estado: inputEstado
             }
         }
         const fetchInfo = async () => {
             const { data } = await fetchDataService(
-                { entity: 'reporte/recaudacion-por-dia', options }
+                { entity: 'reporte/busqueda-por-estado', options }
             )
             !data ? setData(null) : setData(data)
             setBusquedaRealizada(true)
@@ -50,24 +49,30 @@ export const RecaudacionPorDia = () => {
             : setMostrarFacturas(true)
     }
 
+
     return (
-        <div className='contRecaudacionPorDia'>
-            <div className='contInputFecha'>
-                <InputFechaRep
-                    setFechaInput={setFechaInput}
-                    fechaInput={fechaInput}
-                    fechaActual={fechaActual}
-                    handlerSearch={handlerSearch}
-                />
+        <div className='contBusquedaPorEstado'>
+            <div className='inputEstado'>
+                <select
+                    name="estados"
+                    id="estados"
+                    value={inputEstado}
+                    onChange={(e) => setInputEstado(e.target.value)}
+                >
+                    {estados?.map((e, i) =>
+                        <option key={i} value={e}>{e}</option>
+                    )}
+                </select>
                 <button onClick={handlerSearch}>Buscar</button>
             </div>
 
             {/* Mostrar mensaje solo si la búsqueda se realizó y no hay datos */}
-            {busquedaRealizada && !data && <h5 className='h5'>No hay reportes para la fecha indicada.</h5>}
+            {busquedaRealizada && !data && <h5 className='h5'>No hay reportes con el estado indicado.</h5>}
+
 
             {data &&
                 <div className='reporte'>
-                    <hr />                    
+                    <hr />
                     <section className='contTotales'>
                         <BoxRecaudacion nombre={'Cant. de facturas'} total={data.facturas.length} />
                         <BoxRecaudacion nombre={'Total en Cheques'} total={formatARS(data.totalCheque)} />
@@ -142,7 +147,6 @@ export const RecaudacionPorDia = () => {
                     </div>
                 </div>
             }
-
         </div>
     )
 }

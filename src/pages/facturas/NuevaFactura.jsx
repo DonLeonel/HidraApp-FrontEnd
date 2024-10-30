@@ -1,35 +1,40 @@
 import { useState, useEffect, useRef } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import {
   ProductoVenta,
   ClienteFactura,
   FormaPagoFactura,
   ProductosFactura,
-  CuadroMensaje
+  CuadroMensaje,
+  EstadoFactura
 } from '../../components/index'
 import { useProductos } from '../../hooks/index'
 import { fetchDataService } from '../../services/apiService'
 import '../../styles/pages/nuevaVenta.css'
 import { validarEntradasFacturaYDetalles } from '../../utils/ValidacionesFactura'
 import { formatARS } from '../../utils/formatoPrecios'
+import { getEstadosNvaFactura } from '../../utils/EstadosFactura'
 
 export const NuevaFactura = () => {
 
   const [cliente, setCliente] = useState(null)
   const [idFormaDePago, setIdFormaDePago] = useState(null)
+  const [estadoFactura, setEstadoFactura] = useState('ESPERANDO_CONFIRMACION')
   const [total, setTotal] = useState(0)
+
+  const [entrega, setEntrega] = useState(null)
 
   const [errorsValidation, setErrorsValidation] = useState(null)
   const [sinStock, setSinStock] = useState({ mostrar: false, nombreProducto: '' })
 
   const clienteFacturaRef = useRef()
-  const { id } = useParams(null) 
-  const navigate = useNavigate() 
+  const { id } = useParams(null)
+  const navigate = useNavigate()
 
   const handleBack = () => {
-    navigate(-1); // Esto te lleva a la página anterior
-  };
-  
+    navigate(-1) // Esto te lleva a la página anterior
+  }
+
   const { productosEnDetalle,
     setCantidad,
     removeProducto,
@@ -43,6 +48,8 @@ export const NuevaFactura = () => {
   }, [productosEnDetalle])
 
   const cancelarFactura = () => {
+    setEstadoFactura('ESPERANDO_CONFIRMACION')
+    setEntrega(null)
     setIdFormaDePago(null)
     setProductosEnDetalle([]);
     setErrorsValidation(null)
@@ -53,13 +60,15 @@ export const NuevaFactura = () => {
     e.preventDefault()
 
     const errors = validarEntradasFacturaYDetalles(
-      { cliente, idFormaDePago, productosEnDetalle }
+      { cliente, idFormaDePago, productosEnDetalle, entrega }
     )
 
-    if (errors.length <= 0) {
+    if (errors.length <= 0) {            
       const factura = {
         idCliente: cliente.id,
-        idFormaDePago: idFormaDePago,
+        idFormaDePago,
+        estado: estadoFactura,
+        entrega,
         detallesFactura:
           productosEnDetalle.map(p => {
             return {
@@ -173,7 +182,7 @@ export const NuevaFactura = () => {
             })
           }
         </div>
-        <div className='row-precioTotal'>
+        <div className='total'>
           <h4>Total: <span>{formatARS(total)}</span></h4>
         </div>
         <div className='errorValidation'>
@@ -187,6 +196,26 @@ export const NuevaFactura = () => {
         </div>
         <hr />
       </div>
+
+      <EstadoFactura
+        estados={getEstadosNvaFactura()}
+        estadoFactura={estadoFactura}
+        setEstadoFactura={setEstadoFactura}
+        setEntrega={setEntrega}
+        entrega={entrega}
+      />
+
+      <div className='errorValidation'>
+        {errorsValidation && errorsValidation.map(e => {
+          if (e.nombre == 'estadoFactura') {
+            return (
+              <p key={e.nombre} >{e.mensaje}</p>
+            )
+          }
+        })}
+      </div>
+
+      <hr />
 
       <div className='contBtn contEntradas'>
         <button onClick={handleBack} className='btnVolver' >Volver</button>

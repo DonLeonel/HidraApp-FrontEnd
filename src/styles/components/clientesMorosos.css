@@ -1,0 +1,46 @@
+.contClientesMorosos {
+    text-align: center;
+    padding: 10px;
+
+    .inputEstado {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+
+        & button {
+            color: rgb(255, 255, 255);
+            background-color: rgb(138, 127, 240);
+            padding: 3px;
+            cursor: pointer;
+        }
+
+        & select {
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        h5 {
+            margin-top: 15px;
+        }
+    }
+
+    .contClientes {
+
+        & .datosCliente {
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px black solid;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            & .detalles {
+
+                & span {
+                    font-weight: 100;
+                }
+            }
+        }
+    }
+}

@@ -1,14 +1,20 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import '../../styles/pages/detalleFactura.css'
 import { fetchDataService } from '../../services/apiService'
 import { formatARS } from '../../utils/formatoPrecios'
-
+import { getClassName } from '../../utils/EstadosFactura'
 
 export const DetalleFactura = () => {
 
     const { id } = useParams()
     const [factura, setFactura] = useState(null)
+
+    const navigate = useNavigate()
+
+    const handleBack = () => {
+        navigate(-1); // Esto te lleva a la página anterior
+    };
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -30,7 +36,6 @@ export const DetalleFactura = () => {
     return (
         <div className='contDetalleFactura borLayout'>
             <h4 className='tituloLayout'>Detalle factura</h4>
-
             {
                 factura &&
                 <>
@@ -39,6 +44,8 @@ export const DetalleFactura = () => {
                             <h4>Núm de factura: <span>{factura.id}</span></h4>
                             <h4>Fecha/Hora: <span className='fechaHora'>{factura.fechaHora}</span></h4>
                             <h4>Forma de pago: <span>{factura.formaDePago.nombre}</span></h4>
+                            <h4>Estado: <span className={getClassName(factura.estado)}>{factura.estado}</span>
+                            </h4>
                             {
                                 factura.updatedAt && <h4>Actualizacion: <span className='fechaHora'>{factura.updatedAt}</span></h4>
                             }
@@ -48,7 +55,15 @@ export const DetalleFactura = () => {
                             <h4>Apellido: <span>{factura.cliente.apellido}</span></h4>
                             <h4>Celular: <span>{factura.cliente.celular}</span></h4>
                         </div>
+                    </div>
 
+                    <div className='nota'>
+                        {
+                            factura.entrega &&
+                            <h4>
+                                Entrego: <span>{formatARS(factura.entrega)}</span>,  Debe: <span>{formatARS(factura.total - factura.entrega)}</span>
+                            </h4>
+                        }
                     </div>
 
                     <div className='boxProductos'>
@@ -81,7 +96,7 @@ export const DetalleFactura = () => {
             }
 
             <div className='contBtn contEntradas'>
-                <Link className='btnVolver' to={'/facturas'}>Volver</Link>
+                <button onClick={handleBack} className='btnVolver' >Volver</button>
             </div>
         </div>
     )

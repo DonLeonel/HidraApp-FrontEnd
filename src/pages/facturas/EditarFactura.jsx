@@ -6,7 +6,8 @@ import {
     ProductoVenta,
     ClienteFactura,
     FormaPagoFactura,
-    ProductosFactura
+    ProductosFactura,
+    EstadoFactura
 } from '../../components/index'
 import {
     sonIgualesLasFacturas,
@@ -17,6 +18,7 @@ import {
 import '../../styles/pages/nuevaVenta.css'
 import { armarDetalles } from '../../helpers/DetallesHelper'
 import { formatARS } from '../../utils/formatoPrecios'
+import { getEstadosEditarFactura } from '../../utils/EstadosFactura'
 
 export const EditarFactura = () => {
 
@@ -24,7 +26,10 @@ export const EditarFactura = () => {
     const [facturaAEditar, setFacturaAEditar] = useState(null)
     const [cliente, setCliente] = useState(null)
     const [idFormaDePago, setIdFormaDePago] = useState(null)
+    const [estadoFactura, setEstadoFactura] = useState('')
     const [total, setTotal] = useState(0)
+    
+    const [entrega, setEntrega] = useState(null)
 
     const [errorsValidationFactura, setErrorsValidationFactura] = useState(null)
     const [errorsValidationDetalle, setErrorsValidationDetalle] = useState(null)
@@ -49,52 +54,52 @@ export const EditarFactura = () => {
                 setFacturaAEditar(factura)
                 setCliente(factura.cliente)
                 setIdFormaDePago(factura.formaDePago.id)
+                setEstadoFactura(factura.estado)                              
+                setEntrega(factura.entrega)                
                 factura.detallesFactura.forEach(d => addProducto(d.producto, d.cantidad))
             }
         }
         fetchInfo()
         return () => abortController.abort()
-    }, [])
+    }, [])  
 
     const { productosEnDetalle,
         setCantidad,
-        removeProducto,        
+        removeProducto,
         addProducto
-    } = useProductos()    
+    } = useProductos()
 
     useEffect(() => {
         setTotal(productosEnDetalle
-            .reduce((acum, p) => acum + p.precio * p.cantidad, 0))  
-        handlerChangeDetalle()      
-    }, [productosEnDetalle.cantidad, productosEnDetalle]) //Arreglar esto, no calcula el total cuando se modifica la cantidad.
+            .reduce((acum, p) => acum + p.precio * p.cantidad, 0))
+        handlerChangeDetalle()
+    }, [productosEnDetalle.cantidad, productosEnDetalle])
 
     const handlerSubmitFactura = async (e) => {
         e.preventDefault()
-
-        const errors = validarEntradasFactura({ cliente, idFormaDePago })
+        const errors = validarEntradasFactura({ cliente, idFormaDePago, entrega })
 
         if (errors.length <= 0) {
             const factura = {
                 idCliente: cliente.id,
-                idFormaDePago: idFormaDePago
+                idFormaDePago: idFormaDePago,
+                estado: estadoFactura,
+                entrega
             }
 
-            if (!sonIgualesLasFacturas(facturaAEditar, factura)) {
-                const options = {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(factura)
-                }
-                const { data, error } = await fetchDataService(
-                    { entity: 'factura', id: facturaAEditar.id, options }
-                )
-                error ? console.error(error) : data &&
-                    (window.location.href = `/editar-factura/${data.id}`)
-            } else {
-                setMostrarBtnFactura(true)
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(factura)
             }
+            const { data, error } = await fetchDataService(
+                { entity: 'factura', id: facturaAEditar.id, options }
+            )
+            error ? console.error(error) : data &&
+                (window.location.href = `/editar-factura/${data.id}`)
+
         } else {
             setErrorsValidationFactura(errors);
         }
@@ -111,8 +116,8 @@ export const EditarFactura = () => {
                 }
             })
             await armarDetalles(facturaAEditar.id, facturaAEditar.detallesFactura, detallesFactura) ?
-            (window.location.href = `/editar-factura/${facturaAEditar.id}`) :
-            alert('No se pudo actualizar el detalle')
+                (window.location.href = `/editar-factura/${facturaAEditar.id}`) :
+                alert('No se pudo actualizar el detalle')
 
         } else {
             setErrorsValidationDetalle(errors)
@@ -120,8 +125,10 @@ export const EditarFactura = () => {
     }
 
     const handlerChangeFactura = () => {
-        if (cliente) {
-            !sonIgualesLasFacturas(facturaAEditar, { idCliente: cliente.id, idFormaDePago }) ?
+
+        if (cliente) {                 
+            !sonIgualesLasFacturas(facturaAEditar,
+                { idCliente: cliente.id, idFormaDePago, estado: estadoFactura, entrega }) ?
                 setMostrarBtnFactura(true) : setMostrarBtnFactura(false)
         } else {
             setMostrarBtnFactura(false)
@@ -167,6 +174,17 @@ export const EditarFactura = () => {
                     onChange={handlerChangeFactura}
                 />
 
+                <hr />
+
+                <EstadoFactura
+                    estados={getEstadosEditarFactura()}
+                    estadoFactura={estadoFactura}
+                    setEstadoFactura={setEstadoFactura}
+                    entrega={entrega}
+                    setEntrega={setEntrega}
+                    onChange={handlerChangeFactura}
+                />
+
                 <div className='errorValidation'>
                     {errorsValidationFactura && errorsValidationFactura.map(e => {
                         if (e.nombre == 'formaDePago') {
@@ -183,7 +201,6 @@ export const EditarFactura = () => {
                     </div>
                 }
             </div>
-
 
             <div className='contEditarDetalle borLayout'>
 
@@ -216,7 +233,7 @@ export const EditarFactura = () => {
                             })
                         }
                     </div>
-                    <div className='row-precioTotal'>
+                    <div className='total'>
                         <h4>Total: <span>{formatARS(total)}</span></h4>
                     </div>
 
@@ -230,7 +247,6 @@ export const EditarFactura = () => {
                         })}
                     </div>
                 </div>
-
                 {mostrarBtnDetalle &&
                     <div className='contBtn contEntradas'>
                         <button onClick={handlerSubmitDetalle} className='btnGuardar' type="submit">Actualizar Detalle</button>

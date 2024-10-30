@@ -42,7 +42,7 @@ export const FormaPagoFactura = ({ setIdFormaDePago, idFormaDePago, onChange = n
 
     return (
         <div className='contFormaDepago'>
-            <h4>Agrege una forma de pago.</h4>
+            <h4>Agregue una forma de pago.</h4>
             <form>
                 <select
                     className='selectFormaDePago'

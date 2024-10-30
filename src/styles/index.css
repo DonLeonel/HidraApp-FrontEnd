@@ -23,7 +23,8 @@ body{
 }
 
 .btnVolver{
-    padding: 10px;    
+    padding: 10px; 
+    cursor: pointer;   
 }
 
 
@@ -67,6 +68,7 @@ li button{
 }
 
 .salir{
+    cursor: pointer;
     color: red;
 }
 
@@ -75,4 +77,22 @@ li button{
 .contFooter{
     margin-top: 3px;
     text-align: center;
+}
+
+/*Estados de factura*/
+
+.classPagado{
+    color: rgb(25, 212, 25);
+}
+.classPendiente {    
+    color: orange;
+}
+.classParcialmentePagado{
+    color: rgb(9, 9, 231);
+}
+.classVencido{
+    color: red;
+}
+.classReembolsado{
+    color: blueviolet;
 }

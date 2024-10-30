@@ -4,7 +4,6 @@ import { fetchDataPaginatedService } from '../services/apiService'
 import { useEffect, useState } from 'react'
 import '../styles/components/stock.css'
 
-
 export const Stock = () => {
 
   const paginateInit = { page: 0, size: 10 }

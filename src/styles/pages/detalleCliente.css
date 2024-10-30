@@ -77,29 +77,9 @@
                         font-weight: 100;
                     }
                 }
-            }
-
-            & .boxProductos {
-                margin-top: 5px;
-                border-radius: 5px;
-
-                & table {
-                    width: 100%;
-                    display: table;
-                    border-spacing: 8px;
-                    text-align: left;
-                }
-
-                & .total {
-                    padding: 5px;
-                    text-align: center;
-                }
-            }
-        }
-
+            }            
+        }    
     }
-
-
 }
 
 .contDetalleProducto {

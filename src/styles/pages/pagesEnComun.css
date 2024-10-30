@@ -57,6 +57,7 @@
 
     & button {
         border: none;
+        cursor: pointer;
 
         .borrar {
             width: 19px;
@@ -95,9 +96,10 @@
             border: none;
             border-radius: 5px;
             width: 50px;
+            cursor: pointer;
         }
 
-        & .si{
+        & .si{         
             background-color: red;
         }
 

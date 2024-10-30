@@ -14,3 +14,28 @@
         color: rgb(124, 124, 124);
     }
 }
+
+.classStockMinimo {
+    font-weight: 800;
+    color: red;
+}
+
+.classStockMedio {
+    font-weight: 800;
+    color: orange;
+}
+
+.classStockMedioAlto {
+    font-weight: 800;
+    color: yellow
+}
+
+.classStockAlto {
+    font-weight: 800;
+    color: blue;
+}
+
+.classStockSobrado {
+    font-weight: 800;
+    color: rgb(23, 180, 23);
+}

@@ -1,14 +1,12 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard'
-import { Footer, MenuUsuario, RecaudacionPorDia, BuscarPorEstados, RecaudacionEntreFechas } from './components/index'
+import { Footer, MenuUsuario, RecaudacionPorDia, RecaudacionEntreFechas, BusquedaPorEstado, ClientesMorosos } from './components/index'
 import { Clientes, NuevoCliente, EditarCliente, DetalleCliente } from './pages/clientes/index'
 import { Productos, NuevoProducto, DetalleProducto, EditarProducto } from './pages/productos/index'
 import { Categorias, NuevaCategoria, EditarCategoria } from './pages/categorias/index'
 import { Facturas, NuevaFactura, DetalleFactura, EditarFactura } from './pages/facturas/index'
 import { Reportes, ReportesClientes, ReportesFacturas, ReportesProductos } from './pages/reportes/index'
-
-
 
 export const AppRouter = () => {
   return (
@@ -39,11 +37,11 @@ export const AppRouter = () => {
         <Route path='/reportes' element={<Reportes />}>
           <Route path='facturas' element={<ReportesFacturas />} >
             <Route path='recaudacion-por-dia' element={<RecaudacionPorDia />} />
-            <Route path='recaudacion-entre-fechas' element={<RecaudacionEntreFechas />} />            
-            <Route path='buscar-por-estados' element={<BuscarPorEstados />} />
+            <Route path='recaudacion-entre-fechas' element={<RecaudacionEntreFechas />} />
+            <Route path='busqueda-por-estados' element={<BusquedaPorEstado />} />
           </Route>
           <Route path='clientes' element={<ReportesClientes />} >
-
+            <Route path='morosos' element={<ClientesMorosos />} />
           </Route>
           <Route path='productos' element={<ReportesProductos />} >
 
