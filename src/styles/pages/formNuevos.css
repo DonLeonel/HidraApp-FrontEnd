@@ -27,35 +27,18 @@
 
 }
 
-.contBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+& .btnGuardar {
+    cursor: pointer;
+    border: none;
     padding: 10px;
-    text-align: center;
-    margin: 10px auto;
+    border-radius: 8px;
+    background-color: rgb(107, 107, 243);
+}
 
-    & .btnVolver {
-        border: none;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: rgb(209, 209, 209)
-    }
-
-    & .btnGuardar {
-        cursor: pointer;
-        border: none;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: rgb(107, 107, 243);
-    }
-
-    & .btnCancelar {
-        cursor: pointer;
-        border: none;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: rgb(255, 72, 0);        
-    }
+& .btnCancelar {
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: rgb(255, 72, 0);
 }

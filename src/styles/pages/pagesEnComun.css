@@ -1,3 +1,10 @@
+.contReportes
+{
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+}
+
 .contBusquedaYNvo {
     display: flex;
     justify-content: space-around;
@@ -7,6 +14,7 @@
 
     & .search {
         position: relative;
+        width: 50%;
 
         & .lupita {
             border: none;
@@ -20,6 +28,7 @@
         }
 
         .inputFiltro {
+            width: 100%;
             border: none;
             border-radius: 10px;
             background-color: rgb(209, 209, 209);
@@ -30,7 +39,11 @@
 
 .btnNuevo {
     text-decoration: none;
-    color: blue;
+    color: blue;    
+}
+
+.tituloComponent{
+    font-size: 0.85rem;
 }
 
 .tablePages {
@@ -106,6 +119,28 @@
         & .no{
             background-color: greenyellow;
         }
+    }
+}
+
+.contBtnOrderCliente{
+    text-align: center;   
+    
+    & button{
+        padding: 5px;
+        margin: 0 0 5px 5px;
+        border-radius: 5px;
+        border: none;  
+        cursor: pointer;     
+    }
+
+    & .guardar{         
+        background-color: greenyellow;
+        color: black;
+    }
+
+    & .cancelar{
+        background-color: red;
+        color: white;
     }
 }
 

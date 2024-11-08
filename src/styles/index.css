@@ -1,16 +1,22 @@
-*{
+* {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;    
+    box-sizing: border-box;
 }
 
-body{
+.grid{
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto; 
+}
+
+body {
     background-color: rgb(209, 209, 209);
-    margin: 1px;
+    margin: 1px; 
 }
 
 /* estilos para los box layout */
-.borLayout{
+.borLayout {
     border: none;
     border-radius: 10px;
     padding: 10px;
@@ -18,27 +24,29 @@ body{
     margin: 3px;
 }
 
-.tituloLayout{
-    text-align: left;    
+.tituloLayout {
+    text-align: left;
+    font-size: 0.9rem;
 }
 
-.btnVolver{
-    padding: 10px; 
-    cursor: pointer;   
+.btnVolver {
+    padding: 10px;
+    cursor: pointer;
 }
 
 
-/*estilos para quitar stylos de lsitas*/
-.li-noStyle{
+/*estilos para quitar stylos de listas*/
+.li-noStyle {
     list-style: none;
 }
 
-.noDecoration , .btnVolver{
+.noDecoration,
+.btnVolver {
     text-decoration: none;
     color: black;
 }
 
-li button{
+li button {
     border: none;
     background: none;
     text-transform: uppercase;
@@ -46,53 +54,68 @@ li button{
 
 /*estilos para menuUsuario*/
 
-.headerNav{
-    display: flex;    
-    flex-wrap: wrap;    
+.headerNav {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.contLogo{      
+.contLogo {
     text-align: center;
     width: 60%;
-    padding-top: 13px;        
+    padding-top: 13px;
 }
 
-.contOpcUser{    
+.contOpcUser {
     flex-grow: 1;
+    align-content: center;
 }
 
-.ulFlexRow{
+.ulFlexRow {
     display: flex;
     justify-content: space-around;
-    align-items: center;       
+    align-items: center;
 }
 
-.salir{
+.salir {
     cursor: pointer;
     color: red;
 }
 
+.link{
+    text-decoration: none;
+}
+
+.ingresar {    
+    text-transform: uppercase;
+    cursor: pointer;
+    color: blue;
+}
+
 /*estilos para el footer*/
 
-.contFooter{
+.contFooter {
     margin-top: 3px;
     text-align: center;
 }
 
 /*Estados de factura*/
 
-.classPagado{
+.classPagado {
     color: rgb(25, 212, 25);
 }
-.classPendiente {    
+
+.classPendiente {
     color: orange;
 }
-.classParcialmentePagado{
+
+.classParcialmentePagado {
     color: rgb(9, 9, 231);
 }
-.classVencido{
+
+.classVencido {
     color: red;
 }
-.classReembolsado{
+
+.classReembolsado {
     color: blueviolet;
 }

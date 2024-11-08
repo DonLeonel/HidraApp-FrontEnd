@@ -1,13 +1,11 @@
-import '../styles/components/recaudacionEntreFechas.css'
 import { InputFechaRep } from './InputFechaRep'
 import { useState, useEffect } from 'react'
-import { obtenerFechaActual } from '../utils/formatoFecha'
-import { fetchDataService } from '../services/apiService'
+import { fetchDataService } from '../services'
 import { BoxRecaudacion } from './BoxRecaudacion'
-import { formatARS } from '../utils/formatoPrecios'
-import { getClassName } from '../utils/EstadosFactura'
+import { getClassNameEstado, formatARS, obtenerFechaActual } from '../utils'
+import '../styles/components/recaudacionEntreFechas.css'
 
-export const RecaudacionEntreFechas = () => {
+const RecaudacionEntreFechas = () => {
 
     const [data, setData] = useState(null)
     const [fechaActual, setFechaActual] = useState('')
@@ -117,7 +115,7 @@ export const RecaudacionEntreFechas = () => {
                                                 <h4>Fecha/Hora: <span className='fechaHora'>{f.fechaHora}</span></h4>
                                                 <h4>Cliente: <span className='cliente'>{`${f.cliente.nombre} ${f.cliente.apellido}`}</span></h4>
                                                 <h4>Forma de pago: <span>{f.formaDePago.nombre.toUpperCase()}</span></h4>
-                                                <h4>Estado: <span className={getClassName(f.estado)}>{f.estado.toUpperCase()}</span></h4>
+                                                <h4>Estado: <span className={getClassNameEstado(f.estado)}>{f.estado.toUpperCase()}</span></h4>
                                                 {
                                                     f.updatedAt && <h4>Actualizacion: <span className='fechaHora'>{f.updatedAt}</span></h4>
                                                 }
@@ -159,3 +157,5 @@ export const RecaudacionEntreFechas = () => {
         </div>
     )
 }
+
+export default RecaudacionEntreFechas

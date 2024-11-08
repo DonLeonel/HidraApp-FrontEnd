@@ -40,7 +40,7 @@ export const Stock = () => {
 
   return (
     <div className='contStock borLayout'>
-      <h4>Stock disponible</h4>
+      <h4 className='tituloLayout'>Stock disponible</h4>
 
       <section className='cont-box'>
 

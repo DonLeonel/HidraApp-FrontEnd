@@ -1,16 +1,12 @@
 export const getEstadosEditarFactura = () => {
-    const estados = ['PAGADO', 'PENDIENTE', 'PARCIALMENTE_PAGADO',
+    return ['PAGADO', 'PENDIENTE', 'PARCIALMENTE_PAGADO',
         'VENCIDO', 'REEMBOLSADO', 'ESPERANDO_CONFIRMACION']
-
-    return estados
 }
 export const getEstadosNvaFactura = () => {
-    const estados = ['PAGADO', 'PENDIENTE', 'PARCIALMENTE_PAGADO', 'ESPERANDO_CONFIRMACION']
-
-    return estados
+    return ['PAGADO', 'PENDIENTE', 'PARCIALMENTE_PAGADO', 'ESPERANDO_CONFIRMACION']
 }
 
-export const getClassName = (estado) => {
+export const getClassNameEstado = (estado) => {
     switch (estado) {
         case 'PAGADO':
             return 'classPagado'

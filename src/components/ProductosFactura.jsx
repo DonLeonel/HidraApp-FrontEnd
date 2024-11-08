@@ -35,7 +35,7 @@ export const ProductosFactura = ({ addProducto }) => {
 
     return (
         <div className='contProductos'>
-            <h4>Agregue los productos al detalle.</h4>
+            <h4 className="tituloComponent">Agregue los productos al detalle.</h4>
             <div className='contBox'>
                 {loading ?
                     <>

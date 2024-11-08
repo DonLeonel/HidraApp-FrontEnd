@@ -2,7 +2,7 @@ import { useState, useEffect, useImperativeHandle, forwardRef, useRef } from "re
 import { useSearchDinamic } from "../hooks"
 import { fetchDataPaginatedService, fetchDataService } from "../services/apiService"
 
-export const ClienteFactura = forwardRef(({ idCliente = null,setCliente, cliente, onChange = null }, ref) => {
+export const ClienteFactura = forwardRef(({ idCliente = null, setCliente, cliente, onChange = null }, ref) => {
 
     const paginate = { page: 0, size: 100 }
     const [clientes, setClientes] = useState([])
@@ -26,10 +26,19 @@ export const ClienteFactura = forwardRef(({ idCliente = null,setCliente, cliente
     useEffect(() => {
         const abortController = new AbortController()
         const { signal } = abortController
-
         const options = {
             signal
         }
+        if (idCliente) {        
+            
+            const fetchInfo = async () => {
+                const { data: cliente, error } = await fetchDataService(
+                    { entity: `cliente/${idCliente}`, options }
+                )
+                error ? console.log(error) : setCliente(cliente)
+            }
+            fetchInfo()            
+        }        
         const fetchInfo = async () => {
             const { content: clientes, error } = await fetchDataPaginatedService(
                 { entity: 'cliente', paginate, options }
@@ -38,47 +47,24 @@ export const ClienteFactura = forwardRef(({ idCliente = null,setCliente, cliente
 
         }
         fetchInfo()
-        return () => abortController.abort()
-    }, [])
 
-    useEffect(() => { 
-        if(idCliente){
-            const abortController = new AbortController()
-            const { signal } = abortController
-    
-            const options = {
-                signal
-            }
-            const fetchInfo = async () => {
-                const { data: cliente, error } = await fetchDataService(
-                    { entity: `cliente/${idCliente}`, options }
-                )
-                error ? console.log(error) : setCliente(cliente)
-    
-            }
-            fetchInfo()
-            return () => abortController.abort()
-        }       
-    }, [])
+        return () => abortController.abort()
+    }, [])    
 
     const isFirstRender = useRef(true);
 
     useEffect(() => {
-        if (isFirstRender.current) {            
+        if (isFirstRender.current) {
             isFirstRender.current = false;
             return;
         }
-        cliente && handlerChange()    
-    }, [cliente])
-
-    const handlerChange = () => {       
-        onChange && onChange()
-    }
+        cliente && onChange && onChange()
+    }, [cliente])   
 
     return (
         cliente ?
             <div className='contClienteSeleccionado'>
-                <h4>Cliente seleccionado:</h4>
+                <h4 className="tituloComponent">Cliente seleccionado:</h4>
                 <div className='flex'>
                     <div className='datosCliente'>
                         <h4>Nombre: <span>{cliente.nombre}</span></h4>
@@ -88,7 +74,6 @@ export const ClienteFactura = forwardRef(({ idCliente = null,setCliente, cliente
                     <button onClick={resetCliente} className='btnResetearCliente'>Cambiar</button>
                 </div>
             </div>
-
             :
 
             <div className='contBusquedaCliente'>

@@ -17,7 +17,7 @@ export const fetchDataPaginatedService = async ({ entity, paginate, options = {}
 export const fetchDataService = async ({ entity, id = null, options = {} }) => {
     try {
         const url = id ? `${API_URL}${entity}/${id}` : `${API_URL}${entity}`
-        const { data, error } = await fetchData({ url, options })        
+        const { data, error } = await fetchData({ url, options })
         if (error) {
             throw new Error(error)
         }
@@ -30,16 +30,15 @@ export const fetchDataService = async ({ entity, id = null, options = {} }) => {
 const fetchData = async ({ url, options = {} }) => {
     try {
         const response = await fetch(url, options)
-        if (!response.ok) {            
+        if (!response.ok) {
             const errorJson = await response.json()
             if (errorJson.code == 400) {
                 throw new Error(`\nStatus Code ${errorJson.code} - ${errorJson.status} -\n${errorJson.errors.join('\n')}`)
             }
             throw new Error(`\nStatus ${errorJson.status} - ${errorJson.message}`)
-        }
-        
-        const data = await response.json()                  
-
+        } 
+        const data = await response.json()   
+               
         return { data, error: null }
     } catch (error) {
         if (error.name === 'AbortError') {

@@ -1,13 +1,10 @@
-import '../styles/components/busquedaPorEstado.css'
-import { useEffect } from 'react'
-import { useState } from 'react'
-import { getClassName, getEstadosEditarFactura } from '../utils/EstadosFactura'
-import { fetchDataService } from '../services/apiService'
+import { useState, useEffect } from 'react'
+import { getClassNameEstado, getEstadosEditarFactura, formatARS } from '../utils'
+import { fetchDataService } from '../services'
 import { BoxRecaudacion } from './BoxRecaudacion'
-import { formatARS } from '../utils/formatoPrecios'
+import '../styles/components/busquedaPorEstado.css'
 
-
-export const BusquedaPorEstado = () => {
+const BusquedaPorEstado = () => {
 
     const [estados, setEstados] = useState([])
     const [inputEstado, setInputEstado] = useState('');
@@ -108,7 +105,13 @@ export const BusquedaPorEstado = () => {
                                                 <h4>Fecha/Hora: <span className='fechaHora'>{f.fechaHora}</span></h4>
                                                 <h4>Cliente: <span className='cliente'>{`${f.cliente.nombre} ${f.cliente.apellido}`}</span></h4>
                                                 <h4>Forma de pago: <span>{f.formaDePago.nombre.toUpperCase()}</span></h4>
-                                                <h4>Estado: <span className={getClassName(f.estado)}>{f.estado.toUpperCase()}</span></h4>
+                                                <h4>Estado: <span className={getClassNameEstado(f.estado)}>{f.estado.toUpperCase()}</span></h4>
+                                                {f.entrega &&
+                                                    <div className='nota'>
+                                                        <h4>Entrego: <span>{formatARS(f.entrega)}</span> </h4>
+                                                        <h4>Debe: <span>{formatARS(f.total - f.entrega)}</span></h4>
+                                                    </div>
+                                                }
                                                 {
                                                     f.updatedAt && <h4>Actualizacion: <span className='fechaHora'>{f.updatedAt}</span></h4>
                                                 }
@@ -150,3 +153,5 @@ export const BusquedaPorEstado = () => {
         </div>
     )
 }
+
+export default BusquedaPorEstado

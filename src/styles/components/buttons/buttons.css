@@ -1,0 +1,38 @@
+.contButtonVolver {
+    margin: 1rem;
+    text-align: center;
+}
+
+.contButtonGuardarVolver {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.buttonGuardar,
+.buttonVolver,
+.buttonCancelar {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.buttonVolver {
+    background-color: rgb(230, 230, 230);
+}
+
+.buttonVolver:hover {
+    background-color: rgb(190, 190, 190);
+    border: solid 0.1px;
+}
+
+.buttonGuardar {
+    background-color: rgb(107, 107, 243);
+}
+
+.buttonGuardar:hover {
+    background-color: rgb(131, 179, 252);
+    border: solid 0.5px;
+}

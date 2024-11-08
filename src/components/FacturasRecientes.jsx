@@ -4,6 +4,7 @@ import '../styles/components/facturasRecientes.css'
 import { useState, useEffect } from 'react'
 import { formatARS } from '../utils/formatoPrecios'
 import { TableRowLoading } from './loading/TableRowLoading'
+import { RoutesPrivadas } from '../utils/router'
 
 
 export const FacturasRecientes = () => {
@@ -36,7 +37,7 @@ export const FacturasRecientes = () => {
     fetchInfo()
     return () => abortController.abort()
   }, [])
-  
+
   return (
     <div className='contFacturas borLayout'>
       <h4 className='tituloLayout'>Últimas facturas realizádas</h4>
@@ -51,8 +52,8 @@ export const FacturasRecientes = () => {
           </tr>
         </thead>
         <tbody className='tableBody'>
-          {loading ?            
-            <TableRowLoading 
+          {loading ?
+            <TableRowLoading
               cantFilas={5}
               cantTd={4}
             />
@@ -64,7 +65,12 @@ export const FacturasRecientes = () => {
                   <td><span className='fechaHora'>{f.fechaHora}</span></td>
                   <td>{formatARS(f.total)}</td>
                   <td className='tdFlex'>
-                    <Link title='detalle' to={'/detalle-factura/' + f.id}><img className='detalle' src='/icons-app/ojo.png' alt='ver detalle' /></Link>
+                    <Link
+                      title='detalle'
+                      to={`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.DETALLE}/${f.id}`}
+                    >
+                      <img className='detalle' src='/icons-app/ojo.png' alt='ver detalle' />
+                    </Link>
                   </td>
                 </tr>)
             })}

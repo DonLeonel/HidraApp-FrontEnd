@@ -20,7 +20,7 @@ export const EstadoFactura = ({ estados, estadoFactura,
 
     return (
         <div className='contEstadoFactura'>
-            <h4>Seleccione un estado.</h4>
+            <h4 className="tituloComponent">Seleccione un estado.</h4>
             <form>
                 <select
                     className='selectEstadoFactura'

@@ -4,7 +4,7 @@ import { fetchDataService } from "../services/apiService"
 import { formatARS } from '../utils/formatoPrecios'
 import '../styles/components/clientesMorosos.css'
 
-export const ClientesMorosos = () => {
+const ClientesMorosos = () => {
   const [data, setData] = useState(null);
   const [mostrarClientes, setMostrarClientes] = useState(false)
   const [busquedaRealizada, setBusquedaRealizada] = useState(false)
@@ -82,3 +82,5 @@ export const ClientesMorosos = () => {
     </div>
   )
 }
+
+export default ClientesMorosos

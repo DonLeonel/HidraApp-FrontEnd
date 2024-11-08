@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import '../styles/components/navMenuRep.css'
-import { useState } from 'react';
+import { useState } from 'react'
+import { RoutesPrivadas } from '../utils/router'
+
 export const NavMenuRep = () => {
 
     const [selected, setSelected] = useState('')
@@ -14,7 +16,7 @@ export const NavMenuRep = () => {
             <ul>
                 <li className='li'>
                     <Link
-                        to='/reportes/facturas'
+                        to={RoutesPrivadas.FACTURAS}
                         name='facturas'
                         className={`noDecoration btnMenu ${selected == 'facturas' ? 'selected' : ''}`}
                         onClick={handlerClick}
@@ -24,7 +26,7 @@ export const NavMenuRep = () => {
                 </li>
                 <li className='li'>
                     <Link
-                        to='/reportes/clientes'
+                        to={RoutesPrivadas.CLIENTES}
                         name='clientes'
                         className={`noDecoration btnMenu ${selected == 'clientes' ? 'selected' : ''}`}
                         onClick={handlerClick}
@@ -34,7 +36,7 @@ export const NavMenuRep = () => {
                 </li>
                 <li className='li'>
                     <Link
-                        to='/reportes/productos'
+                        to={RoutesPrivadas.PRODUCTOS}
                         name='productos'
                         className={`noDecoration btnMenu ${selected == 'productos' ? 'selected' : ''}`}
                         onClick={handlerClick}

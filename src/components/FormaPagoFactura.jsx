@@ -32,17 +32,12 @@ export const FormaPagoFactura = ({ setIdFormaDePago, idFormaDePago, onChange = n
             isFirstRender.current = false;
             return;
         }
-
-        idFormaDePago && handlerOnChange();
-    }, [idFormaDePago])
-
-    const handlerOnChange = () => {
-        onChange && onChange()
-    }
+        idFormaDePago && onChange && onChange();
+    }, [idFormaDePago])    
 
     return (
         <div className='contFormaDepago'>
-            <h4>Agregue una forma de pago.</h4>
+            <h4 className='tituloComponent'>Agregue una forma de pago.</h4>
             <form>
                 <select
                     className='selectFormaDePago'

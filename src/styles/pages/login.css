@@ -1,0 +1,63 @@
+.contLogin {
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgb(101, 101, 235);
+    display: flex;
+    justify-content: center;   
+
+    & .boxLogin {
+        padding: 2rem 3rem 3rem 3rem;
+        width: 60%;
+        margin: auto;
+        border: black 2px solid;               
+
+        & .logoLogin {          
+            margin-bottom: 10px;    
+            img {                
+                width: 100%;                
+            }
+        }
+
+        & form {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 1.5rem;
+
+            & div {
+                margin: auto;
+                position: relative;
+
+                & label {
+                    position: absolute;
+                    left: 53px;                    
+                    padding: 2px;
+                    transition: 0.5s ease;                   
+                }
+
+                & input:focus + label,
+                & input:not(:placeholder-shown) + label {
+                    top: -15px; /* Ajusta la posición cuando está en foco */
+                    font-size: 0.9em; /* Opcional: reduce tamaño */
+                    
+                }
+                & input{
+                    padding: 2px;
+                }
+
+                & button {
+                    margin-top: 1rem;
+                    padding: 8px;
+                    border-radius: 5px;
+                    border: none;
+                    background-color: rgb(30, 60, 230);
+                    color: white;
+                }
+
+                & button:hover{
+                    background-color: rgb(101, 197, 235);
+                }
+            }
+        }
+    }
+}

@@ -1,13 +1,11 @@
-import { fetchDataService } from '../services/apiService'
-import '../styles/components/recaudacionPorDia.css'
+import { fetchDataService } from '../services'
 import { useState, useEffect } from 'react'
-import { obtenerFechaActual } from '../utils/formatoFecha'
-import { getClassName } from '../utils/EstadosFactura'
-import { formatARS } from '../utils/formatoPrecios'
+import { obtenerFechaActual, formatARS, getClassNameEstado } from '../utils'
 import { BoxRecaudacion } from './BoxRecaudacion'
 import { InputFechaRep } from './InputFechaRep'
+import '../styles/components/recaudacionPorDia.css'
 
-export const RecaudacionPorDia = () => {
+const RecaudacionPorDia = () => {
     const [data, setData] = useState(null)
     const [fechaInput, setFechaInput] = useState('')
     const [fechaActual, setFechaActual] = useState('')
@@ -67,7 +65,7 @@ export const RecaudacionPorDia = () => {
 
             {data &&
                 <div className='reporte'>
-                    <hr />                    
+                    <hr />
                     <section className='contTotales'>
                         <BoxRecaudacion nombre={'Cant. de facturas'} total={data.facturas.length} />
                         <BoxRecaudacion nombre={'Total en Cheques'} total={formatARS(data.totalCheque)} />
@@ -103,7 +101,7 @@ export const RecaudacionPorDia = () => {
                                                 <h4>Fecha/Hora: <span className='fechaHora'>{f.fechaHora}</span></h4>
                                                 <h4>Cliente: <span className='cliente'>{`${f.cliente.nombre} ${f.cliente.apellido}`}</span></h4>
                                                 <h4>Forma de pago: <span>{f.formaDePago.nombre.toUpperCase()}</span></h4>
-                                                <h4>Estado: <span className={getClassName(f.estado)}>{f.estado.toUpperCase()}</span></h4>
+                                                <h4>Estado: <span className={getClassNameEstado(f.estado)}>{f.estado.toUpperCase()}</span></h4>
                                                 {
                                                     f.updatedAt && <h4>Actualizacion: <span className='fechaHora'>{f.updatedAt}</span></h4>
                                                 }
@@ -146,3 +144,5 @@ export const RecaudacionPorDia = () => {
         </div>
     )
 }
+
+export default RecaudacionPorDia
