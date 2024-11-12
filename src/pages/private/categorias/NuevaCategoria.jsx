@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom';
 import { useForm } from '../../../hooks';
 import { useMemo } from 'react';
 import { fetchDataService } from '../../../services';
+import { ButtonGuardar, ButtonVolver } from '../../../components';
+import { useNavigate } from 'react-router-dom';
+import { RoutesPrivadas } from '../../../utils';
 import '../../../styles/pages/formNuevos.css'
 
 const NuevaCategoria = () => {
+
+    const navigate = useNavigate()
 
     const handlerSubmit = async (e) => {
         e.preventDefault()
@@ -16,7 +20,9 @@ const NuevaCategoria = () => {
             body: JSON.stringify(formState)
         }
         const { data, error } = await fetchDataService({ entity: 'categoria', options })
-        error ? console.error(error) : data && (window.location.href = '/categorias')
+        error ? console.error(error) :
+            data &&
+            navigate(`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.CATEGORIAS}`, { replace: true })
     }
 
     const initialForm = useMemo(() =>
@@ -49,9 +55,9 @@ const NuevaCategoria = () => {
                     />
                 </div>
 
-                <div className='contBtn contEntradas'>
-                    <Link className='btnVolver' to={'/categorias'}>Volver</Link>
-                    <button className='btnGuardar' type="submit">Guardar</button>
+                <div className='contButtonVolverGuardar'>
+                    <ButtonVolver />
+                    <ButtonGuardar handlerSubmit={handlerSubmit} />
                 </div>
             </form>
         </div>

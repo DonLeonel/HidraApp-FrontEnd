@@ -1,16 +1,19 @@
 import { useParams } from 'react-router-dom'
 import { fetchDataService } from '../../../services'
 import { useState, useEffect } from 'react'
-import { formatARS, getClassNameEstado } from '../../../utils'
-import { ButtonVolver } from '../../../components/buttons'
-import '../../../styles/pages/detalleCliente.css'
+import { Role } from '../../../utils'
+import { ButtonVerOcultar, ButtonVolver, FacturaHistorial, Loading, TableRowLoading } from '../../../components'
+import { useSelector } from 'react-redux'
+import '../../../styles/pages/detalles.css'
 
 const DetalleCliente = () => {
 
+    const userState = useSelector((state) => state.user)
     const { id } = useParams()
     const [cliente, setCliente] = useState(null)
     const [facturas, setFacturas] = useState([])
     const [mostrarHistorial, setMostrarHistorial] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -23,7 +26,11 @@ const DetalleCliente = () => {
             const { data: cliente, error } = await fetchDataService(
                 { entity: 'cliente', id, options }
             )
-            error ? console.error(error) : setCliente(cliente)
+            if (error) console.error(error)
+            else {
+                setCliente(cliente)
+                setLoading(false)
+            }
         }
         fetchInfo()
         return () => abortController.abort()
@@ -48,7 +55,7 @@ const DetalleCliente = () => {
         }
     }, [mostrarHistorial])
 
-    const handlerHistorial = () => {
+    const handleHistorial = () => {
         mostrarHistorial ?
             setMostrarHistorial(false)
             : setMostrarHistorial(true)
@@ -58,10 +65,22 @@ const DetalleCliente = () => {
         <div className='contDetalleCliente borLayout'>
             <h4 className='tituloLayout'>Detalle Cliente</h4>
 
-            {
+            {loading ?
+                <>
+                    <Loading
+                        width={'98%'}
+                        height={'20%'}
+                        margin={'10px auto'}
+                    />
+                    <Loading
+                        width={'98%'}
+                        height={'13%'}
+                        margin={'1rem auto'}
+                    />
+                </> :
                 cliente &&
                 <>
-                    <div className='datosCliente'>
+                    <section className='datosCliente'>
                         <div className='detalles'>
                             <h4>Id: <span>{cliente.id}</span></h4>
                             <h4>Nombre: <span>{cliente.nombre}</span></h4>
@@ -72,10 +91,11 @@ const DetalleCliente = () => {
                             <h4>Barrio: <span>{cliente.barrio.nombre}</span></h4>
                             <h4>Cant. Compras: <span>{cliente.cantCompras}</span></h4>
                             {
-                                cliente.updatedAt && <h4>Actualizado: <span className='fechaHora'>{cliente.updatedAt}</span></h4>
+                                cliente.updatedAt && userState.role === Role.ADMIN &&
+                                <h4>Actualizado: <span className='fechaHora'>{cliente.updatedAt}</span></h4>
                             }
                         </div>
-                    </div>
+                    </section>
                     {
                         cliente.ubicacion &&
                         <div className='datoUbicacion'>
@@ -85,13 +105,12 @@ const DetalleCliente = () => {
                     }
 
                     {cliente.cantCompras > 0 &&
-                        <div className='contBtnVerHistorial'>
-                            <button
-                                className='btnVerHistorial'
-                                onClick={handlerHistorial}
-                            >
-                                {mostrarHistorial ? 'Ocultar historial' : ' Ver Historial'}
-                            </button>
+                        <div className='contButtonVerOcultar'>
+                            <ButtonVerOcultar
+                                text={'Historial'}
+                                handleVerOcultar={handleHistorial}
+                                ver={mostrarHistorial}
+                            />
                         </div>
                     }
 
@@ -100,55 +119,16 @@ const DetalleCliente = () => {
                             mostrarHistorial &&
                             facturas.map(f => {
                                 return (
-                                    <div
-                                        className='facturas'
+                                    <FacturaHistorial
                                         key={f.id}
-                                    >
-                                        <div className='boxDetalles'>
-                                            <div className='infoFactura'>
-                                                <h4>Núm de factura: <span>{f.id}</span></h4>
-                                                <h4>Fecha/Hora: <span className='fechaHora'>{f.fechaHora}</span></h4>
-                                                <h4>Forma de pago: <span>{f.formaDePago.nombre.toUpperCase()}</span></h4>
-                                                <h4>Estado: <span className={getClassNameEstado(f.estado)}>{f.estado.toUpperCase()}</span></h4>
-                                                {
-                                                    f.updatedAt && <h4>Actualizacion: <span className='fechaHora'>{f.updatedAt}</span></h4>
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className='boxProductos'>
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                        <th>Producto</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Subtotal</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {f.detallesFactura.map(d => {
-                                                        return (
-                                                            <tr key={d.id}>
-                                                                <td>{d.producto.nombre}</td>
-                                                                <td>{d.cantidad}</td>
-                                                                <td>{formatARS(d.subTotal)}</td>
-                                                            </tr>
-                                                        )
-                                                    })}
-                                                </tbody>
-                                            </table>
-                                            <hr />
-                                            <div className='total'>
-                                                <h4>Total: {formatARS(f.total)}</h4>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        f={f}
+                                    />
                                 )
                             })
                         }
                     </div>
                 </>
             }
-
             <div className='contButtonVolver'>
                 <ButtonVolver />
             </div>

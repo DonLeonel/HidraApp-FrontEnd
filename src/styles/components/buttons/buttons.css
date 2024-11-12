@@ -3,11 +3,24 @@
     text-align: center;
 }
 
-.contButtonGuardarVolver {
+.contButtonVerOcultar {
+    text-align: center;
+    padding: 15px;    
+}
+
+.contButtonVolverGuardar,
+.contButtonVolverCancelarGuardar {
     margin-top: 1.5rem;
     display: flex;
     gap: 1rem;
     justify-content: center;
+}
+
+.buttonVerOcultar {
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
 }
 
 .buttonGuardar,
@@ -17,6 +30,15 @@
     border-radius: 5px;
     border: none;
     cursor: pointer;
+}
+
+.buttonCancelar {
+    background-color: rgb(255, 72, 0);
+}
+
+.buttonCancelar:hover{
+    background-color: rgb(253, 135, 88);
+    border: solid 0.1px;
 }
 
 .buttonVolver {

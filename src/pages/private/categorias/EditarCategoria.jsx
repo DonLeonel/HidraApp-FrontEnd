@@ -1,7 +1,9 @@
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useForm } from '../../../hooks'
 import { fetchDataService } from '../../../services'
 import { useState, useEffect } from 'react'
+import { ButtonGuardar, ButtonVolver } from '../../../components'
+import '../../../styles/pages/formNuevos.css'
 
 const EditarCategoria = () => {
 
@@ -43,16 +45,17 @@ const EditarCategoria = () => {
       body: JSON.stringify(formState)
     }
     const { data, error } = await fetchDataService({ entity: 'categoria', id: formState.id, options })
-    error ? console.error(error) : data && (window.location.href = '/categorias')
+    error ? console.error(error) :
+      data && alert('Se edito correctamente el Barrio')
   }
 
   return (
-    <div className='contNuevaCategoria borLayout'>
+    <div className='contEditarCategoria borLayout'>
       <h4 className='tituloLayout'>Editar Categoría</h4>
 
       {
         formState &&
-        <form onSubmit={handlerSubmit} className='formNvo' action='' id='formulario'>
+        <form onSubmit={handlerSubmit} className='formNvo' id='formulario'>
           <div className='contEntradas'>
             <label htmlFor="nombre">Nombre</label>
             <input
@@ -74,9 +77,9 @@ const EditarCategoria = () => {
             />
           </div>
 
-          <div className='contBtn contEntradas'>
-            <Link className='btnVolver' to={'/categorias'}>Volver</Link>
-            <button className='btnGuardar' type="submit">Guardar</button>
+          <div className='contButtonVolverGuardar'>
+            <ButtonVolver />
+            <ButtonGuardar handlerSubmit={handlerSubmit} />
           </div>
         </form>
       }

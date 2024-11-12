@@ -1,7 +1,8 @@
 
 import { useState, useEffect } from 'react';
+import { fetchDataService } from '../services';
 
-export const useEliminar = (entidad, url) => {
+export const useEliminar = (entidad, { setRecargar }) => {
     const [deseaBorrar, setDeseaBorrar] = useState(false);
     const [mostrarDialogo, setMostrarDialogo] = useState(false);
     const [idEntidadABorrar, setIdEntidadABorrar] = useState(null);
@@ -13,32 +14,31 @@ export const useEliminar = (entidad, url) => {
 
     useEffect(() => {
         if (deseaBorrar && idEntidadABorrar !== null) {
-            /*fetch('', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }                
-            })
-            .then(response => response.json())
-            .then(data => {                
-                console.log('Cliente eliminado', data);                
-            })
-            .catch(error => {
-                console.error('Error al eliminar el '+ entidad, error);
-            })
-            .finally(() => {
+
+            const abortController = new AbortController()
+            const { signal } = abortController
+
+            const options = {
+                signal,
+                method: 'DELETE'
+            }
+            const fetchInfo = async () => {
+                const { data, error } = await fetchDataService(
+                    { entity: entidad, id: idEntidadABorrar, options }
+                )
                 setMostrarDialogo(false)
                 setDeseaBorrar(false)
                 setIdEntidadABorrar(null)
-            });
-            */
-            console.log(idEntidadABorrar);
-            setMostrarDialogo(false)
-            setDeseaBorrar(false)
-            setIdEntidadABorrar(null)
+                alert(`Operacion exitosa, se elimino ${entidad}`)
+                setRecargar(true)
+            }
+            fetchInfo()
+            return () => {
+                abortController.abort()
+                setRecargar(false)
+            }
         }
     }, [deseaBorrar, idEntidadABorrar])
-
 
     return {
         iniciarEliminacion,

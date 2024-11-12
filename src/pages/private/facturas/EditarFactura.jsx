@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useProductos } from '../../../hooks'
 import { fetchDataService } from '../../../services'
 import {
-    ProductoVenta, ClienteFactura,
+    ProductoVenta, ClienteFactura, ButtonVolver,
     FormaPagoFactura, ProductosFactura, EstadoFactura
 } from '../../../components'
 import {
@@ -247,10 +247,10 @@ const EditarFactura = () => {
                     </div>
                 }
 
+                <div className='contButtonVolver'>
+                    <ButtonVolver />
+                </div>
             </div >
-            <div className='ContBtnVolver borLayout'>
-                <Link className='btnVolverFactura' to={'/facturas'}>Volver</Link>
-            </div>
         </>
     )
 }

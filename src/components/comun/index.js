@@ -1,0 +1,5 @@
+export * from './Footer'
+export * from './MenuUsuario'
+export * from './CuadroMensaje'
+export * from './BusquedaYNuevo'
+export * from './CuadroMensajeEliminar'

@@ -1,16 +1,18 @@
-import { Link } from 'react-router-dom'
 import { fetchDataService } from '../../../services'
 import { useForm } from '../../../hooks'
 import { useMemo, useEffect, useState } from 'react'
+import { ButtonGuardar, ButtonVolver } from '../../../components'
 import '../../../styles/pages/formNuevos.css'
+import { useNavigate } from 'react-router-dom'
+import { RoutesPrivadas } from '../../../utils'
 
 const NuevoCliente = () => {
 
     const [barrios, setBarrios] = useState([])
+    const navigate = useNavigate()
 
     const handlerSubmit = async (e) => {
-        e.preventDefault();
-
+        e.preventDefault();       
         const options = {
             method: 'POST',
             headers: {
@@ -22,7 +24,7 @@ const NuevoCliente = () => {
         if (error) {
             console.log(error)
         } else if (data) {
-            window.location.href = '/clientes'
+            navigate(`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.CLIENTES}`, { replace: true })
         }
     }
 
@@ -101,9 +103,9 @@ const NuevoCliente = () => {
                 </div>
 
 
-                <div className='contBtn contEntradas'>
-                    <Link className='btnVolver' to={'/clientes'}>Volver</Link>
-                    <button className='btnGuardar' type="submit">Guardar</button>
+                <div className='contButtonVolverGuardar'>
+                    <ButtonVolver />
+                    <ButtonGuardar handlerSubmit={handlerSubmit} />
                 </div>
             </form>
         </div>

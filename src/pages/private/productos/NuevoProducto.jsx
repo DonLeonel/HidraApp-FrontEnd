@@ -1,10 +1,10 @@
 import { useEffect, useState, useMemo } from 'react'
 import { fetchDataService } from '../../../services'
 import { useForm } from '../../../hooks'
-import '../../../styles/pages/formNuevos.css'
 import { ButtonVolver, ButtonGuardar } from '../../../components/buttons'
 import { RoutesPrivadas } from '../../../utils'
 import { useNavigate } from 'react-router-dom'
+import '../../../styles/pages/formNuevos.css'
 
 const NuevoProducto = () => {
 
@@ -130,7 +130,7 @@ const NuevoProducto = () => {
           />
         </div>
 
-        <div className='contButtonGuardarVolver'>
+        <div className='contButtonVolverGuardar'>
           <ButtonVolver />
           <ButtonGuardar handlerSubmit={handlerSubmit} />
         </div>

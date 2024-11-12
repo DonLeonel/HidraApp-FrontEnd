@@ -1,0 +1,31 @@
+.contTopCompradores {
+
+    & .tableTopCompradores {
+        margin-top: 7px;
+        width: 100%;
+        display: table;
+        border-spacing: 4px;
+
+        & .tableHeader {
+            & th {
+                color: rgb(151, 151, 151);
+            }
+
+            & .cliente {
+                text-align: left;
+            }
+        }
+
+        & .tableBody {
+            & .trTopComprador {
+                cursor: pointer;
+                height: 1.3rem;
+
+                & .cant_compras {
+                    text-align: center;
+                    color: rgb(151, 151, 151);
+                }
+            }
+        }
+    }
+}

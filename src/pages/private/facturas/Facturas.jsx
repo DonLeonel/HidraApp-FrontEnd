@@ -2,18 +2,19 @@ import { Link } from 'react-router-dom'
 import { useEliminar, useSearchDinamic } from '../../../hooks'
 import { fetchDataPaginatedService } from '../../../services'
 import { useEffect, useState } from 'react'
-import { TableRowLoading } from '../../../components/loading'
 import { useSelector } from 'react-redux'
 import { Role, RoutesPrivadas, formatARS } from '../../../utils'
+import { CuadroMensajeEliminar, BusquedaYNuevo, TableRowLoading } from '../../../components'
 import '../../../styles/pages/pagesEnComun.css'
 
 const Facturas = () => {
-    
+
     const userState = useSelector((state) => state.user)
     const paginateInit = { page: 0, size: 20 }
     const [paginate, setPaginate] = useState(paginateInit)
     const [facturas, setFacturas] = useState([])
     const [loading, setLoading] = useState(true)
+    const [recargar, setRecargar] = useState(false);
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -37,7 +38,7 @@ const Facturas = () => {
         }
         fetchInfo()
         return () => abortController.abort()
-    }, [])
+    }, [paginate, recargar])
 
     const { termino,
         elementosFiltrados,
@@ -51,44 +52,26 @@ const Facturas = () => {
         iniciarEliminacion,
         setDeseaBorrar,
         setMostrarDialogo
-    } = useEliminar('Factura', 'url');
+    } = useEliminar('factura', { setRecargar });
 
     return (
         <div className='contFacturas borLayout'>
             <h4 className='tituloLayout'>Facturas</h4>
 
             {mostrarDialogo &&
-                <div className='cuadroMensaje'>
-                    <h4 className='dialogo'>¿Esta seguro que desea eliminar la factura
-                        de forma permanente?</h4>
-                    <div>
-                        <button onClick={() => setDeseaBorrar(true)} className='si'>Si</button>
-                        <button onClick={() => setMostrarDialogo(false)} className='no' defaultChecked>No</button>
-                    </div>
-                </div>
+                <CuadroMensajeEliminar
+                    entidad={'Factura'}
+                    setDeseaBorrar={setDeseaBorrar}
+                    setMostrarDialogo={setMostrarDialogo}
+                />
             }
 
-            <div className='contBusquedaYNvo'>
-                <div className='search'>
-                    <img className='lupita' src="/icons-app/lupita.png" alt="lupita" />
-                    <input
-                        name='search'
-                        className='inputFiltro'
-                        type="text"
-                        placeholder='Buscar por fecha o cliente'
-                        value={termino}
-                        onChange={handleSearch}
-                    />
-                </div>
-                <div>
-                    <Link
-                        className='btnNuevo'
-                        to={RoutesPrivadas.NUEVO}
-                    >
-                        Nueva Venta
-                    </Link>
-                </div>
-            </div>
+            <BusquedaYNuevo
+                placeholder={'Buscar por fecha/nombre/apellido'}
+                termino={termino}
+                handleSearch={handleSearch}
+                textButton={'Nueva Venta'}
+            />
 
             <table className='tablePages'>
                 <thead className='tableHeader'>

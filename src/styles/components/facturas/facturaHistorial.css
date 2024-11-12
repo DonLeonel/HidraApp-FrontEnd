@@ -1,0 +1,45 @@
+.factura {
+    text-align: left;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px black solid;
+    border-radius: 8px;
+
+    & .boxDetalles {
+        margin-bottom: 5px;
+
+        & h4 {
+            padding: 3px;
+
+            & span {
+                font-family: sans-serif;
+                font-size: 15px;
+                font-weight: 100;
+            }
+        }
+    }
+
+    & .boxProductos {
+        & table {
+            width: 100%;
+
+            & thead {
+                & tr {
+                    text-align: left;
+                }
+            }
+        }
+
+        & .total {
+            margin: auto;
+            width: 80%;
+            padding: 8px;
+            background-color: rgb(243, 243, 243);
+
+            & h4 {
+                text-align: center;
+                text-transform: uppercase;
+            }
+        }
+    }
+}

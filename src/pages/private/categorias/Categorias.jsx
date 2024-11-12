@@ -4,12 +4,14 @@ import { fetchDataService } from '../../../services'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Role, RoutesPrivadas } from '../../../utils'
+import { CuadroMensajeEliminar, BusquedaYNuevo } from '../../../components'
 import '../../../styles/pages/pagesEnComun.css'
 
 const Categorias = () => {
-    
+
     const userState = useSelector((state) => state.user)
     const [categorias, setCategorias] = useState([])
+    const [recargar, setRecargar] = useState(false)
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -26,7 +28,7 @@ const Categorias = () => {
         }
         fetchInfo()
         return () => abortController.abort()
-    }, [])
+    }, [recargar])
 
     const { termino,
         elementosFiltrados,
@@ -40,46 +42,26 @@ const Categorias = () => {
         iniciarEliminacion,
         setDeseaBorrar,
         setMostrarDialogo
-    } = useEliminar('Categoria', 'url');
+    } = useEliminar('categoria', { setRecargar });
 
     return (
         <div className='contCategorias borLayout'>
             <h4 className='tituloLayout'>Categorias</h4>
 
             {mostrarDialogo &&
-                <div className='cuadroMensaje'>
-                    <h4 className='dialogo'>¿Esta seguro que desea eliminar la categoria
-                        de forma permanente?</h4>
-                    <div>
-                        <button onClick={() => setDeseaBorrar(true)} className='si'>Si</button>
-                        <button onClick={() => setMostrarDialogo(false)} className='no' defaultChecked>No</button>
-                    </div>
-                </div>
+                <CuadroMensajeEliminar
+                    entidad={'Categoria'}
+                    setDeseaBorrar={setDeseaBorrar}
+                    setMostrarDialogo={setMostrarDialogo}
+                />
             }
 
-            <div className='contBusquedaYNvo'>
-                <div className='search'>
-                    <img className='lupita' src="/icons-app/lupita.png" alt="lupita" />
-                    <input
-                        name='search'
-                        className='inputFiltro'
-                        type="text"
-                        placeholder='Buscar por nombre'
-                        value={termino}
-                        onChange={handleSearch}
-                    />
-                </div>
-                <div>
-                    {(userState.role === Role.ADMIN) &&
-                        <Link
-                            className='btnNuevo'
-                            to={RoutesPrivadas.NUEVO}
-                        >
-                            Nueva Categoria
-                        </Link>
-                    }
-                </div>
-            </div>
+            <BusquedaYNuevo
+                placeholder={'Buscar por nombre'}
+                termino={termino}
+                handleSearch={handleSearch}
+                textButton={'Nueva Categoria'}
+            />
 
             <table className='tablePages'>
                 <thead className='tableHeader'>
@@ -102,8 +84,8 @@ const Categorias = () => {
                                         <Link title='editar' to={`${RoutesPrivadas.EDITAR}/${c.id}`}>
                                             <img className='editar' src='/icons-app/lapiz.png' alt='' />
                                         </Link>
-                                        <button onClick={() => iniciarEliminacion(c.id)} title='borrar' to={'/categorias/' + c.id}>
-                                            <img className='borrar' src='/icons-app/basurero.png' alt='' />
+                                        <button onClick={() => iniciarEliminacion(c.id)} title='borrar'>
+                                            <img className='borrar' src='/icons-app/basurero.png' alt='borrar' />
                                         </button>
                                     </td>
                                 }

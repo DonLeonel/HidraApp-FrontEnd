@@ -1,0 +1,82 @@
+.contClienteSeleccionado {
+    margin: 10px auto;
+    & .flex {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        & .datosClienteFactura {
+            padding: 10px;
+
+            & span {
+                color: rgb(90, 90, 90);
+                margin-left: 8px;
+            }
+        }
+
+        & .btnResetearCliente {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(240, 240, 71);
+            cursor: pointer;
+        }
+    }
+}
+
+.contBusquedaCliente {
+    margin: 10px auto;
+    position: relative;
+
+    & h4 {
+        margin-bottom: 15px;
+    }
+
+    & .search {
+        position: relative;
+        text-align: center;
+
+        & .lupita {
+            border: none;
+            border-radius: 50%;
+            padding: 4px;
+            position: absolute;
+            background-color: rgb(230, 230, 230);
+            left: 62px;
+            top: 1px;
+            width: 25px;
+        }
+
+        & .inputFiltro {
+            border: none;
+            border-radius: 10px;
+            background-color: rgb(230, 230, 230);
+            padding: 6px 0px 6px 27px;
+            width: 70%;
+        }
+    }    
+}
+
+.listadoDinamicoClientes {
+    padding: 8px;
+    border-radius: 0 0 8px 8px;
+    width: 70%;
+    margin-bottom: 8px;
+    background-color: rgb(230, 230, 230);
+    position: absolute;
+    top: 60px;
+    left: 60px;
+
+    & ul {
+        & li {
+            list-style: none;
+            padding: 4px;
+            padding-left: 15px;
+            cursor: pointer;
+        }
+
+        & li:hover {
+            background-color: rgb(210, 210, 210);
+        }
+    }
+}

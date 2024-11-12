@@ -1,0 +1,6 @@
+export * from './ClienteFactura'
+export * from './EstadoFactura'
+export * from './FormaPagoFactura'
+export * from './ProductoVenta'
+export * from './ProductosFactura'
+export * from './FacturaHistorial'

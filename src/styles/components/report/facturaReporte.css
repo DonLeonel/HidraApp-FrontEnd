@@ -1,0 +1,81 @@
+.contRecaudacionPorDia,
+.contRecaudacionEntreFechas,
+.contBusquedaPorEstado {
+    margin-top: 1rem;
+    text-align: center;
+    padding: 10px;
+
+    & .contInputFecha {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+
+        & div {
+            display: inline;
+
+            & input {
+                padding: 3px;
+            }
+        }
+
+        & button {
+            color: rgb(255, 255, 255);
+            background-color: rgb(138, 127, 240);
+            padding: 3px;
+            cursor: pointer;
+        }
+    }
+
+    .inputEstado {  /* Css para Busqueda por estado */
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+
+        & button {
+            color: rgb(255, 255, 255);
+            background-color: rgb(138, 127, 240);
+            padding: 3px;
+            cursor: pointer;
+        }
+
+        & select {
+            padding: 5px;
+            border-radius: 5px;
+        }
+    }
+
+    h5 {
+        margin-top: 15px;
+    }
+}
+
+.contRecaudacionEntreFechas {
+    margin-top: 1rem;
+    text-align: center;
+    padding: 10px;
+
+    & .contInputFecha {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+
+        & div {
+            display: inline;
+
+            & input {
+                padding: 3px;
+            }
+        }
+
+        & button {
+            color: rgb(255, 255, 255);
+            background-color: rgb(138, 127, 240);
+            padding: 3px;
+            cursor: pointer;
+        }
+    }
+
+    h5 {
+        margin-top: 15px;
+    }
+}

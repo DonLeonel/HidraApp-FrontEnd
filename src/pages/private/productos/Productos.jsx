@@ -5,7 +5,9 @@ import { useState, useEffect } from 'react'
 import { TableRowLoading } from '../../../components/loading'
 import { Role, RoutesPrivadas, formatARS } from '../../../utils'
 import { useSelector } from 'react-redux'
+import { BusquedaYNuevo } from '../../../components/comun/BusquedaYNuevo'
 import '../../../styles/pages/pagesEnComun.css'
+import { CuadroMensajeEliminar } from '../../../components/comun/CuadroMensajeEliminar'
 
 const Productos = () => {
     const userState = useSelector((state) => state.user)
@@ -13,6 +15,7 @@ const Productos = () => {
     const [paginate, setPaginate] = useState(paginateInit)
     const [productos, setProductos] = useState([])
     const [loading, setLoading] = useState(true)
+    const [recargar, setRecargar] = useState(false);
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -37,7 +40,7 @@ const Productos = () => {
         }
         fetchInfo()
         return () => abortController.abort()
-    }, [])
+    }, [paginate, recargar])
 
     const { termino,
         elementosFiltrados,
@@ -51,46 +54,26 @@ const Productos = () => {
         iniciarEliminacion,
         setDeseaBorrar,
         setMostrarDialogo
-    } = useEliminar('Productos', 'url');
+    } = useEliminar('producto', { setRecargar });
 
     return (
         <div className='borLayout contProductos'>
             <h4 className='tituloLayout'>Productos</h4>
 
             {mostrarDialogo &&
-                <div className='cuadroMensaje'>
-                    <h4 className='dialogo'>¿Esta seguro que desea eliminar el producto
-                        de forma permanente?</h4>
-                    <div>
-                        <button onClick={() => setDeseaBorrar(true)} className='si'>Si</button>
-                        <button onClick={() => setMostrarDialogo(false)} className='no' defaultChecked>No</button>
-                    </div>
-                </div>
+                <CuadroMensajeEliminar
+                    entidad={'Producto'}
+                    setDeseaBorrar={setDeseaBorrar}
+                    setMostrarDialogo={setMostrarDialogo}
+                />
             }
 
-            <div className='contBusquedaYNvo'>
-                <div className='search'>
-                    <img className='lupita' src="/icons-app/lupita.png" alt="lupita" />
-                    <input
-                        name='search'
-                        className='inputFiltro'
-                        type="text"
-                        placeholder='Buscar por nombre'
-                        value={termino}
-                        onChange={handleSearch}
-                    />
-                </div>
-                <div>
-                    {(userState.role === Role.ADMIN) &&
-                        <Link
-                            className='btnNuevo'
-                            to={RoutesPrivadas.NUEVO}
-                        >
-                            Nuevo Producto
-                        </Link>
-                    }
-                </div>
-            </div>
+            <BusquedaYNuevo
+                placeholder={'Buscar por nombre'}
+                termino={termino}
+                handleSearch={handleSearch}
+                textButton={'Nuevo Producto'}
+            />
 
             <table className='tablePages'>
                 <thead className='tableHeader'>

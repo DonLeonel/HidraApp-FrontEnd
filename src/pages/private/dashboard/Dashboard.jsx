@@ -2,6 +2,7 @@ import {
   MenuPages, FacturasRecientes, TopCompradores, Stock, NuevaVenta
 } from '../../../components'
 import '../../../styles/pages/dashboard.css'
+import '../../../styles/pages/pagesEnComun.css'
 
 const Dashboard = () => {
   return (

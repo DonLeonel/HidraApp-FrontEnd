@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useForm } from '../../../hooks';
 import { fetchDataService } from '../../../services';
+import { ButtonGuardar, ButtonVolver } from '../../../components/buttons';
+import '../../../styles/pages/formNuevos.css'
+import { useNavigate } from 'react-router-dom';
+import { RoutesPrivadas } from '../../../utils';
 
 const EditarProducto = () => {
 
     const { id } = useParams()
     const [producto, setProducto] = useState(null)
     const [categorias, setCategorias] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -76,7 +81,8 @@ const EditarProducto = () => {
             body: JSON.stringify(producto)
         }
         const { data, error } = await fetchDataService({ entity: 'producto', id: formState.id, options })
-        error ? console.error(error) : data && (window.location.href = '/productos')
+        error ? console.error(error) :
+            data && alert('Se edito correctamente.')
     }
 
     return (
@@ -145,9 +151,9 @@ const EditarProducto = () => {
                         />
                     </div>
 
-                    <div className='contBtn contEntradas'>
-                        <Link className='btnVolver' to={'/productos'}>Volver</Link>
-                        <button className='btnGuardar' type="submit">Guardar</button>
+                    <div className='contButtonVolverGuardar'>
+                        <ButtonVolver />
+                        <ButtonGuardar handlerSubmit={handlerSubmit} />
                     </div>
                 </form>
             }

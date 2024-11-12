@@ -1,0 +1,33 @@
+.contProductos {
+    & .contBox {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 0.2rem;
+        padding: 5px;
+        margin: 1rem auto;
+
+        & .boxProducto {
+            text-align: center;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 5px;
+            min-width: 7rem;
+            width: 40%;
+
+            &:hover {
+                scale: 1.05;
+                border-color: green;
+                color: green;
+
+                &>p {
+                    color: green;
+                }
+            }
+
+            & img {
+                width: 25px;
+            }
+        }
+    }
+}

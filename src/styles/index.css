@@ -27,21 +27,15 @@ body {
 .tituloLayout {
     text-align: left;
     font-size: 0.9rem;
+    padding: 5px 5px;
 }
-
-.btnVolver {
-    padding: 10px;
-    cursor: pointer;
-}
-
 
 /*estilos para quitar stylos de listas*/
 .li-noStyle {
     list-style: none;
 }
 
-.noDecoration,
-.btnVolver {
+.noDecoration {
     text-decoration: none;
     color: black;
 }

@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom'
 import { fetchDataService } from '../../../services'
 import { Role, formatARS } from '../../../utils';
 import { useSelector } from 'react-redux';
-import { ButtonVolver } from '../../../components/buttons';
+import { ButtonVolver } from '../../../components';
+import '../../../styles/pages/detalles.css'
 
 const DetalleProducto = () => {
 
@@ -34,21 +35,22 @@ const DetalleProducto = () => {
 
       {
         producto &&
-        <div className='detalles'>
-          <div>
+        <section className='datosProducto' >
+          <div className='detalles'>
             <h4>Nombre: <span>{producto.nombre}</span></h4>
             <h4>Categoria: <span>{producto.categoria.nombre}</span></h4>
             <h4>Descripción: <span>{producto.descripcion}</span></h4>
           </div>
-          <div>
+          <div className='detalles'>
             <h4>Stock: <span>{producto.stock}</span></h4>
             <h4>Precio: <span> {formatARS(producto.precio)}</span></h4>
             {
-              producto.updatedAt && (userState.role === Role.ADMIN) &&
-              <h4>Actualizado: <span className='fechaHora'>{producto.updatedAt}</span></h4>
+              producto.updatedAt && userState.role === Role.ADMIN &&
+              <h4>Actualizado:<span className='fechaHora'>{producto.updatedAt}</span></h4>
             }
           </div>
-        </div>
+        </section>
+
       }
 
       <div className='contButtonVolver'>

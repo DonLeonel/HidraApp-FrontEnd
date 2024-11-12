@@ -26,19 +26,3 @@
     }
 
 }
-
-& .btnGuardar {
-    cursor: pointer;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: rgb(107, 107, 243);
-}
-
-& .btnCancelar {
-    cursor: pointer;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: rgb(255, 72, 0);
-}

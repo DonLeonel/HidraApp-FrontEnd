@@ -1,0 +1,38 @@
+.contFormaDepago,
+.contEstadoFactura {
+    margin: 10px auto;
+
+    & form {
+        margin: 1rem 0;
+        text-align: center;
+
+        & .selectFormaDePago,
+        .selectEstadoFactura {
+            display: block;
+            border: none;
+            border-radius: 8px;
+            background-color: rgb(230, 230, 230);
+            padding: 3px 0px;
+            width: 50%;
+            margin: auto;
+            text-align: center;
+        }
+    }
+}
+
+.contEstadoFactura {
+    & form {
+
+        .selectEstadoFactura {
+            width: 60%;
+        }
+
+        & input {
+            text-align: center;
+            width: 40%;
+            padding: 5px;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+    }
+}

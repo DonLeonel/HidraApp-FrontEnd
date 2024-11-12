@@ -1,166 +1,3 @@
-.contBusquedaCliente {
-    margin: 10px auto;
-    position: relative;
-
-    & h4 {
-        margin-bottom: 15px;
-    }
-
-    & .search {
-        position: relative;
-        text-align: center;
-
-        & .lupita {
-            border: none;
-            border-radius: 50%;
-            padding: 4px;
-            position: absolute;
-            background-color: rgb(230, 230, 230);
-            left: 62px;
-            top: 1px;
-            width: 25px;
-        }
-
-        & .inputFiltro {
-            border: none;
-            border-radius: 10px;
-            background-color: rgb(230, 230, 230);
-            padding: 6px 0px 6px 27px;
-            width: 70%;
-        }
-    }
-
-    & button {
-        border: none;
-        padding: 6px;
-        border-radius: 10px;
-        background-color: rgb(80, 218, 80);
-    }
-}
-
-.listadoDinamicoClientes {
-    padding: 8px;
-    border-radius: 0 0 8px 8px;
-    width: 70%;
-    margin-bottom: 8px;
-    background-color: rgb(230, 230, 230);
-    position: absolute;
-    top: 60px;
-    left: 60px;
-
-    & ul {
-        & li {
-            list-style: none;
-            padding: 4px;
-            padding-left: 15px;
-            cursor: pointer;
-        }
-    }
-}
-
-.contClienteSeleccionado {
-    margin: 10px auto;
-
-    &>h4 {
-        margin-bottom: 8px;
-    }
-
-    & .flex {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-
-        & .datosCliente {
-            padding: 10px;
-
-            & span {
-                color: rgb(90, 90, 90);
-                margin-left: 8px;
-            }
-        }
-
-        & .btnResetearCliente {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: rgb(240, 240, 71);
-        }
-    }
-}
-
-.contFormaDepago,
-.contEstadoFactura {
-    margin: 10px auto;
-
-    & form {
-        margin: 1rem 0;
-        text-align: center;
-
-        & .selectFormaDePago,
-        .selectEstadoFactura {
-            display: block;
-            border: none;
-            border-radius: 8px;
-            background-color: rgb(230, 230, 230);
-            padding: 3px 0px;
-            width: 50%;
-            margin: auto;
-            text-align: center;
-        }
-    }
-}
-
-.contEstadoFactura {
-    & form {
-
-        .selectEstadoFactura{
-            width: 60%;
-        }
-
-        & input {
-            text-align: center;
-            width: 40%;
-            padding: 5px;
-            margin-top: 15px;
-            border-radius: 8px;
-        }
-    }
-}
-
-.contProductos {
-    & .contBox {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        gap: 0.2rem;
-        padding: 5px;
-        margin: 1rem auto;
-
-        & .boxProducto {
-            text-align: center;
-            padding: 5px;
-            border: 1px solid black;
-            border-radius: 5px;
-            min-width: 7rem;
-            width: 40%;
-
-            &:hover {
-                scale: 1.05;
-                border-color: green;
-                color: green;
-
-                &>p {
-                    color: green;
-                }
-            }
-
-            & img {
-                width: 25px;
-            }
-        }
-    }
-}
-
 .productosAgregados {
     & .row-header {
         display: flex;
@@ -169,22 +6,15 @@
         margin-bottom: 3px;
     }
 
-    & .row-precioTotal>h4 {
-        text-align: center;
-        margin-top: 10px;
+    & .total {
+        margin: auto;
+        width: 80%;
+        padding: 8px;
+        background-color: rgb(243, 243, 243);
+
+        & h4 {
+            text-align: center;
+            text-transform: uppercase;
+        }
     }
-}
-
-.ContBtnVolver {
-    text-align: center;
-    padding: 17px;
-
-    & .btnVolverFactura {
-        text-decoration: none;
-        color: black;
-        padding: 10px;
-        background-color: rgb(209, 209, 209);
-        border-radius: 5px;
-    }
-
 }

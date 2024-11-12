@@ -1,13 +1,19 @@
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useForm } from '../../../hooks';
 import { fetchDataService } from '../../../services'
 import { useEffect, useState } from 'react';
+import { ButtonGuardar, ButtonVolver } from '../../../components';
+import { useNavigate } from 'react-router-dom';
+import { RoutesPrivadas } from '../../../utils';
+import '../../../styles/pages/formNuevos.css'
 
-const EditarCliente = () => {
+const EditarCliente = () => { //falta editar el barrio
 
     const defaultValueInput = ''
     const { id } = useParams()
     const [cliente, setCliente] = useState(null)
+    const [barrios, setBarrios] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -20,9 +26,30 @@ const EditarCliente = () => {
             const { data: cliente, error } = await fetchDataService(
                 { entity: 'cliente', id, options }
             )
-
             error ? console.error(error) :
-                setCliente(cliente)
+                setCliente({
+                    nombre: cliente.nombre,
+                    apellido: cliente.apellido,
+                    celular: cliente.celular,
+                    idBarrio: cliente.barrio.id
+                })
+        }
+        fetchInfo()
+        return () => abortController.abort()
+    }, [])
+
+    useEffect(() => {
+        const abortController = new AbortController()
+        const { signal } = abortController
+
+        const options = {
+            signal
+        }
+        const fetchInfo = async () => {
+            const { data: barrios, error } = await fetchDataService(
+                { entity: 'barrio', options }
+            )
+            error ? console.error(error) : setBarrios(barrios)
         }
         fetchInfo()
         return () => abortController.abort()
@@ -35,9 +62,10 @@ const EditarCliente = () => {
         const cliente = {
             nombre: formState.nombre,
             apellido: formState.apellido,
-            celular: formState.celular
-        }
-
+            celular: formState.celular,
+            idBarrio: formState.idBarrio
+        }       
+        
         const options = {
             method: 'PUT',
             headers: {
@@ -46,11 +74,13 @@ const EditarCliente = () => {
             body: JSON.stringify(cliente)
         }
         const { data, error } = await fetchDataService(
-            { entity: 'cliente', id: formState.id, options }
-        )
-        error ? console.error(error) : data && (window.location.href = '/clientes')
-    }
-
+            { entity: 'cliente', id, options }
+        )                 
+        error ? console.error(error) :         
+        data && alert('Se edito correctamente.')
+        
+    }    
+    
     return (
         <div className='contEditarCliente borLayout'>
             <h4 className='tituloLayout'>Editar Cliente</h4>
@@ -84,6 +114,22 @@ const EditarCliente = () => {
                             value={formState.celular || defaultValueInput}
                         />
                     </div>
+                    <div className='contEntradas'>
+                    <label htmlFor="barrio">Barrio</label>
+                    <select
+                        className='select'
+                        name="idBarrio"
+                        value={formState.idBarrio}
+                        onChange={onInputChange}
+                    >
+                        <option value={null}>seleccione</option>
+                        {barrios && barrios.map((b) => {
+                            return (
+                                <option key={b.id} value={b.id}>{b.nombre}</option>
+                            )
+                        })}
+                    </select>
+                </div>
 
 
                     {/* //cliente && cliente.contacto &&
@@ -108,9 +154,9 @@ const EditarCliente = () => {
                     </div>
                 </>*/ }
 
-                    <div className='contBtn contEntradas'>
-                        <Link className='btnVolver' to={'/clientes'}>Volver</Link>
-                        <button className='btnGuardar' type="submit">Guardar</button>
+                    <div className='contButtonVolverGuardar'>
+                        <ButtonVolver />
+                        <ButtonGuardar handlerSubmit={handlerSubmit} />
                     </div>
                 </form>
             }

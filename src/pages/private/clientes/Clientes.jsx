@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom'
 import { useEliminar, useSearchDinamic } from '../../../hooks'
 import { fetchDataPaginatedService, fetchDataService } from '../../../services'
 import { useEffect, useState, useRef } from 'react'
-import { BoxBarrios } from '../../../components'
-import { TableRowLoading } from '../../../components/loading'
+import { BoxBarrios, BusquedaYNuevo, CuadroMensajeEliminar, TableRowLoading } from '../../../components'
 import { useSelector } from 'react-redux'
 import { Role, RoutesPrivadas } from '../../../utils'
 import '../../../styles/pages/pagesEnComun.css'
@@ -19,6 +18,9 @@ const Clientes = () => {
     const [idBarrio, setIdBarrio] = useState(null)
     const [btnGuardarOrder, setBtnGuardarOrder] = useState(false)
     const [listaOrdenada, setListaOrdenada] = useState({})
+    const [recargar, setRecargar] = useState(false);
+    const dragCliente = useRef(0)
+    const draggedOverClient = useRef(0)
 
     const { termino,
         elementosFiltrados,
@@ -69,17 +71,15 @@ const Clientes = () => {
         }
 
         return () => abortController.abort()
-    }, [paginate, idBarrio])
+    }, [paginate, idBarrio, recargar])
 
     const {
         mostrarDialogo,
         iniciarEliminacion,
         setDeseaBorrar,
         setMostrarDialogo
-    } = useEliminar('Cliente', 'url');
+    } = useEliminar('cliente', { setRecargar });
 
-    const dragCliente = useRef(0)
-    const draggedOverClient = useRef(0)
     const handleSort = () => {
         setBtnGuardarOrder(true)
         // Clonar la lista de clientes
@@ -124,37 +124,19 @@ const Clientes = () => {
             <h4 className='tituloLayout'>Clientes</h4>
 
             {mostrarDialogo &&
-                <div className='cuadroMensaje'>
-                    <h4 className='dialogo'>¿Esta seguro que desea eliminar al cliente
-                        de forma permanente?</h4>
-                    <div>
-                        <button onClick={() => setDeseaBorrar(true)} className='si'>Si</button>
-                        <button onClick={() => setMostrarDialogo(false)} className='no' defaultChecked>No</button>
-                    </div>
-                </div>
+                <CuadroMensajeEliminar
+                    entidad={'Cliente'}
+                    setDeseaBorrar={setDeseaBorrar}
+                    setMostrarDialogo={setMostrarDialogo}
+                />
             }
 
-            <div className='contBusquedaYNvo'>
-                <div className='search'>
-                    <img className='lupita' src="/icons-app/lupita.png" alt="lupita" />
-                    <input
-                        className='inputFiltro'
-                        name='search'
-                        type="text"
-                        placeholder='Ingrese nombre o apellido'
-                        value={termino}
-                        onChange={handleSearch}
-                    />
-                </div>
-                <div>
-                    <Link
-                        className='btnNuevo'
-                        to={RoutesPrivadas.NUEVO}
-                    >
-                        Nuevo Cliente
-                    </Link>
-                </div>
-            </div>
+            <BusquedaYNuevo
+                placeholder={'Buscar por nombre o apellido'}
+                termino={termino}
+                handleSearch={handleSearch}
+                textButton={'Nuevo Cliente'}
+            />
 
             <BoxBarrios
                 setIdBarrios={setIdBarrio}
@@ -195,7 +177,7 @@ const Clientes = () => {
                                     onDragEnd={handleSort}
                                     onDragOver={(e) => e.preventDefault()}
                                 >
-                                    <td>{c.nombre + ' ' + c.apellido}</td>
+                                    <td className='tdNombreApellido'>{c.nombre + ' ' + c.apellido}</td>
                                     <td className='tdNuevaVenta'>
                                         <Link
                                             title='nueva venta'

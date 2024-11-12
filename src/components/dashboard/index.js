@@ -1,0 +1,6 @@
+export * from './BoxStock'
+export * from './FacturasRecientes'
+export * from './MenuPages'
+export * from './NuevaVenta'
+export * from './TopCompradores'
+export * from './Stock'

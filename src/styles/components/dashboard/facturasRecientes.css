@@ -1,0 +1,19 @@
+.tableFacturasRecientes {
+    margin-top: 12px;
+    width: 100%;
+    display: table;
+    border-spacing: 8px;
+
+    & .tableHeader {
+        th {
+            text-align: left;
+        }
+    }
+
+    & .tableBody {
+        & .trFacturaReciente {
+            height: 1.5rem;
+            cursor: pointer;
+        }
+    }
+}

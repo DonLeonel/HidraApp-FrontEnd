@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
 import {
   ProductoVenta, ClienteFactura, FormaPagoFactura,
-  ProductosFactura, CuadroMensaje, EstadoFactura
+  ProductosFactura, CuadroMensaje, EstadoFactura,
+  ButtonCancelar, ButtonGuardar, ButtonVolver
 } from '../../../components'
 import { useProductos } from '../../../hooks'
 import { fetchDataService } from '../../../services'
 import { validarEntradasFacturaYDetalles } from '../../../validations'
-import { formatARS, getEstadosNvaFactura } from '../../../utils'
+import { formatARS, getEstadosNvaFactura, RoutesPrivadas } from '../../../utils'
+import { useNavigate, useParams } from 'react-router-dom'
 import '../../../styles/pages/nuevaVenta.css'
 
 const NuevaFactura = () => {
@@ -16,19 +17,13 @@ const NuevaFactura = () => {
   const [idFormaDePago, setIdFormaDePago] = useState(null)
   const [estadoFactura, setEstadoFactura] = useState('ESPERANDO_CONFIRMACION')
   const [total, setTotal] = useState(0)
-
   const [entrega, setEntrega] = useState(null)
-
   const [errorsValidation, setErrorsValidation] = useState(null)
   const [sinStock, setSinStock] = useState({ mostrar: false, nombreProducto: '' })
-
-  const clienteFacturaRef = useRef()
-  const { id } = useParams(null)
   const navigate = useNavigate()
+  const clienteFacturaRef = useRef()
 
-  const handleBack = () => {
-    navigate(-1) // Esto te lleva a la página anterior
-  }
+  const { id } = useParams(null)
 
   const { productosEnDetalle,
     setCantidad,
@@ -51,12 +46,12 @@ const NuevaFactura = () => {
     clienteFacturaRef.current && clienteFacturaRef.current.resetCliente()
   }
 
-  const handlerSubmit = async (e) => {
+  const handlerClick = async (e) => {
     e.preventDefault()
 
     const errors = validarEntradasFacturaYDetalles(
       { cliente, idFormaDePago, productosEnDetalle, entrega }
-    )
+    )   
 
     if (errors.length <= 0) {
       const factura = {
@@ -96,7 +91,7 @@ const NuevaFactura = () => {
           console.error(error)
         }
       }
-      data && (window.location.href = '/facturas')
+      data && navigate(`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.FACTURAS}`, { replace: true })
     } else {
       setErrorsValidation(errors)
     }
@@ -212,10 +207,10 @@ const NuevaFactura = () => {
 
       <hr />
 
-      <div className='contBtn contEntradas'>
-        <button onClick={handleBack} className='btnVolver' >Volver</button>
-        <button onClick={cancelarFactura} className='btnCancelar' type="submit">Cancelar</button>
-        <button onClick={handlerSubmit} className='btnGuardar' type="submit">Guardar</button>
+      <div className='contButtonVolverCancelarGuardar'>
+        <ButtonVolver />
+        <ButtonCancelar handlerClick={cancelarFactura} />
+        <ButtonGuardar handlerClick={handlerClick} />
       </div>
     </div >
   )

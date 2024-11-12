@@ -9,6 +9,7 @@ export const RoutesPrivadas = {
     CLIENTES: 'clientes',
     FACTURAS: 'facturas',
     PRODUCTOS: 'productos',
+    BARRIOS: 'barrios',
     CATEGORIAS: 'categorias',
     REPORTES: 'reportes',
     NUEVO: 'nuevo',

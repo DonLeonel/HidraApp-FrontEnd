@@ -3,14 +3,15 @@ import { useEffect, useState } from 'react'
 import { fetchDataService } from '../../../services'
 import { Role, formatARS, getClassNameEstado } from '../../../utils'
 import { useSelector } from 'react-redux'
+import { ButtonVolver, Loading } from '../../../components'
 import '../../../styles/pages/detalleFactura.css'
-import { ButtonVolver } from '../../../components/buttons'
 
 const DetalleFactura = () => {
 
     const userState = useSelector((state) => state.user)
     const { id } = useParams()
     const [factura, setFactura] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -23,7 +24,11 @@ const DetalleFactura = () => {
             const { data: factura, error } = await fetchDataService(
                 { entity: 'factura', id, options }
             )
-            error ? console.error(error) : setFactura(factura)
+            if (error) console.error(error)
+            else {
+                setFactura(factura)
+                setLoading(false)
+            }
         }
         fetchInfo()
         return () => abortController.abort()
@@ -32,7 +37,19 @@ const DetalleFactura = () => {
     return (
         <div className='contDetalleFactura borLayout'>
             <h4 className='tituloLayout'>Detalle factura</h4>
-            {
+            {loading ?
+                <>
+                    <Loading
+                        width={'98%'}
+                        height={'30%'}
+                        margin={'1rem auto'}
+                    />
+                    <Loading
+                        width={'98%'}
+                        height={'23%'}
+                        margin={'1rem auto'}
+                    />
+                </> :
                 factura &&
                 <>
                     <div className='boxDetalles'>
