@@ -41,3 +41,24 @@
         }
     }
 }
+
+.contDetCuenta{
+    & .contTotales{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.3rem;        
+    }
+    & .total {
+        margin: auto;
+        width: 80%;
+        padding: 8px;
+        background-color: rgb(243, 243, 243);
+        text-align: center;
+
+        & h4 {
+            text-align: center;
+            text-transform: uppercase;
+        }
+    }
+}

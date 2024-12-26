@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom'
 import { fetchDataService } from '../../../services'
 import { useState, useEffect } from 'react'
-import { Role } from '../../../utils'
-import { ButtonVerOcultar, ButtonVolver, FacturaHistorial, Loading, TableRowLoading } from '../../../components'
+import { formatARS, Role } from '../../../utils'
+import { BoxRecaudacion, ButtonVerOcultar, ButtonVolver,
+     FacturaHistorial, Loading, AbonoDeCuenta } from '../../../components'
 import { useSelector } from 'react-redux'
 import '../../../styles/pages/detalles.css'
 
@@ -12,7 +13,9 @@ const DetalleCliente = () => {
     const { id } = useParams()
     const [cliente, setCliente] = useState(null)
     const [facturas, setFacturas] = useState([])
+    const [cuenta, setCuenta] = useState(null)
     const [mostrarHistorial, setMostrarHistorial] = useState(false)
+    const [mostrarCuenta, setMostrarCuenta] = useState(false)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -55,10 +58,35 @@ const DetalleCliente = () => {
         }
     }, [mostrarHistorial])
 
+    useEffect(() => {
+        if (mostrarCuenta) {
+            const abortController = new AbortController()
+            const { signal } = abortController
+
+            const options = {
+                signal
+            }
+            const fetchInfo = async () => {
+                const { data: cuenta, error } = await fetchDataService(
+                    { entity: `cliente/obtener-cuenta/${cliente.id}`, options }
+                )
+                error ? console.error(error) : setCuenta(cuenta)
+            }
+            fetchInfo()
+            return () => abortController.abort()
+        }
+    }, [mostrarCuenta])
+
     const handleHistorial = () => {
         mostrarHistorial ?
             setMostrarHistorial(false)
             : setMostrarHistorial(true)
+    }
+
+    const handleCuenta = () => {
+        mostrarCuenta ?
+            setMostrarCuenta(false)
+            : setMostrarCuenta(true)
     }
 
     return (
@@ -103,6 +131,36 @@ const DetalleCliente = () => {
                             <h4>Localidad: <span>{cliente.ubicacion.localidad}</span></h4>
                         </div>
                     }
+
+                    {cliente.cantCompras > 0 &&
+                        <div className='contButtonVerOcultar'>
+                            <ButtonVerOcultar
+                                text={'Cuenta'}
+                                handleVerOcultar={handleCuenta}
+                                ver={mostrarCuenta}
+                            />
+                        </div>
+                    }
+
+                    <div className='contDetCuenta'>
+                        {mostrarCuenta &&
+                            <>
+                                <section className='contTotales'>
+                                    <BoxRecaudacion nombre={'Total en Cheques'} total={formatARS(cuenta?.totalCheque)} />
+                                    <BoxRecaudacion nombre={'Total en Contado'} total={formatARS(cuenta?.totalContado)} />
+                                    <BoxRecaudacion nombre={'Total en Credito'} total={formatARS(cuenta?.totalCredito)} />
+                                    <BoxRecaudacion nombre={'Total en Fiado'} total={formatARS(cuenta?.totalFiado)} />
+                                    <BoxRecaudacion nombre={'Total en Transferencias'} total={formatARS(cuenta?.totalTransferencia)} />
+                                </section>
+                                <hr />
+                                <div className='total'>
+                                    <h4>Total: <span>{formatARS(cuenta?.total)}</span></h4>
+                                    <h5>(No incluye ventas pagadas)</h5>
+                                </div>
+                                <AbonoDeCuenta />
+                            </>
+                        }
+                    </div>
 
                     {cliente.cantCompras > 0 &&
                         <div className='contButtonVerOcultar'>

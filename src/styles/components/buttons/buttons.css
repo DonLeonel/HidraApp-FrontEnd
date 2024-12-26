@@ -1,15 +1,18 @@
-.contButtonVolver {
+.contButtonVolver,
+.contButtonActualizar {
     margin: 1rem;
     text-align: center;
 }
 
+
 .contButtonVerOcultar {
     text-align: center;
-    padding: 15px;    
+    padding: 15px;
 }
 
 .contButtonVolverGuardar,
-.contButtonVolverCancelarGuardar {
+.contButtonVolverCancelarGuardar,
+.contAbonarTotalHacerEntrega {
     margin-top: 1.5rem;
     display: flex;
     gap: 1rem;
@@ -25,18 +28,28 @@
 
 .buttonGuardar,
 .buttonVolver,
-.buttonCancelar {
+.buttonCancelar,
+.buttonHacerEntrega,
+.buttonAbonarTotal {
     padding: 8px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
 }
 
+.buttonAbonarTotal {
+    background-color: greenyellow;
+}
+
+.buttonHacerEntrega {
+    background-color: orange;
+}
+
 .buttonCancelar {
     background-color: rgb(255, 72, 0);
 }
 
-.buttonCancelar:hover{
+.buttonCancelar:hover {
     background-color: rgb(253, 135, 88);
     border: solid 0.1px;
 }

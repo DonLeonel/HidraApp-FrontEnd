@@ -20,9 +20,9 @@
 
 .tdFlex {
     display: flex;
-    justify-content: space-between;
-    gap: 5px;
-    align-items: center;    
+    justify-content: center;
+    align-items: center;
+    gap: 5px;        
 
     & button {
         border: none;
@@ -34,7 +34,7 @@
     }
 
     & .detalle {
-        width: 28px;        
+        width: 28px;               
     }
 
     & .editar {
@@ -79,10 +79,4 @@
 .fechaHora{
     font-size: 15px;
     color: rgb(92, 92, 92)
-}
-
-.errorValidation{
-    text-align: center;
-    font-size: 18px;
-    color: red;
 }

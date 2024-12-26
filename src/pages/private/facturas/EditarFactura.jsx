@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useProductos } from '../../../hooks'
 import { fetchDataService } from '../../../services'
 import {
-    ProductoVenta, ClienteFactura, ButtonVolver,
+    ProductoVenta, ClienteFactura, ButtonVolver, ButtonActualizar,
     FormaPagoFactura, ProductosFactura, EstadoFactura
 } from '../../../components'
 import {
@@ -11,8 +11,9 @@ import {
     validarEntradasDetalles, sonIgualesLosDetalles
 } from '../../../validations'
 import { armarDetalles } from '../../../helpers'
-import { formatARS, getEstadosEditarFactura } from '../../../utils'
+import { formatARS, getEstadosEditarFactura, RoutesPrivadas } from '../../../utils'
 import '../../../styles/pages/nuevaVenta.css'
+import { useNavigate } from 'react-router-dom'
 
 const EditarFactura = () => {
 
@@ -30,6 +31,7 @@ const EditarFactura = () => {
 
     const [mostrarBtnFactura, setMostrarBtnFactura] = useState(false);
     const [mostrarBtnDetalle, setMostrarBtnDetalle] = useState(false);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -92,7 +94,7 @@ const EditarFactura = () => {
                 { entity: 'factura', id: facturaAEditar.id, options }
             )
             error ? console.error(error) : data &&
-                (window.location.href = `/editar-factura/${data.id}`)
+                setMostrarBtnFactura(false)
 
         } else {
             setErrorsValidationFactura(errors);
@@ -110,7 +112,7 @@ const EditarFactura = () => {
                 }
             })
             await armarDetalles(facturaAEditar.id, facturaAEditar.detallesFactura, detallesFactura) ?
-                (window.location.href = `/editar-factura/${facturaAEditar.id}`) :
+                setMostrarBtnDetalle(false) :
                 alert('No se pudo actualizar el detalle')
 
         } else {
@@ -190,8 +192,11 @@ const EditarFactura = () => {
                 </div>
 
                 {mostrarBtnFactura &&
-                    <div className='contBtn contEntradas'>
-                        <button onClick={handlerSubmitFactura} className='btnGuardar' type="submit">Actualizar Factura</button>
+                    <div className='contButtonActualizar'>
+                        <ButtonActualizar
+                            text='Actualizar Factura'
+                            handlerSubmit={handlerSubmitFactura}
+                        />
                     </div>
                 }
             </div>
@@ -242,8 +247,11 @@ const EditarFactura = () => {
                     </div>
                 </div>
                 {mostrarBtnDetalle &&
-                    <div className='contBtn contEntradas'>
-                        <button onClick={handlerSubmitDetalle} className='btnGuardar' type="submit">Actualizar Detalle</button>
+                    <div className='contButtonActualizar'>
+                        <ButtonActualizar
+                            text='Actualizar Detalle'
+                            handlerSubmit={handlerSubmitDetalle}
+                        />
                     </div>
                 }
 

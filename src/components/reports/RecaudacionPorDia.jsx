@@ -68,7 +68,7 @@ const RecaudacionPorDia = () => {
                 <div className='reporte'>
                     <hr />
                     <section className='contTotales'>
-                        <BoxRecaudacion nombre={'Cant. de facturas'} total={data.facturas.length} />
+                        <BoxRecaudacion nombre={'Cant. de ventas'} total={data.facturas.length} />
                         <BoxRecaudacion nombre={'Total en Cheques'} total={formatARS(data.totalCheque)} />
                         <BoxRecaudacion nombre={'Total en Contado'} total={formatARS(data.totalContado)} />
                         <BoxRecaudacion nombre={'Total en Credito'} total={formatARS(data.totalCredito)} />

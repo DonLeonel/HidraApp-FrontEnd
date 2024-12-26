@@ -10,6 +10,7 @@ import { validarEntradasFacturaYDetalles } from '../../../validations'
 import { formatARS, getEstadosNvaFactura, RoutesPrivadas } from '../../../utils'
 import { useNavigate, useParams } from 'react-router-dom'
 import '../../../styles/pages/nuevaVenta.css'
+import '../../../styles/components/comun/validations.css'
 
 const NuevaFactura = () => {
 
@@ -54,6 +55,7 @@ const NuevaFactura = () => {
     )   
 
     if (errors.length <= 0) {
+      setErrorsValidation(null)
       const factura = {
         idCliente: cliente.id,
         idFormaDePago,

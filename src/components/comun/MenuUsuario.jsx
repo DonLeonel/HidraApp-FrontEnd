@@ -14,7 +14,7 @@ export const MenuUsuario = () => {
         <Link
           to={user.id ? RoutesPrivadas.PRIVATE : RoutesPublicas.LOGIN}
         >
-          <h1>LOGO</h1>
+          <img className='img' src="/logo/logoHidra.jpg" alt="logoHidra" />
         </Link>
       </div>
 

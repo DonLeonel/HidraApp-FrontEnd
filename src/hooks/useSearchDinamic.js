@@ -18,8 +18,8 @@ export const useSearchDinamic = (array, palabrasClaves, { esFactura = false } = 
                 let porCliente = ''
                 if (esFactura) {
                     // Combinar nombre y apellido del cliente
-                    const nombreCompleto = `${Element.cliente.nombre} ${Element.cliente.apellido}`.toLowerCase();
-                    porCliente = nombreCompleto.includes(termino.toLowerCase());
+                    const nombreCompleto = `${Element.cliente.nombre} ${Element.cliente.apellido}`.toLowerCase()
+                    porCliente = nombreCompleto.includes(termino.toLowerCase())
                 }
 
                 return porPalabrasClave || porCliente
@@ -30,7 +30,7 @@ export const useSearchDinamic = (array, palabrasClaves, { esFactura = false } = 
 
     const handleSearch = ({ target }) => {
         setTermino(target.value)
-    };
+    }
 
     const reset = () => {
         setTermino('')

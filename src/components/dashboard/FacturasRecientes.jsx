@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { fetchDataPaginatedService } from '../../services'
 import { useState, useEffect } from 'react'
 import { formatARS, RoutesPrivadas } from '../../utils'
@@ -54,7 +53,7 @@ export const FacturasRecientes = () => {
           {loading ?
             <TableRowLoading
               cantFilas={5}
-              cantTd={4}
+              cantTd={3}
             />
             :
             facturas && facturas.map((f) => {

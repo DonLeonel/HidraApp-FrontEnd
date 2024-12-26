@@ -5,5 +5,5 @@ export * from './loading'
 export * from './reports'
 export * from './comun'
 
-export * from './clientes/BoxBarrios'
+export * from './clientes'
 export * from './logout/LogOut'

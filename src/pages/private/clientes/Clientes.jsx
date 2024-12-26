@@ -8,9 +8,9 @@ import { Role, RoutesPrivadas } from '../../../utils'
 import '../../../styles/pages/pagesEnComun.css'
 
 const Clientes = () => {
+    
     const userState = useSelector((state) => state.user)
-
-    const paginateInit = { page: 0, size: 20 }
+    const paginateInit = { page: 0, size: 100 }
     const [paginate, setPaginate] = useState(paginateInit)
 
     const [loading, setLoading] = useState(true)

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { resetUser } from "../../redux/user/userSlice"
 import { RoutesPublicas } from "../../utils/router"
 import { useDispatch } from "react-redux"
+import { fetchDataService } from "../../services"
 
 export const LogOut = () => {
 
@@ -10,6 +11,9 @@ export const LogOut = () => {
 
     const logOut = (e) => {
         e.preventDefault()
+        fetchDataService(
+            { entity: 'auth/logout' }
+        )        
         dispatch(resetUser())
         navigate(RoutesPublicas.LOGIN, { replace: true })
     }
