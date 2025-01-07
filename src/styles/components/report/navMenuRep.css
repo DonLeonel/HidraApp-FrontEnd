@@ -6,17 +6,18 @@
     & ul {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
+        justify-content: space-between;        
 
         & li {
             list-style: none;
             width: 25%;
 
             & .btnMenu {
+                display: inline-block;
                 border-radius: 8px;
                 background-color: rgb(209, 209, 209);
                 padding: 8px;
+                width: max-content;
             }
         }
     }

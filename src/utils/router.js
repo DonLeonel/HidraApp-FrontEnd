@@ -14,7 +14,8 @@ export const RoutesPrivadas = {
     REPORTES: 'reportes',
     NUEVO: 'nuevo',
     DETALLE: 'detalle',
-    EDITAR: 'editar'
+    EDITAR: 'editar',
+    VENTAS: 'ventas'
 }
 
 export const RoutesRepAnidadas = {

@@ -21,20 +21,29 @@ export const MenuPages = () => {
         <li className='li-noStyle'>
           <Link
             className='noDecoration'
-            to={`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.FACTURAS}`}
+            to={`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.PRODUCTOS}`}
           >
-            <img rel='icon' src='/icons-app/facturas.png' alt="icon facturas" />Facturas
+            <img rel='icon' src='/icons-app/productos.png' alt="icon productos" />Productos
           </Link>
         </li>
 
         <li className='li-noStyle'>
           <Link
             className='noDecoration'
-            to={`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.PRODUCTOS}`}
+            to={`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.VENTAS}`}
           >
-            <img rel='icon' src='/icons-app/productos.png' alt="icon productos" />Productos
+            <img rel='icon' src='/icons-app/ventas.png' alt="icon ventas" />Ventas
           </Link>
         </li>
+
+        <li className='li-noStyle'>
+          <Link
+            className='noDecoration'
+            to={`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.FACTURAS}`}
+          >
+            <img rel='icon' src='/icons-app/facturas.png' alt="icon facturas" />Facturas
+          </Link>
+        </li>        
 
         <li className='li-noStyle'>
           <Link

@@ -3,15 +3,15 @@ import { useState, useEffect } from 'react'
 import { obtenerFechaActual, formatARS } from '../../utils'
 import { BoxRecaudacion } from './BoxRecaudacion'
 import { InputFechaRep } from './InputFechaRep'
-import { FacturaHistorial } from '../facturas'
+import { VentaHistorial } from '../ventas'
 import { ButtonVerOcultar } from '../buttons'
-import '../../styles/components/report/facturaReporte.css'
+import '../../styles/components/report/ventaReporte.css'
 
 const RecaudacionPorDia = () => {
     const [data, setData] = useState(null)
     const [fechaInput, setFechaInput] = useState('')
     const [fechaActual, setFechaActual] = useState('')
-    const [mostrarFacturas, setMostrarFacturas] = useState(false)
+    const [mostrarVentas, setMostrarVentas] = useState(false)
     const [busquedaRealizada, setBusquedaRealizada] = useState(false)
 
     useEffect(() => {
@@ -43,10 +43,10 @@ const RecaudacionPorDia = () => {
         return () => abortController.abort()
     }
 
-    const handlerVerFacturas = () => {
-        mostrarFacturas ?
-            setMostrarFacturas(false)
-            : setMostrarFacturas(true)
+    const handlerVerVentas = () => {
+        mostrarVentas ?
+            setMostrarVentas(false)
+            : setMostrarVentas(true)
     }
 
     return (
@@ -68,7 +68,7 @@ const RecaudacionPorDia = () => {
                 <div className='reporte'>
                     <hr />
                     <section className='contTotales'>
-                        <BoxRecaudacion nombre={'Cant. de ventas'} total={data.facturas.length} />
+                        <BoxRecaudacion nombre={'Cant. de ventas'} total={data.ventas.length} />
                         <BoxRecaudacion nombre={'Total en Cheques'} total={formatARS(data.totalCheque)} />
                         <BoxRecaudacion nombre={'Total en Contado'} total={formatARS(data.totalContado)} />
                         <BoxRecaudacion nombre={'Total en Credito'} total={formatARS(data.totalCredito)} />
@@ -80,20 +80,20 @@ const RecaudacionPorDia = () => {
                     </div>
                     <div className='contButtonVerOculatar'>
                         <ButtonVerOcultar
-                            text={'Facturas'}
-                            handleVerOcultar={handlerVerFacturas}
-                            ver={mostrarFacturas}
+                            text={'Ventas'}
+                            handleVerOcultar={handlerVerVentas}
+                            ver={mostrarVentas}
                         />
                     </div>
 
-                    <div className='contFacturas'>
+                    <div className='contVentas'>
                         {
-                            mostrarFacturas &&
-                            data.facturas.map(f => {
+                            mostrarVentas &&
+                            data.ventas.map(v => {
                                 return (
-                                    <FacturaHistorial
-                                        key={f.id}
-                                        f={f}
+                                    <VentaHistorial
+                                        key={v.id}
+                                        venta={v}
                                     />
                                 )
                             })

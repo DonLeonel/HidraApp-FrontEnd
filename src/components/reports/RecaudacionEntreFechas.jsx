@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 import { fetchDataService } from '../../services'
 import { BoxRecaudacion } from './BoxRecaudacion'
 import { formatARS, obtenerFechaActual } from '../../utils'
-import { FacturaHistorial } from '../facturas'
+import { VentaHistorial } from '../ventas'
 import { ButtonVerOcultar } from '../buttons'
-import '../../styles/components/report/facturaReporte.css'
+import '../../styles/components/report/ventaReporte.css'
 
 const RecaudacionEntreFechas = () => {
 
@@ -13,7 +13,7 @@ const RecaudacionEntreFechas = () => {
     const [fechaActual, setFechaActual] = useState('')
     const [fechaInputDesde, setFechaInputDesde] = useState('')
     const [fechaInputHasta, setfechaInputHasta] = useState('')
-    const [mostrarFacturas, setMostrarFacturas] = useState(false)
+    const [mostrarVentas, setMostrarVentas] = useState(false)
     const [busquedaRealizada, setBusquedaRealizada] = useState(false)
 
     useEffect(() => {
@@ -46,15 +46,15 @@ const RecaudacionEntreFechas = () => {
         return () => abortController.abort()
     }
 
-    const handlerVerFacturas = () => {
-        mostrarFacturas ?
-            setMostrarFacturas(false)
-            : setMostrarFacturas(true)
+    const handlerVerVentas = () => {
+        mostrarVentas ?
+            setMostrarVentas(false)
+            : setMostrarVentas(true)
     }
 
     return (
         <div className='contRecaudacionEntreFechas'>
-            <div className='contInputFecha'>
+            <form className='contInputFecha'>
                 <div>
                     <h4>Desde</h4>
                     <InputFechaRep
@@ -74,7 +74,7 @@ const RecaudacionEntreFechas = () => {
                     />
                 </div>
                 <button onClick={handlerSearch}>Buscar</button>
-            </div>
+            </form>
 
             {/* Mostrar mensaje solo si la búsqueda se realizó y no hay datos */}
             {busquedaRealizada && !data && <h5 className='h5'>No hay reportes para la fecha indicada.</h5>}
@@ -83,7 +83,7 @@ const RecaudacionEntreFechas = () => {
                 <div className='reporte'>
                     <hr />
                     <section className='contTotales'>
-                        <BoxRecaudacion nombre={'Cant. de facturas'} total={data.facturas.length} />
+                        <BoxRecaudacion nombre={'Cant. de facturas'} total={data.ventas.length} />
                         <BoxRecaudacion nombre={'Total en Cheques'} total={formatARS(data.totalCheque)} />
                         <BoxRecaudacion nombre={'Total en Contado'} total={formatARS(data.totalContado)} />
                         <BoxRecaudacion nombre={'Total en Credito'} total={formatARS(data.totalCredito)} />
@@ -95,20 +95,20 @@ const RecaudacionEntreFechas = () => {
                     </div>
                     <div className='contButtonVerOCultar'>
                         <ButtonVerOcultar
-                            text={'Facturas'}
-                            handleVerOcultar={handlerVerFacturas}
-                            ver={mostrarFacturas}
+                            text={'Ventas'}
+                            handleVerOcultar={handlerVerVentas}
+                            ver={mostrarVentas}
                         />
                     </div>
 
                     <div className='contFacturas'>
                         {
-                            mostrarFacturas &&
-                            data.facturas.map(f => {
+                            mostrarVentas &&
+                            data.ventas.map(v => {
                                 return (
-                                    <FacturaHistorial
-                                        key={f.id}
-                                        f={f}
+                                    <VentaHistorial
+                                        key={v.id}
+                                        venta={v}
                                     />
                                 )
                             })

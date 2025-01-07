@@ -29,9 +29,3 @@ export const AppRouter = () => {
     </BrowserRouter >
   )
 }
-
-{/*
-            <Route element={<AuthGuard />} >
-              
-            </Route>
-            */}

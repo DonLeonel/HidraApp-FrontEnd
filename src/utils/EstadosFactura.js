@@ -1,8 +1,8 @@
-export const getEstadosEditarFactura = () => {
+export const getEstadosEditar = () => {
     return ['PAGADO', 'PENDIENTE', 'PARCIALMENTE_PAGADO',
         'VENCIDO', 'REEMBOLSADO', 'ESPERANDO_CONFIRMACION']
 }
-export const getEstadosNvaFactura = () => {
+export const getEstadosNva = () => {
     return ['PAGADO', 'PENDIENTE', 'PARCIALMENTE_PAGADO', 'ESPERANDO_CONFIRMACION']
 }
 

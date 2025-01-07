@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { fetchDataService } from '../../services'
-import '../../styles/components/facturas/formaPagoYEstadoFactura.css'
+import '../../styles/components/ventas/formaPagoYEstadoVenta.css'
 
-export const FormaPagoFactura = ({ setIdFormaDePago, idFormaDePago, onChange = null }) => {
+export const FormaPagoVenta = ({ setIdFormaDePago, idFormaDePago, onChange = null }) => {
 
     const [formasDePago, setFormasDePago] = useState([])
 

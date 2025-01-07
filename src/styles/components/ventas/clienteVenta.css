@@ -1,11 +1,12 @@
 .contClienteSeleccionado {
     margin: 10px auto;
+
     & .flex {
         display: flex;
         justify-content: space-around;
         align-items: center;
 
-        & .datosClienteFactura {
+        & .datosClienteVenta {
             padding: 10px;
 
             & span {

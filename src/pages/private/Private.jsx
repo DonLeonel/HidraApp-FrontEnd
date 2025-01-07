@@ -8,6 +8,10 @@ const Dashboard = lazy(() => import('./dashboard/Dashboard'))
 const Clientes = lazy(() => import('./clientes/Clientes'))
 const NuevoCliente = lazy(() => import('./clientes/NuevoCliente'))
 const DetalleCliente = lazy(() => import('./clientes/DetalleCliente'))
+const Ventas = lazy(() => import('./ventas/Ventas'))
+const NuevaVenta = lazy(() => import('./ventas/NuevaVenta'))
+const DetalleVenta = lazy(() => import('./ventas/DetalleVenta'))
+const EditarVenta = lazy(() => import('./ventas/EditarVenta'))
 const Facturas = lazy(() => import('./facturas/Facturas'))
 const NuevaFactura = lazy(() => import('./facturas/NuevaFactura'))
 const DetalleFactura = lazy(() => import('./facturas/DetalleFactura'))
@@ -40,9 +44,14 @@ const Private = () => {
       <Route path={RoutesPrivadas.CLIENTES} element={<Clientes />} />
       <Route path={`${RoutesPrivadas.CLIENTES}/${RoutesPrivadas.NUEVO}`} element={<NuevoCliente />} />
       <Route path={`${RoutesPrivadas.CLIENTES}/${RoutesPrivadas.DETALLE}/:id`} element={<DetalleCliente />} />
+
+      <Route path={RoutesPrivadas.VENTAS} element={<Ventas />} />
+      <Route path={`${RoutesPrivadas.VENTAS}/${RoutesPrivadas.NUEVO}`} element={<NuevaVenta />} />
+      <Route path={`${RoutesPrivadas.VENTAS}/${RoutesPrivadas.NUEVO}/${RoutesPrivadas.CLIENTES}/:id`} element={<NuevaVenta />} />
+      <Route path={`${RoutesPrivadas.VENTAS}/${RoutesPrivadas.DETALLE}/:id`} element={<DetalleVenta />} />
+
       <Route path={RoutesPrivadas.FACTURAS} element={<Facturas />} />
-      <Route path={`${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.NUEVO}`} element={<NuevaFactura />} />
-      <Route path={`${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.NUEVO}/${RoutesPrivadas.CLIENTES}/:id`} element={<NuevaFactura />} />
+      <Route path={`${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.NUEVO}`} element={<NuevaFactura />} />      
       <Route path={`${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.DETALLE}/:id`} element={<DetalleFactura />} />
       <Route path={RoutesPrivadas.PRODUCTOS} element={<Productos />} />
       <Route path={`${RoutesPrivadas.PRODUCTOS}/${RoutesPrivadas.DETALLE}/:id`} element={<DetalleProducto />} />
@@ -53,13 +62,14 @@ const Private = () => {
         <Route path={`${RoutesPrivadas.PRODUCTOS}/${RoutesPrivadas.NUEVO}`} element={<NuevoProducto />} />
         <Route path={`${RoutesPrivadas.PRODUCTOS}/${RoutesPrivadas.EDITAR}/:id`} element={<EditarProducto />} />
         <Route path={`${RoutesPrivadas.CLIENTES}/${RoutesPrivadas.EDITAR}/:id`} element={<EditarCliente />} />
+        <Route path={`${RoutesPrivadas.VENTAS}/${RoutesPrivadas.EDITAR}/:id`} element={<EditarVenta />} />
         <Route path={`${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.EDITAR}/:id`} element={<EditarFactura />} />
         <Route path={`${RoutesPrivadas.BARRIOS}/${RoutesPrivadas.NUEVO}`} element={<NuevoBarrio />} />
         <Route path={`${RoutesPrivadas.BARRIOS}/${RoutesPrivadas.EDITAR}/:id`} element={<EditarBarrio />} />
         <Route path={`${RoutesPrivadas.CATEGORIAS}/${RoutesPrivadas.NUEVO}`} element={<NuevaCategoria />} />
         <Route path={`${RoutesPrivadas.CATEGORIAS}/${RoutesPrivadas.EDITAR}/:id`} element={<EditarCategoria />} />
         <Route path={RoutesPrivadas.REPORTES} element={<Reportes />}>
-          <Route path={RoutesPrivadas.FACTURAS} element={<ReportesFacturas />} >
+          <Route path={RoutesPrivadas.VENTAS} element={<ReportesFacturas />} >
             <Route path={RoutesRepAnidadas.RECAUDACION_POR_DIA} element={<RecaudacionPorDia />} />
             <Route path={RoutesRepAnidadas.RECAUDACION_ENTRE_FECHAS} element={<RecaudacionEntreFechas />} />
             <Route path={RoutesRepAnidadas.BUSQUEDA_POR_ESTADOS} element={<BusquedaPorEstado />} />

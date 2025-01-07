@@ -1,9 +1,9 @@
 import { useState, useEffect, useImperativeHandle, forwardRef, useRef } from "react"
 import { useSearchDinamic } from "../../hooks"
 import { fetchDataPaginatedService, fetchDataService } from "../../services"
-import '../../styles/components/facturas/clienteFactura.css'
+import '../../styles/components/ventas/clienteVenta.css'
 
-export const ClienteFactura = forwardRef(({ idCliente = null, setCliente, cliente, onChange = null }, ref) => {
+export const ClienteVenta = forwardRef(({ idCliente = null, setCliente, cliente, onChange = null }, ref) => {
 
     const paginate = { page: 0, size: 100 }
     const [clientes, setClientes] = useState([])
@@ -67,7 +67,7 @@ export const ClienteFactura = forwardRef(({ idCliente = null, setCliente, client
             <div className='contClienteSeleccionado'>
                 <h4 className="tituloComponent">Cliente seleccionado:</h4>
                 <div className='flex'>
-                    <div className='datosClienteFactura'>
+                    <div className='datosClienteVenta'>
                         <h4>Nombre: <span>{cliente.nombre}</span></h4>
                         <h4>Apellido: <span>{cliente.apellido}</span></h4>
                         <h4>Celular: <span>{cliente.celular}</span></h4>

@@ -6,7 +6,7 @@ export const CuadroMensajeEliminar = ({entidad, setDeseaBorrar, setMostrarDialog
             <h4
                 className='dialogo'
             >
-                {`¿Esta seguro que desea eliminar al ${entidad} de forma permanente?`}
+                {`¿Esta seguro que desea eliminar ${entidad} de forma permanente?`}
             </h4>
             <div>
                 <button onClick={() => setDeseaBorrar(true)} className='si'>Si</button>

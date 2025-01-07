@@ -45,7 +45,7 @@ export const FacturasRecientes = () => {
         <thead className='tableHeader'>
           <tr>
             <th>Cliente</th>
-            <th>Fecha/Hora</th>
+            <th>Fecha Emision</th>
             <th>Total</th>
           </tr>
         </thead>
@@ -64,7 +64,7 @@ export const FacturasRecientes = () => {
                   onClick={() => navigate(`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.DETALLE}/${f.id}`)}
                 >
                   <td>{f.cliente.nombre + ' ' + f.cliente.apellido}</td>
-                  <td><span className='fechaHora'>{f.fechaHora}</span></td>
+                  <td><span className='fechaHora'>{f.fechaEmision}</span></td>
                   <td>{formatARS(f.total)}</td>
                 </tr>
               )

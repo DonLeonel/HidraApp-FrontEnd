@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { formatARS } from '../../utils'
-import '../../styles/components/facturas/productoVenta.css'
+import '../../styles/components/ventas/productoVenta.css'
 
 export const ProductoVenta = ({ id, nombre, precio, initCantidad = 1,
     onChangeCantidad, onChangeDetalle = null, onRemove }) => {

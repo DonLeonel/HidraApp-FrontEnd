@@ -3,7 +3,7 @@ import { fetchDataService } from '../../../services'
 import { useState, useEffect } from 'react'
 import { formatARS, Role } from '../../../utils'
 import { BoxRecaudacion, ButtonVerOcultar, ButtonVolver,
-     FacturaHistorial, Loading, AbonoDeCuenta } from '../../../components'
+      Loading, AbonoDeCuenta, VentaHistorial} from '../../../components'
 import { useSelector } from 'react-redux'
 import '../../../styles/pages/detalles.css'
 
@@ -177,7 +177,7 @@ const DetalleCliente = () => {
                             mostrarHistorial &&
                             facturas.map(f => {
                                 return (
-                                    <FacturaHistorial
+                                    <VentaHistorial
                                         key={f.id}
                                         f={f}
                                     />

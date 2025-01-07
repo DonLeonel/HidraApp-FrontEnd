@@ -7,12 +7,12 @@ import { Role, RoutesPrivadas, formatARS } from '../../../utils'
 import { CuadroMensajeEliminar, BusquedaYNuevo, TableRowLoading } from '../../../components'
 import '../../../styles/pages/pagesEnComun.css'
 
-const Facturas = () => {
-    
+const Ventas = () => {
+
     const userState = useSelector((state) => state.user)
     const paginateInit = { page: 0, size: 20 }
     const [paginate, setPaginate] = useState(paginateInit)
-    const [facturas, setFacturas] = useState([])
+    const [ventas, setVentas] = useState([])
     const [loading, setLoading] = useState(true)
     const [recargar, setRecargar] = useState(false);
 
@@ -27,12 +27,12 @@ const Facturas = () => {
             }
         }
         const fetchInfo = async () => {
-            const { content: facturas, error } = await fetchDataPaginatedService(
-                { entity: 'factura', paginate, options })
+            const { content: ventas, error } = await fetchDataPaginatedService(
+                { entity: 'venta', paginate, options })
             if (error) {
                 console.error(error)
             } else {
-                setFacturas(facturas)
+                setVentas(ventas)
                 setLoading(false)
             }
         }
@@ -45,22 +45,22 @@ const Facturas = () => {
         listar,
         handleSearch,
         reset
-    } = useSearchDinamic(facturas, ['fechaEmision'], { esFactOVenta: true });
+    } = useSearchDinamic(ventas, ['fechaHora'], { esFactOVenta: true });
 
     const {
         mostrarDialogo,
         iniciarEliminacion,
         setDeseaBorrar,
         setMostrarDialogo
-    } = useEliminar('factura', { setRecargar });
+    } = useEliminar('venta', { setRecargar });
 
     return (
         <div className='contFacturas borLayout'>
-            <h4 className='tituloLayout'>Facturas</h4>
+            <h4 className='tituloLayout'>Ventas</h4>
 
             {mostrarDialogo &&
                 <CuadroMensajeEliminar
-                    entidad={'la Factura'}
+                    entidad={'la Venta'}
                     setDeseaBorrar={setDeseaBorrar}
                     setMostrarDialogo={setMostrarDialogo}
                 />
@@ -70,7 +70,7 @@ const Facturas = () => {
                 placeholder={'Buscar por fecha/nombre/apellido'}
                 termino={termino}
                 handleSearch={handleSearch}
-                textButton={'Nueva Factura'}
+                textButton={'Nueva Venta'}
             />
 
             <table className='tablePages'>
@@ -91,22 +91,22 @@ const Facturas = () => {
                         />
                         :
                         elementosFiltrados &&
-                        elementosFiltrados.map((f) => {
+                        elementosFiltrados.map((v) => {
                             return (
-                                <tr className='trComprador colorParImpar' key={f.id}>
-                                    <td>{f.cliente.nombre + ' ' + f.cliente.apellido}</td>
-                                    <td> <span className='fechaHora'>{f.fechaEmision.split(' ')[0]}</span></td>
-                                    <td >{formatARS(f.total)}</td>
+                                <tr className='trComprador colorParImpar' key={v.id}>
+                                    <td>{v.cliente.nombre + ' ' + v.cliente.apellido}</td>
+                                    <td> <span className='fechaHora'>{v.fechaHora.split(' ')[0]}</span></td>
+                                    <td >{formatARS(v.total)}</td>
                                     <td className='tdFlex'>
-                                        <Link title='detalle' to={`${RoutesPrivadas.DETALLE}/${f.id}`}>
+                                        <Link title='detalle' to={`${RoutesPrivadas.DETALLE}/${v.id}`}>
                                             <img className='detalle' src='/icons-app/ojo.png' alt='ver detalle' />
                                         </Link>
                                         {(userState.role === Role.ADMIN) &&
                                             <>
-                                                <Link title='editar' to={`${RoutesPrivadas.EDITAR}/${f.id}`}>
+                                                <Link title='editar' to={`${RoutesPrivadas.EDITAR}/${v.id}`}>
                                                     <img className='editar' src='/icons-app/lapiz.png' alt='editar' />
                                                 </Link>
-                                                <button onClick={() => iniciarEliminacion(f.id)} title='borrar'>
+                                                <button onClick={() => iniciarEliminacion(v.id)} title='borrar'>
                                                     <img className='borrar' src='/icons-app/basurero.png' alt='borrar' />
                                                 </button>
                                             </>
@@ -120,4 +120,4 @@ const Facturas = () => {
     )
 }
 
-export default Facturas
+export default Ventas

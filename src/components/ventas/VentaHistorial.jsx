@@ -1,27 +1,27 @@
 import { formatARS, getClassNameEstado, Role } from "../../utils"
 import { useSelector } from "react-redux"
-import '../../styles/components/facturas/facturaHistorial.css'
+import '../../styles/components/ventas/ventaHistorial.css'
 
-export const FacturaHistorial = ({ f }) => {
+export const VentaHistorial = ({ venta }) => {
 
     const userState = useSelector((state) => state.user)
 
     return (
-        <div className='factura'>
+        <div className='ventaHistorial'>
             <div className='boxDetalles'>
-                <h4>Núm de factura: <span>{f.id}</span></h4>
-                <h4>Fecha/Hora: <span className='fechaHora'>{f.fechaHora}</span></h4>
-                <h4>Forma de pago: <span>{f.formaDePago.nombre.toUpperCase()}</span></h4>
-                <h4>Estado: <span className={getClassNameEstado(f.estado)}>{f.estado.toUpperCase()}</span></h4>
+                <h4>Núm de Venta: <span>{venta.id}</span></h4>
+                <h4>Fecha/Hora: <span className='fechaHora'>{venta.fechaHora}</span></h4>
+                <h4>Forma de pago: <span>{venta.formaDePago.nombre.toUpperCase()}</span></h4>
+                <h4>Estado: <span className={getClassNameEstado(venta.estado)}>{venta.estado.toUpperCase()}</span></h4>
                 {
-                    f.updatedAt && userState.role == Role.ADMIN &&
-                    <h4>Actualizacion: <span>{f.updatedAt}</span></h4>
+                    venta.updatedAt && userState.role == Role.ADMIN &&
+                    <h4>Actualizacion: <span>{venta.updatedAt}</span></h4>
                 }
                 {
-                    f.entrega &&
+                    venta.entrega &&
                     <>
-                        <h4>Entrego: <span>{formatARS(f.entrega)}</span></h4>
-                        <h4>Debe: <span>{formatARS(f.total - f.entrega)}</span></h4>
+                        <h4>Entrego: <span>{formatARS(venta.entrega)}</span></h4>
+                        <h4>Debe: <span>{formatARS(venta.total - venta.entrega)}</span></h4>
                     </>
                 }
             </div>
@@ -35,7 +35,7 @@ export const FacturaHistorial = ({ f }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {f.detallesFactura.map(d => {
+                        {venta.detallesVenta.map(d => {
                             return (
                                 <tr key={d.id}>
                                     <td>{d.producto.nombre}</td>
@@ -48,7 +48,7 @@ export const FacturaHistorial = ({ f }) => {
                 </table>
                 <hr />
                 <div className='total'>
-                    <h4>Total: {formatARS(f.total)}</h4>
+                    <h4>Total: {formatARS(venta.total)}</h4>
                 </div>
             </div>
         </div>

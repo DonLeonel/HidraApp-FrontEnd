@@ -1,5 +1,6 @@
 export * from './BoxStock'
 export * from './FacturasRecientes'
+export * from './VentasRecientes'
 export * from './MenuPages'
 export * from './NuevaVenta'
 export * from './TopCompradores'

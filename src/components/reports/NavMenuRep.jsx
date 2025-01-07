@@ -16,12 +16,12 @@ export const NavMenuRep = () => {
             <ul>
                 <li className='li'>
                     <Link
-                        to={RoutesPrivadas.FACTURAS}
-                        name='facturas'
-                        className={`noDecoration btnMenu ${selected == 'facturas' ? 'selected' : ''}`}
+                        to={RoutesPrivadas.VENTAS}
+                        name='ventas'
+                        className={`noDecoration btnMenu ${selected == 'ventas' ? 'selected' : ''}`}
                         onClick={handlerClick}
                     >
-                        Facturas
+                        Ventas
                     </Link>
                 </li>
                 <li className='li'>
@@ -42,6 +42,16 @@ export const NavMenuRep = () => {
                         onClick={handlerClick}
                     >
                         Productos
+                    </Link>
+                </li>
+                <li className='li'>
+                    <Link
+                        to={RoutesPrivadas.FACTURAS}
+                        name='facturas'
+                        className={`noDecoration btnMenu ${selected == 'facturas' ? 'selected' : ''}`}
+                        onClick={handlerClick}
+                    >
+                        Facturas
                     </Link>
                 </li>
             </ul>

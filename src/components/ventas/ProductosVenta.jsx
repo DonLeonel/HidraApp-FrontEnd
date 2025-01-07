@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
 import { fetchDataPaginatedService } from "../../services"
 import { Loading } from "../loading"
-import '../../styles/components/facturas/productoFactura.css'
+import '../../styles/components/ventas/productosVenta.css'
 
-export const ProductosFactura = ({ addProducto }) => {
+export const ProductosVenta = ({ addProducto }) => {
 
     const paginate = { page: 0, size: 100 }
     const [productos, setProductos] = useState([])

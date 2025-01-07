@@ -1,4 +1,4 @@
-export const validarEntradasFacturaYDetalles = ({ cliente, idFormaDePago, productosEnDetalle, entrega }) => {
+export const validarEntradasVentaYDetalles = ({ cliente, idFormaDePago, productosEnDetalle, montoEntrega }) => {
     const errors = []
 
     !cliente &&
@@ -10,15 +10,15 @@ export const validarEntradasFacturaYDetalles = ({ cliente, idFormaDePago, produc
     productosEnDetalle.length <= 0 &&
         errors.push({ nombre: 'productosEnDetalle', mensaje: 'Debe seleccionar al menos un producto.' })
 
-    if (entrega == '') {
-        entrega <= 0 &&
-            errors.push({ nombre: 'estadoFactura', mensaje: 'El monto de entrega debe ser Mayor a Cero.' })
+    if (montoEntrega == '') {
+        montoEntrega <= 0 &&
+            errors.push({ nombre: 'montoEntrega', mensaje: 'El monto de entrega debe ser Mayor a Cero.' })
     }
 
     return errors
 }
 
-export const validarEntradasFactura = ({ cliente, idFormaDePago }) => {
+export const validarEntradasVenta = ({ cliente, idFormaDePago }) => {
     const errors = []
 
     !cliente &&
@@ -39,13 +39,13 @@ export const validarEntradasDetalles = ({ productosEnDetalle }) => {
     return errors
 }
 
-export const sonIgualesLasFacturas = (facturaAEditar, facturaEditada) => {
+export const sonIgualesLasVentas = (ventaAEditar, VentaEditada) => {
     let ok = false
     
-    if ((facturaAEditar.cliente.id === facturaEditada.idCliente)
-        && (facturaAEditar.formaDePago.id === facturaEditada.idFormaDePago)
-        && (facturaAEditar.estado === facturaEditada.estado)
-        && (facturaAEditar.entrega == facturaEditada.entrega)) {
+    if ((ventaAEditar.cliente.id === VentaEditada.idCliente)
+        && (ventaAEditar.formaDePago.id === VentaEditada.idFormaDePago)
+        && (ventaAEditar.estado === VentaEditada.estado)
+        && (ventaAEditar.montoEntrega == VentaEditada.montoEntrega)) {
         ok = true
     }   
 

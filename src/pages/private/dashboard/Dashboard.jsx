@@ -1,5 +1,6 @@
 import {
-  MenuPages, FacturasRecientes, TopCompradores, Stock, NuevaVenta
+  MenuPages, FacturasRecientes, TopCompradores, Stock, NuevaVenta,
+  VentasRecientes
 } from '../../../components'
 import '../../../styles/pages/dashboard.css'
 import '../../../styles/pages/pagesEnComun.css'
@@ -15,6 +16,7 @@ const Dashboard = () => {
         </div>
         <div className='row-completa'>
           <Stock />
+          <VentasRecientes />
           <FacturasRecientes />
         </div>
       </div>

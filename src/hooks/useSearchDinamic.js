@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useSearchDinamic = (array, palabrasClaves, { esFactura = false } = false) => {
+export const useSearchDinamic = (array, palabrasClaves, { esFactOVenta = false } = false) => {
     const [termino, setTermino] = useState('')
     const [elementosFiltrados, setElementosFiltrados] = useState([])
     const [listar, setListar] = useState(false)
@@ -16,7 +16,7 @@ export const useSearchDinamic = (array, palabrasClaves, { esFactura = false } = 
                     Element[key] && Element[key].toLowerCase().includes(termino.toLowerCase())
                 )
                 let porCliente = ''
-                if (esFactura) {
+                if (esFactOVenta) {
                     // Combinar nombre y apellido del cliente
                     const nombreCompleto = `${Element.cliente.nombre} ${Element.cliente.apellido}`.toLowerCase()
                     porCliente = nombreCompleto.includes(termino.toLowerCase())

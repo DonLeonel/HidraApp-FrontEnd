@@ -1,31 +1,31 @@
 import { useState, useEffect } from "react"
-import '../../styles/components/facturas/formaPagoYEstadoFactura.css'
+import '../../styles/components/ventas/formaPagoYEstadoVenta.css'
 
-export const EstadoFactura = ({ estados, estadoFactura,
-    setEstadoFactura, entrega, setEntrega, onChange = null }) => {
+export const EstadoVenta = ({ estados, estadoVenta,
+    setEstadoVenta, montoEntrega, setMontoEntrega, onChange = null }) => {
 
     const [habilitarEntrega, setHabilitarEntrega] = useState(false)
 
     useEffect(() => {
-        if (estadoFactura == 'PARCIALMENTE_PAGADO') {
+        if (estadoVenta == 'PARCIALMENTE_PAGADO') {
             setHabilitarEntrega(true)
-            if (!entrega) setEntrega('')
+            if (!montoEntrega) setMontoEntrega('')
         } else {
             setHabilitarEntrega(false)
-            setEntrega(null)
+            setMontoEntrega(null)
         }
-        estadoFactura && onChange && onChange()
-    }, [estadoFactura, entrega])
+        estadoVenta && onChange && onChange()
+    }, [estadoVenta, montoEntrega])
 
     return (
-        <div className='contEstadoFactura'>
+        <div className='contEstadoVenta'>
             <h4 className="tituloComponent">Seleccione un estado.</h4>
             <form>
                 <select
-                    className='selectEstadoFactura'
-                    name="estadoFactura" id="estadoFactura"
-                    onChange={({ target }) => setEstadoFactura(target.value)}
-                    value={estadoFactura}
+                    className='selectEstadoVenta'
+                    name="estadoVenta" id="estadoVenta"
+                    onChange={({ target }) => setEstadoVenta(target.value)}
+                    value={estadoVenta}
                 >
                     {
                         estados?.map((e, i) => {
@@ -40,12 +40,12 @@ export const EstadoFactura = ({ estados, estadoFactura,
 
                 {habilitarEntrega &&
                     <input
-                        onChange={({ target }) => setEntrega(target.value)}
+                        onChange={({ target }) => setMontoEntrega(target.value)}
                         placeholder="Monto de entrega"
-                        value={entrega}
+                        value={montoEntrega}
                         type="number"
-                        name="entrega"
-                        id="entrega"
+                        name="montoEntrega"
+                        id="montoEntrega"
                     >
                     </input>
                 }

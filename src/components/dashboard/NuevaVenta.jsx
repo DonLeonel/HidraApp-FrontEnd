@@ -7,7 +7,7 @@ export const NuevaVenta = () => {
   return (
     <div className='contBtnNvaVnt borLayout'>
       <Link
-        to={`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.NUEVO}`}
+        to={`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.VENTAS}/${RoutesPrivadas.NUEVO}`}
         className='linkNuevaVnta'
       >
         <span>Nueva Venta</span>
