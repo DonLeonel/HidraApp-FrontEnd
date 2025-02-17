@@ -1,21 +1,18 @@
 import { useParams } from 'react-router-dom'
 import { fetchDataService } from '../../../services'
 import { useState, useEffect } from 'react'
-import { formatARS, Role } from '../../../utils'
-import { BoxRecaudacion, ButtonVerOcultar, ButtonVolver,
-      Loading, AbonoDeCuenta, VentaHistorial} from '../../../components'
+import { Role } from '../../../utils'
+import { ButtonVolver, Loading } from '../../../components'
 import { useSelector } from 'react-redux'
 import '../../../styles/pages/detalles.css'
+import { HistorialVentas } from '../../../components/clientes/HistorialVentas'
+import { HistorialFacturas } from '../../../components/clientes/HistorialFacturas'
 
 const DetalleCliente = () => {
 
     const userState = useSelector((state) => state.user)
     const { id } = useParams()
     const [cliente, setCliente] = useState(null)
-    const [facturas, setFacturas] = useState([])
-    const [cuenta, setCuenta] = useState(null)
-    const [mostrarHistorial, setMostrarHistorial] = useState(false)
-    const [mostrarCuenta, setMostrarCuenta] = useState(false)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -38,56 +35,6 @@ const DetalleCliente = () => {
         fetchInfo()
         return () => abortController.abort()
     }, [])
-
-    useEffect(() => {
-        if (mostrarHistorial) {
-            const abortController = new AbortController()
-            const { signal } = abortController
-
-            const options = {
-                signal
-            }
-            const fetchInfo = async () => {
-                const { data: facturas, error } = await fetchDataService(
-                    { entity: `factura/por-cliente/${cliente.id}`, options }
-                )
-                error ? console.error(error) : setFacturas(facturas)
-            }
-            fetchInfo()
-            return () => abortController.abort()
-        }
-    }, [mostrarHistorial])
-
-    useEffect(() => {
-        if (mostrarCuenta) {
-            const abortController = new AbortController()
-            const { signal } = abortController
-
-            const options = {
-                signal
-            }
-            const fetchInfo = async () => {
-                const { data: cuenta, error } = await fetchDataService(
-                    { entity: `cliente/obtener-cuenta/${cliente.id}`, options }
-                )
-                error ? console.error(error) : setCuenta(cuenta)
-            }
-            fetchInfo()
-            return () => abortController.abort()
-        }
-    }, [mostrarCuenta])
-
-    const handleHistorial = () => {
-        mostrarHistorial ?
-            setMostrarHistorial(false)
-            : setMostrarHistorial(true)
-    }
-
-    const handleCuenta = () => {
-        mostrarCuenta ?
-            setMostrarCuenta(false)
-            : setMostrarCuenta(true)
-    }
 
     return (
         <div className='contDetalleCliente borLayout'>
@@ -133,58 +80,16 @@ const DetalleCliente = () => {
                     }
 
                     {cliente.cantCompras > 0 &&
-                        <div className='contButtonVerOcultar'>
-                            <ButtonVerOcultar
-                                text={'Cuenta'}
-                                handleVerOcultar={handleCuenta}
-                                ver={mostrarCuenta}
-                            />
-                        </div>
+                        <HistorialFacturas
+                            cliente={cliente}
+                        />
                     }
-
-                    <div className='contDetCuenta'>
-                        {mostrarCuenta &&
-                            <>
-                                <section className='contTotales'>
-                                    <BoxRecaudacion nombre={'Total en Cheques'} total={formatARS(cuenta?.totalCheque)} />
-                                    <BoxRecaudacion nombre={'Total en Contado'} total={formatARS(cuenta?.totalContado)} />
-                                    <BoxRecaudacion nombre={'Total en Credito'} total={formatARS(cuenta?.totalCredito)} />
-                                    <BoxRecaudacion nombre={'Total en Fiado'} total={formatARS(cuenta?.totalFiado)} />
-                                    <BoxRecaudacion nombre={'Total en Transferencias'} total={formatARS(cuenta?.totalTransferencia)} />
-                                </section>
-                                <hr />
-                                <div className='total'>
-                                    <h4>Total: <span>{formatARS(cuenta?.total)}</span></h4>
-                                    <h5>(No incluye ventas pagadas)</h5>
-                                </div>
-                                <AbonoDeCuenta />
-                            </>
-                        }
-                    </div>
 
                     {cliente.cantCompras > 0 &&
-                        <div className='contButtonVerOcultar'>
-                            <ButtonVerOcultar
-                                text={'Historial'}
-                                handleVerOcultar={handleHistorial}
-                                ver={mostrarHistorial}
-                            />
-                        </div>
+                        <HistorialVentas
+                            cliente={cliente}
+                        />
                     }
-
-                    <div className='contHistorial'>
-                        {
-                            mostrarHistorial &&
-                            facturas.map(f => {
-                                return (
-                                    <VentaHistorial
-                                        key={f.id}
-                                        f={f}
-                                    />
-                                )
-                            })
-                        }
-                    </div>
                 </>
             }
             <div className='contButtonVolver'>

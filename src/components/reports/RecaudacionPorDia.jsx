@@ -1,17 +1,15 @@
 import { fetchDataService } from '../../services'
 import { useState, useEffect } from 'react'
-import { obtenerFechaActual, formatARS } from '../../utils'
-import { BoxRecaudacion } from './BoxRecaudacion'
+import { obtenerFechaActual } from '../../utils'
 import { InputFechaRep } from './InputFechaRep'
-import { VentaHistorial } from '../ventas'
-import { ButtonVerOcultar } from '../buttons'
 import '../../styles/components/report/ventaReporte.css'
+import { Reporte } from './Reporte'
 
 const RecaudacionPorDia = () => {
+
     const [data, setData] = useState(null)
     const [fechaInput, setFechaInput] = useState('')
-    const [fechaActual, setFechaActual] = useState('')
-    const [mostrarVentas, setMostrarVentas] = useState(false)
+    const [fechaActual, setFechaActual] = useState('')    
     const [busquedaRealizada, setBusquedaRealizada] = useState(false)
 
     useEffect(() => {
@@ -34,24 +32,19 @@ const RecaudacionPorDia = () => {
         const fetchInfo = async () => {
             const { data } = await fetchDataService(
                 { entity: 'reporte/recaudacion-por-dia', options }
-            )
+            )            
+            
             !data ? setData(null) : setData(data)
             setBusquedaRealizada(true)
         }
 
         fetchInfo()
         return () => abortController.abort()
-    }
-
-    const handlerVerVentas = () => {
-        mostrarVentas ?
-            setMostrarVentas(false)
-            : setMostrarVentas(true)
-    }
+    }    
 
     return (
         <div className='contRecaudacionPorDia'>
-            <div className='contInputFecha'>
+            <form className='contInputFecha'>
                 <InputFechaRep
                     setFechaInput={setFechaInput}
                     fechaInput={fechaInput}
@@ -59,49 +52,12 @@ const RecaudacionPorDia = () => {
                     handlerSearch={handlerSearch}
                 />
                 <button onClick={handlerSearch}>Buscar</button>
-            </div>
+            </form>
 
-            {/* Mostrar mensaje solo si la búsqueda se realizó y no hay datos */}
-            {busquedaRealizada && !data && <h5 className='h5'>No hay reportes para la fecha indicada.</h5>}
-
-            {data &&
-                <div className='reporte'>
-                    <hr />
-                    <section className='contTotales'>
-                        <BoxRecaudacion nombre={'Cant. de ventas'} total={data.ventas.length} />
-                        <BoxRecaudacion nombre={'Total en Cheques'} total={formatARS(data.totalCheque)} />
-                        <BoxRecaudacion nombre={'Total en Contado'} total={formatARS(data.totalContado)} />
-                        <BoxRecaudacion nombre={'Total en Credito'} total={formatARS(data.totalCredito)} />
-                        <BoxRecaudacion nombre={'Total en Fiado'} total={formatARS(data.totalFiado)} />
-                        <BoxRecaudacion nombre={'Total en Transferencias'} total={formatARS(data.totalTransferencia)} />
-                    </section>
-                    <div className='total'>
-                        <h4>Total: <span>{formatARS(data.total)}</span></h4>
-                    </div>
-                    <div className='contButtonVerOculatar'>
-                        <ButtonVerOcultar
-                            text={'Ventas'}
-                            handleVerOcultar={handlerVerVentas}
-                            ver={mostrarVentas}
-                        />
-                    </div>
-
-                    <div className='contVentas'>
-                        {
-                            mostrarVentas &&
-                            data.ventas.map(v => {
-                                return (
-                                    <VentaHistorial
-                                        key={v.id}
-                                        venta={v}
-                                    />
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-            }
-
+            <Reporte 
+                busquedaRealizada={busquedaRealizada}
+                data={data}                            
+            />
         </div>
     )
 }

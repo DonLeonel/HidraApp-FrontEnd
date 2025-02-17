@@ -1,0 +1,71 @@
+.contConfirmarFactura {
+    padding: 4px;
+
+    & .factura {
+        padding: 10px;
+
+        & .boxDetalles {
+            margin-bottom: 10px;
+            text-align: center;
+
+            & .item {
+                margin-bottom: 10px;
+
+                & h4 {
+                    padding: 3px;
+                    text-decoration: underline;
+
+                    & span {
+                        font-family: sans-serif;
+                        font-size: 15px;
+                        font-weight: 100;
+                    }
+                }
+
+                & .cliente {
+                    font-family: sans-serif;
+                    font-size: 18px;
+                }
+            }
+        }
+
+        & .boxProductos {
+            & table {
+                width: 100%;
+
+                & thead {
+                    & tr {
+                        text-align: left;
+                    }
+                }
+            }
+
+            & .total {
+                margin: auto;
+                width: 80%;
+                padding: 8px;
+                background-color: rgb(243, 243, 243);
+
+                & h4 {
+                    text-align: center;
+                    text-transform: uppercase;
+                }
+            }
+        }
+
+        & .contButton {
+            text-align: center;
+            padding: 10px;
+            margin-top: 8px;
+
+            & .btnCrearFactura {
+                background-color: rgb(92, 123, 245);
+                cursor: pointer;
+                padding: 8px;
+                border: none;
+                border-radius: 8px;
+            }
+        }
+
+    }
+}

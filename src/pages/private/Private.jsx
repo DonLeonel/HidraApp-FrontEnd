@@ -14,6 +14,7 @@ const DetalleVenta = lazy(() => import('./ventas/DetalleVenta'))
 const EditarVenta = lazy(() => import('./ventas/EditarVenta'))
 const Facturas = lazy(() => import('./facturas/Facturas'))
 const NuevaFactura = lazy(() => import('./facturas/NuevaFactura'))
+const ConfirmarFactura = lazy(() => import('./facturas/ConfirmarFactura'))
 const DetalleFactura = lazy(() => import('./facturas/DetalleFactura'))
 const Productos = lazy(() => import('./productos/Productos'))
 const Barrios = lazy(() => import('./barrios/Barrios'))
@@ -64,6 +65,7 @@ const Private = () => {
         <Route path={`${RoutesPrivadas.CLIENTES}/${RoutesPrivadas.EDITAR}/:id`} element={<EditarCliente />} />
         <Route path={`${RoutesPrivadas.VENTAS}/${RoutesPrivadas.EDITAR}/:id`} element={<EditarVenta />} />
         <Route path={`${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.EDITAR}/:id`} element={<EditarFactura />} />
+        <Route path={`${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.CONFIRMAR}`} element={<ConfirmarFactura />} />
         <Route path={`${RoutesPrivadas.BARRIOS}/${RoutesPrivadas.NUEVO}`} element={<NuevoBarrio />} />
         <Route path={`${RoutesPrivadas.BARRIOS}/${RoutesPrivadas.EDITAR}/:id`} element={<EditarBarrio />} />
         <Route path={`${RoutesPrivadas.CATEGORIAS}/${RoutesPrivadas.NUEVO}`} element={<NuevaCategoria />} />

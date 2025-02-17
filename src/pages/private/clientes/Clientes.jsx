@@ -181,7 +181,7 @@ const Clientes = () => {
                                     <td className='tdNuevaVenta'>
                                         <Link
                                             title='nueva venta'
-                                            to={`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.NUEVO}/${RoutesPrivadas.CLIENTES}/${c.id}`}
+                                            to={`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.VENTAS}/${RoutesPrivadas.NUEVO}/${RoutesPrivadas.CLIENTES}/${c.id}`}
                                         >
                                             <img className='detalle' src='/icons-app/plusGreen.png' alt='' />
                                         </Link>

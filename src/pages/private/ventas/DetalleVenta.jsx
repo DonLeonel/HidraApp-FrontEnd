@@ -35,7 +35,7 @@ const DetalleVenta = () => {
     }, [])
 
     return (
-        <div className='contDetalleFactura borLayout'>
+        <div className='contDetalleVenta borLayout'>
             <h4 className='tituloLayout'>Detalle venta</h4>
             {loading ?
                 <>

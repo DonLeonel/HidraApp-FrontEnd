@@ -7,6 +7,14 @@
 
     & .boxDetalles {
         margin-bottom: 5px;
+        position: relative;
+
+        & .checkbox{
+            position: absolute;
+            right: 2px;
+            top: 2px; 
+            transform: scale(1.5);     
+        }
 
         & h4 {
             padding: 3px;

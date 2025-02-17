@@ -1,11 +1,9 @@
 import { InputFechaRep } from './InputFechaRep'
 import { useState, useEffect } from 'react'
 import { fetchDataService } from '../../services'
-import { BoxRecaudacion } from './BoxRecaudacion'
-import { formatARS, obtenerFechaActual } from '../../utils'
-import { VentaHistorial } from '../ventas'
-import { ButtonVerOcultar } from '../buttons'
+import { obtenerFechaActual } from '../../utils'
 import '../../styles/components/report/ventaReporte.css'
+import { Reporte } from './Reporte'
 
 const RecaudacionEntreFechas = () => {
 
@@ -13,7 +11,6 @@ const RecaudacionEntreFechas = () => {
     const [fechaActual, setFechaActual] = useState('')
     const [fechaInputDesde, setFechaInputDesde] = useState('')
     const [fechaInputHasta, setfechaInputHasta] = useState('')
-    const [mostrarVentas, setMostrarVentas] = useState(false)
     const [busquedaRealizada, setBusquedaRealizada] = useState(false)
 
     useEffect(() => {
@@ -46,12 +43,6 @@ const RecaudacionEntreFechas = () => {
         return () => abortController.abort()
     }
 
-    const handlerVerVentas = () => {
-        mostrarVentas ?
-            setMostrarVentas(false)
-            : setMostrarVentas(true)
-    }
-
     return (
         <div className='contRecaudacionEntreFechas'>
             <form className='contInputFecha'>
@@ -76,46 +67,10 @@ const RecaudacionEntreFechas = () => {
                 <button onClick={handlerSearch}>Buscar</button>
             </form>
 
-            {/* Mostrar mensaje solo si la búsqueda se realizó y no hay datos */}
-            {busquedaRealizada && !data && <h5 className='h5'>No hay reportes para la fecha indicada.</h5>}
-
-            {data &&
-                <div className='reporte'>
-                    <hr />
-                    <section className='contTotales'>
-                        <BoxRecaudacion nombre={'Cant. de facturas'} total={data.ventas.length} />
-                        <BoxRecaudacion nombre={'Total en Cheques'} total={formatARS(data.totalCheque)} />
-                        <BoxRecaudacion nombre={'Total en Contado'} total={formatARS(data.totalContado)} />
-                        <BoxRecaudacion nombre={'Total en Credito'} total={formatARS(data.totalCredito)} />
-                        <BoxRecaudacion nombre={'Total en Fiado'} total={formatARS(data.totalFiado)} />
-                        <BoxRecaudacion nombre={'Total en Transferencias'} total={formatARS(data.totalTransferencia)} />
-                    </section>
-                    <div className='total'>
-                        <h4>Total: <span>{formatARS(data.total)}</span></h4>
-                    </div>
-                    <div className='contButtonVerOCultar'>
-                        <ButtonVerOcultar
-                            text={'Ventas'}
-                            handleVerOcultar={handlerVerVentas}
-                            ver={mostrarVentas}
-                        />
-                    </div>
-
-                    <div className='contFacturas'>
-                        {
-                            mostrarVentas &&
-                            data.ventas.map(v => {
-                                return (
-                                    <VentaHistorial
-                                        key={v.id}
-                                        venta={v}
-                                    />
-                                )
-                            })
-                        }
-                    </div>
-                </div>
-            }
+            <Reporte
+                busquedaRealizada={busquedaRealizada}
+                data={data}
+            />
         </div>
     )
 }

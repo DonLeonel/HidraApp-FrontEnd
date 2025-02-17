@@ -1,9 +1,10 @@
+.contBtnGenerarPDF,
+.contMostrarVentasAsociadas,
 .contButtonVolver,
 .contButtonActualizar {
     margin: 1rem;
     text-align: center;
 }
-
 
 .contButtonVerOcultar {
     text-align: center;
@@ -19,7 +20,8 @@
     justify-content: center;
 }
 
-.buttonVerOcultar {
+.buttonVerOcultar,
+.btnMostrarVentasAsociadas {
     border: none;
     border-radius: 8px;
     padding: 10px;
@@ -30,7 +32,8 @@
 .buttonVolver,
 .buttonCancelar,
 .buttonHacerEntrega,
-.buttonAbonarTotal {
+.buttonAbonarTotal,
+.btnGenerarPDF {
     padding: 8px;
     border-radius: 5px;
     border: none;
@@ -63,11 +66,13 @@
     border: solid 0.1px;
 }
 
-.buttonGuardar {
+.buttonGuardar,
+.btnGenerarPDF {
     background-color: rgb(107, 107, 243);
 }
 
-.buttonGuardar:hover {
+.buttonGuardar:hover,
+.btnGenerarPDF:hover {
     background-color: rgb(131, 179, 252);
     border: solid 0.5px;
 }

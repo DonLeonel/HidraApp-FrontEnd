@@ -1,5 +1,5 @@
-.contDetalleVenta {
-    & .boxDetalles {
+.contDetalleFactura {
+    & > .boxDetalles {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -16,7 +16,7 @@
         }
     }
 
-    & .boxProductos {
+    & > .boxProductos {
         border: 1px solid black;
         border-radius: 5px;
         padding: 8px;

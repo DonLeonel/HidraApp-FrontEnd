@@ -15,21 +15,21 @@ export const AbonoDeCuenta = () => {
                 </div>
             }
 
-             &&
-                <div>
-                    <button
-                        onClick={setVerInputEntrega(false)}
-                    >
-                        Cancelar
-                    </button>
-                    <input
-                        className='inputEntrega'
-                        type="number"
-                        placeholder='Ingrese monto'
-                    />
-                    <button>Entregar</button>
-                </div>
-            
+            &&
+            <div>
+                <button
+                    onClick={setVerInputEntrega(false)}
+                >
+                    Cancelar
+                </button>
+                <input
+                    className='inputEntrega'
+                    type="number"
+                    placeholder='Ingrese monto'
+                />
+                <button>Entregar</button>
+            </div>
+
         </>
     )
 }

@@ -10,6 +10,8 @@ export const getClassNameEstado = (estado) => {
     switch (estado) {
         case 'PAGADO':
             return 'classPagado'
+        case 'FACTURADA':
+            return 'classFacturada'
         case 'PENDIENTE':
             return 'classPendiente'
         case 'PARCIALMENTE_PAGADO':
