@@ -109,7 +109,9 @@ const DetalleFactura = () => {
             }
 
             <div className='contBtnGenerarPDF'>
-                <ButtonGenerarPdf />
+                <ButtonGenerarPdf
+                    id={id}
+                />
             </div>
             <div className='contMostrarVentasAsociadas'>
                 <button

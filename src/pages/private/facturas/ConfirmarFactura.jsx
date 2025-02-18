@@ -1,11 +1,10 @@
-import { useLocation, Navigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchDataService } from "../../../services";
 import { calcularTotal, generarDetallesFactura, obtenerFechaActual, formatARS, RoutesPrivadas } from "../../../utils";
 import { useState, useEffect } from "react";
 import { ButtonVolver } from "../../../components";
 import '../../../styles/pages/facturas/factura.css'
 import '../../../styles/pages/pagesEnComun.css'
-import { useNavigate } from "react-router-dom";
 
 const ConfirmarFactura = () => {
 
@@ -30,12 +29,13 @@ const ConfirmarFactura = () => {
                 },
                 body: JSON.stringify(facturaRQ)
             }
-            const { error } = await fetchDataService({ entity: 'factura', options })
-            if (!error) {
+            const { data, error } = await fetchDataService({ entity: 'factura', options })
+            if (data) {
                 alert('Factura creada exitosamente')
                 navigate(`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.FACTURAS}`, { replace: true })
-            }
-            console.log(error)
+            }else if(error){
+                console.error(error)
+            }       
         }
     }
 
