@@ -1,4 +1,9 @@
-.contLogin {
+.gridLogin {
+    display: grid;
+    min-height: 93vh;
+    grid-template-rows: 1fr auto; /* El formulario ocupa el espacio disponible, el footer se mantiene abajo */
+}
+.contLogin {    
     background-color: rgb(209, 209, 209);
     display: flex;
     flex-direction: column;

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { RoutesPrivadas } from "../../utils/router"
+import '../../styles/components/buttons/buttons.css'
 
 export const ButtonCrearFactura = ({facturaACrear}) => {      
     return (
@@ -8,7 +9,7 @@ export const ButtonCrearFactura = ({facturaACrear}) => {
             to={`/${RoutesPrivadas.PRIVATE}/${RoutesPrivadas.FACTURAS}/${RoutesPrivadas.CONFIRMAR}`}
             state={facturaACrear}
         >
-            Continuar
+            Confirmar
         </Link>
     )
 }

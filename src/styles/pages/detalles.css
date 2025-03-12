@@ -42,6 +42,10 @@
     }
 }
 
+.historiales{
+    margin-top: 10px;
+}
+
 .contDetCuenta{
     & .contTotales{
         display: flex;

@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react"
 import { fetchDataService } from "../../services"
-import { ButtonVerOcultar } from "../buttons"
+import { ButtonVerOcultar, ButtonCrearFactura } from "../buttons"
 import { VentaHistorial } from "../ventas"
-import { ButtonCrearFactura } from "../facturas/ButtonCrearFactura"
 import '../../styles/components/ventas/historialVentas.css'
 
 export const HistorialVentas = ({ cliente }) => {

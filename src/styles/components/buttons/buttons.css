@@ -28,6 +28,10 @@
     cursor: pointer;
 }
 
+.buttonCrearFactura {       
+    text-transform: uppercase;
+}
+
 .buttonGuardar,
 .buttonVolver,
 .buttonCancelar,

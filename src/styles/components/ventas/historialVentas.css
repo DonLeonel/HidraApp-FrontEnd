@@ -1,5 +1,9 @@
 .contVentasSelecc {
-    padding: 0 20px;
+    padding: 10px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    text-align: center;
 
     & h5 {
         margin-bottom: 0.5rem;
@@ -9,12 +13,14 @@
     & .ventasAFacturar {
 
         display: flex;
-        justify-content: left;
+        justify-content: center;
         gap: 1rem;
         margin-bottom: 1rem;
 
         & li {
             list-style: none;
+            background-color: aqua;
+            padding: 5px;
         }
     }
 }

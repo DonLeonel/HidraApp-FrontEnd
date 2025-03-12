@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { formatARS, getClassNameEstado, RoutesPrivadas } from "../../utils"
+import { formatARS, RoutesPrivadas } from "../../utils"
 import '../../styles/pages/pagesEnComun.css'
 
 export const ListadoFacturas = ({ facturas }) => {
@@ -9,7 +9,7 @@ export const ListadoFacturas = ({ facturas }) => {
                 <table className='tablePages'>
                     <thead className='tableHeader'>
                         <tr>
-                            <th>ID</th>
+                            <th>Id</th>
                             <th>Fecha</th>
                             <th>Total</th>
                             <th>detalle</th>

@@ -1,12 +1,11 @@
 import { useForm } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { RoutesPublicas } from '../../utils';
 import { fetchDataService } from '../../services';
 import { validarUsuario } from '../../validations'
 import '../../styles/pages/registrarse.css';
 import '../../styles/components/comun/validations.css';
-import { useState } from 'react';
 
 export const Registrarse = () => {
 

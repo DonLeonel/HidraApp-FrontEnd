@@ -6,9 +6,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { RoutesPrivadas } from '../../utils';
 import { fetchDataService } from '../../services';
 import { validarLogin } from '../../validations'
+import { CuadroMensaje } from '../../components/comun/CuadroMensaje';
 import '../../styles/components/comun/validations.css';
 import '../../styles/pages/login.css';
-import { CuadroMensaje } from '../../components/comun/CuadroMensaje';
 
 const Login = () => {
 
@@ -59,11 +59,10 @@ const Login = () => {
         else {
             setErrorsValidation(errors)
         }
-
     }
 
     return (
-        <div className='contLogin'>
+        <div className='contLogin gridLogin'>
             { mostrarMensaje.mostrar &&
                 <div className='contCuadroMensaje'>
                     <CuadroMensaje

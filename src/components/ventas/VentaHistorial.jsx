@@ -14,7 +14,7 @@ export const VentaHistorial = ({ venta, onSeleccionar = null }) => {
         <div className='ventaHistorial'>
             <div className='boxDetalles'>
                 {
-                    onSeleccionar != null &&
+                    onSeleccionar != null && userState.role == Role.ADMIN &&
                     venta.estado !== 'PAGADO' && venta.estado !== 'FACTURADA' &&
                     <input className="checkbox"
                         type="checkbox"

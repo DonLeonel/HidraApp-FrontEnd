@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { ButtonVerOcultar } from "../buttons"
 import { fetchDataService } from "../../services"
 import { ListadoFacturas } from "../facturas/ListadoFacturas"
+import '../../styles/components/facturas/historialFacturas.css'
 
 export const HistorialFacturas = ({ cliente }) => {
 

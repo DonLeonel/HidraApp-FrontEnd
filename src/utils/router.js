@@ -1,9 +1,10 @@
 export const RoutesPublicas = {
-    LOGIN: "login",
-    REGISTRARSE: 'registrarse'
+    LOGIN: "login"
 }
 
 export const RoutesPrivadas = {
+    USUARIO: 'usuario',
+    REGISTRARSE: 'registrarse',
     PRIVATE: 'private',
     CONFIRMAR: 'confirmar',
     DASHBOARD: 'dashboard',

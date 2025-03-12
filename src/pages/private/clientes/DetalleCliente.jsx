@@ -2,11 +2,9 @@ import { useParams } from 'react-router-dom'
 import { fetchDataService } from '../../../services'
 import { useState, useEffect } from 'react'
 import { Role } from '../../../utils'
-import { ButtonVolver, Loading } from '../../../components'
+import { ButtonVolver, Loading, HistorialVentas, HistorialFacturas } from '../../../components'
 import { useSelector } from 'react-redux'
 import '../../../styles/pages/detalles.css'
-import { HistorialVentas } from '../../../components/clientes/HistorialVentas'
-import { HistorialFacturas } from '../../../components/clientes/HistorialFacturas'
 
 const DetalleCliente = () => {
 
@@ -79,17 +77,19 @@ const DetalleCliente = () => {
                         </div>
                     }
 
-                    {cliente.cantCompras > 0 &&
-                        <HistorialFacturas
-                            cliente={cliente}
-                        />
-                    }
+                    <section className='historiales'>
+                        {cliente.cantCompras > 0 &&
+                            <HistorialFacturas
+                                cliente={cliente}
+                            />
+                        }
 
-                    {cliente.cantCompras > 0 &&
-                        <HistorialVentas
-                            cliente={cliente}
-                        />
-                    }
+                        {cliente.cantCompras > 0 &&
+                            <HistorialVentas
+                                cliente={cliente}
+                            />
+                        }
+                    </section>
                 </>
             }
             <div className='contButtonVolver'>
